@@ -1,0 +1,70 @@
+\chapter{Modelo de regresión cuantílica para datos positivos}
+El presente capítulo tiene como objetivo especificar el modelo de regresión cuantílica para datos positivos con censura intervalar. Asimismo, detallamos la estimación de los parámetros desde la perspectiva de inferencia clásica.
+
+\section{Datos positivos con censura intervalar}
+
+Conforme mencionado en la introducción, algunos características de la población pueden solo capturarse en un intervalo por multiplicidad de condiciones. Una de ellas es el derecho a privacidad de las personas, quienes solo desean revelar información sobre si mismas sin exponer mucha información. Caso concreto es el sueldo: una persona no desearía brindar su sueldo específico a alguien desconocido, no obstante puede indicar que su sueldo está en un rango.
+
+Bajo ese contexto, podemos definir una variable aleatoria $z$ como una variable que indica que la variable $y$ se encuentra en el $j$-ésimo intervalo $[L_{j},L_{j+1}]$. Se asume que solamente observamos la variable $z$ mientras que $y$ es una variable latente, que en el ejemplo correspone al sueldo específico de la persona (el cual no ha sido revelado). La variable aleatoria $z$ es una variable cualitativa pues solo se indica el intervalo que la persona responde. Por lo tanto, la podemos definir mediante la siguiente expresión:
+\begin{equation}
+z = 
+	\begin{cases}
+		1, L_{1}< y < L_{2} \\
+		2, L_{2} \leq y < L_{3} \\
+		3, L_{3} \leq y < L_{4} \\
+		\vdots \\
+		K, L_{K} \leq y < L_{K+1} \\
+	\end{cases}
+\end{equation}
+
+En dónde $L_1 < L_2 < \cdots < L_{K+1}$, y corresponde a los límites del intervalo, con $L_{1}=0$ y $L_{K+1}=\infty$. La probabilidad de $Z$ está definida bajo la siguiente expresión:
+\[P\left( Z=j \right)=P\left(L_{j} \leq y < L_{j+1} \right)\]
+\[P\left( Z=j \right)=F\left( L_{j} \right)-F\left( L_{j+1} \right)\]
+
+\noindent dónde $F(\cdot)$ es la función de distribución acumulada de Y. La variable $Z$ que sigue la distribución anteriormente mencionada está denotada por 
+$$Z \sim \text{Categórica}(\pi)$$
+\noindent dónde $\pi=\left( \pi_{1},\dots,\pi_{k}\right)$y $\pi_{j}=P(Z=j)$.
+
+\section{Modelo de regresión para datos positivos con censura intervalar}
+
+El modelo de regresión cuantílica para datos positivos está dado por lo siguiente:
+
+\[Y_{i} \sim W_{r}\left( q_{t_{i}},\alpha,t \right).\]
+\[g\left( q_{t_{i}} \right) = x_{i}^{T}\beta.\]
+
+\noindent en dónde $\beta=\left[ \beta_0,\beta_{1},\dots,\beta_{p} \right]^{T}$ y $x_{i}^{T} =\left[ 1,x_{i1},x_{i2},\dots,x_{ip}, \right]^{T}$. La función $g(\cdot)$ es una función de enlace estrictamente monótona y doblemente diferenciable. En el presente modelo, se utilizará la función de enlace logarítmica. El parámetro de forma $\alpha$, el parámetro $q_{t_{i}}$ y $t$ está definido conforme la sección 2.1. La estimación de los parámetros $\beta$ y $\alpha$ se realizará mediante el método de máxima verosimilitud.
+
+\subsection{Función de verosimilitud}
+Consideramos que solo conocemos que $Y_{i}$ se encuentra en un intervalo de $K$ posibles intervalos de la forma $[L_{j},L_{j+1}]$ con $L_1 < L_2 < \dots < L_{K+1}$ y que $Z_{i}=j$ denota que $Y_{i} \in [L_{j},L_{j+1}]$. Por lo tanto, considerando los resultados de la sección 3.1, tenemos que
+\[Z_{i} \sim \text{Categórica}(\pi_{i}).\]
+\noindent con $\pi_{i}=\left( \pi_{i1},\dots, \pi_{ik} \right)$ tal que
+\begin{equation}
+\pi_{ij} = F_{y}(L_{j}|q_{t_{i}},\alpha,x) - F_{y}\left( L_{j+1}|q_{t_{i}},\alpha,x \right)
+\end{equation}
+
+Entonces la función de verosimilitud de las variables observadas $Z_{1},Z_{2},\dots,Z_{n}$ es dada por lo siguiente:
+
+\[L(\theta)=\prod_{i=1}^{n}\prod_{j=1}^{k} \pi_{ij}^{1\left( Z_{i}=j \right)}.\]
+
+Luego, considerando  [$\psi_{i_{inf}},\psi_{i_{sup}}$] como el intervalo dónde $Y_{i}$ fue observado, podemos escribir la función de verosimilitud como:
+
+\[L\left( \theta\right)=\prod_{i=1}^{n}\left( F(\psi_{i_{sup}}|q_{t_{i}},\alpha,t) - F(\psi_{i_{inf}}|q_{t_{i}},\alpha,t) \right) \]
+
+\[L(\theta)=\sum_{i=1}^{n} \log \left( F(\psi_{i_{sup}}|q_{t_{i}},\alpha,t) - F\left( \psi_{i_{inf}}|q_{t_{i}},\alpha,t \right) \right)\]
+
+\[L(\theta)=\sum_{i}^{n} \log \left( \exp\left( -c(t)\left( \frac{\psi_{i_{inf}}}{e^{x_{i}^{T}\beta}} \right)^{\alpha} - \exp\left( -c(t)\left( \frac{\psi_{i_{sup}}}{e^{x_{i}^{T}\beta}} \right)^{\alpha} \right) \right) \right)\]
+\noindent en dónde $c(t)=(-log(1-t))^{\frac{1}{\alpha}}$.
+
+Los estimadores de máxima verosimilitud para los parámetros $\alpha$ y $\beta$ se encuentran maximizando la función anteriormente expuesta. Para ello, obtenemos las gradientes de $\alpha$ y $\beta$, se exponen a continuación (asumiendo que $g(\cdot)$ es la función logaritmo):
+
+\[\frac{\partial L}{\partial \alpha}=\sum_{i=1}^{n} \frac{c(t)}{(\gamma_{i})^{\alpha}(\lambda_{i_{2}}-\lambda_{i_{1}})}\left( (\psi_{i_{sup}})^{\alpha} \log\left( \frac{\psi_{i_{sup}}}{\gamma_{i}} \right) \lambda_{i_{2}} - (\psi_{i_{inf}})^{\alpha} \log\left( \frac{\psi_{i_{sup}}}{\gamma_{i}} \right) \lambda_{i_{1}}\right)\]
+
+\[\frac{\partial L}{\partial \beta_{j}}=\sum_{i=1}^{n} \left(\frac{\alpha c(t) x_{ij}}{(\gamma_{i})^{\alpha}(\lambda_{i_{1}}-\lambda_{i_{2}})}\right) \left( (\psi_{i_{inf}})^{\alpha}\lambda_{i_{1}} - (\psi_{i_{sup}})^{\alpha} \lambda_{i_{2}} \right)\]
+\noindent en dónde:
+\[ \gamma_{i} = \exp(\eta_{i})\]
+\[ \eta_{i} = x_{i}^{T}\beta\]
+\[ \lambda_{i_{1}} = \exp\left( -c(t) \left(\frac{\psi_{i_{inf}}}{\gamma_{i}}\right)^{\alpha} \right)\]
+\[ \lambda_{i_{2}} = \exp\left( -c(t) \left(\frac{\psi_{i_{sup}}}{\gamma_{i}}\right)^{\alpha} \right)\]
+
+La maximización de dicha la función de log-verosimilitud se realizará mediante métodos de optimización numérica a través del lenguaje de programación R.
+	
