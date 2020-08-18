@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.8.16)  17 AUG 2020 21:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.8.16)  17 AUG 2020 22:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -365,7 +365,7 @@ Chapter 1.
 
 
 ])
-Overfull \hbox (5.52832pt too wide) in paragraph at lines 28--21
+Overfull \hbox (5.52832pt too wide) in paragraph at lines 28--19
 []\OT1/cmr/m/n/10 Finalmente, en el cap^^S^^Ptulo 5 se pre-sen-tan las prin-ci-pales con-clu-siones obtenidas
  []
 
@@ -430,7 +430,7 @@ Chapter 5.
 ]
 Chapter 6.
 
-Overfull \hbox (7.7402pt too wide) in paragraph at lines 35--36
+Overfull \hbox (7.7402pt too wide) in paragraph at lines 33--34
 \OT1/cmr/m/n/10 Weibull, Waloddi. "A sta-tis-ti-cal dis-tri-bu-tion func-tion of wide ap-pli-ca-bil-ity"\OT1/cmr/m/it/10 ASME
  []
 
