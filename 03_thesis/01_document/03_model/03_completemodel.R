@@ -1,7 +1,6 @@
 # Justo Manrique - 20091107
 # Regresi?n cuant?lica en datos intervalares: un estudio sobre la disparidad de ingresos entre hombres y mujeres en el sistema de salud peruano
 
-rm(list = ls())
 #### Carga de librer?as ####
 library(tidyverse)
 library(haven)
@@ -23,25 +22,25 @@ b_2 = 0.6
 b_3 = 0.8
 sig = 2
 
+X2 = rbeta(10000,2,3)
+X3 = rnorm(10000,3,0.5)
+X4 = rgamma(10000,2,4)
+Qt  = exp(b_1*X2 + b_2*X3 + b_3*X4)
 
 for(j in 1:length(t_sim)){
-    X2 = rbeta(10000,2,3)
-    X3 = rnorm(10000,3,0.5)
-    X4 = rgamma(10000,2,4)
-
-    Qt  = exp(b_1*X2 + b_2*X3 + b_3*X4)
     Yh = c()
     for(k in 1:M){
         for(i in 1:length(Qt)){Yh[i]= rtweibull(1,Qt[i],sig,t_sim[j])}
-        sim = data.frame(Li = ifelse(Yh < quantile(Yh,0.25),0,
-            ifelse(Yh <  quantile(Yh,0.5),quantile(Yh,0.25),
-            ifelse(Yh < quantile(Yh,0.75),quantile(Yh,0.50),quantile(Yh,0.70)))),
-            Ls = ifelse(Yh < quantile(Yh,0.25),quantile(Yh,0.25),
-            ifelse(Yh <  quantile(Yh,0.5),quantile(Yh,0.5),
-            ifelse(Yh < quantile(Yh,0.75),quantile(Yh,0.75),quantile(Yh,0.99)))),
-            X2 =X2,
-            X3 = X3,
-            X4 = X4)
+        sim = data.frame(
+                Li = ifelse(Yh < quantile(Yh,0.25),0,
+                        ifelse(Yh <  quantile(Yh,0.5),quantile(Yh,0.25),
+                        ifelse(Yh < quantile(Yh,0.75),quantile(Yh,0.50),quantile(Yh,0.70)))),
+                Ls = ifelse(Yh < quantile(Yh,0.25),quantile(Yh,0.25),
+                        ifelse(Yh <  quantile(Yh,0.5),quantile(Yh,0.5),
+                        ifelse(Yh < quantile(Yh,0.75),quantile(Yh,0.75),quantile(Yh,0.99)))),
+                X2 =X2,
+                X3 = X3,
+                X4 = X4)
         fit_sim_0.5  <- append(fit_sim_0.5, list(reg_ces_wei(sim,1,2,t_sim[j])))
         print(paste(k,fit_sim_0.5[[1]]$message, sep = ": "))
     }
