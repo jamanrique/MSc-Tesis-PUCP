@@ -12,10 +12,6 @@ library(ggthemes)
 
 #### Creaci?n de la funci?n de distribuci?n para n?meros aleatorios ####
 rtweibull = function(n, qt, sigma, t) {
-    ## Control de l?mites en los par?metros ##
-    if (t > 1 | t < 0) { stop("El cuantil t solo puede contener valores entre 0 y 1") }
-    if (qt < 0) { stop("El par?metro qt solo puede ser superior a 0") }
-    if (sigma < 0) { stop("El par?metro sigma solo puede ser superior a 0") }
     ## Reparametrizaci?n de los datos a la f?rmula b?sica de Weibull en R ##
     alpha = 1 / (log(sigma + 1))
     beta = qt / (-log(1 - t)) ^ (1 / alpha)
@@ -217,8 +213,6 @@ plot1
 
 #### Segunda parte: creaci?n de la funci?n de regresi?n #####
 
-rm(list = ls())
-
 logptweibull <- function(value, qt, sigma, t) {
     # if (t > 1 | t < 0) { stop("par?metro t solo puede contener valores entre 0 y 1") }
     # if (qt <= 0) { stop("par?metro qt solo puede ser superior a 0") }
@@ -241,63 +235,6 @@ ptweibull <- function(value, qt, sigma, t) {
     a = alpha
     pt = pweibull(value, a, b)
     return(pt)
-}
-
-reg_ces_wei = function(data, li, lf, t) {
-    ### Test ###
-    # data = VADeaths
-    # li = 2
-    # li = 3
-    # param = c(rep(0.5, ncol(data) + 1))
-    # t=0.5
-    data_l_inf = data[,li]
-    data_l_sup = data[, lf]
-    covar = as.matrix(data[, - c(li, lf)])
-    n = ncol(covar)
-    d = nrow(covar)
-
-    ll = function(param, l_inf,l_fin, t) {
-        ### Creaci?n de betas ###
-        b_0 = 0
-        b = as.matrix(rep(0, ncol(covar)))
-        ### Asignaci?n de betas ###
-        b_0 = param[1]        
-        for (i in 1:n) {b[i] = param[i + 1]}
-        ### Asignaci?n de sigma ###
-        sigma = param[length(param)]
-        ### Asignaci?n de ct ###
-        ct = -(log(1-t))
-
-        ### Creaci?n de funci?n de enlace ###
-        qt = exp(b_0 + covar %*% b)
-        ### Inicializaci?n de la log-verosimilitud ###
-        s_ll = 0
-
-        ### C?lculo de la log-verosimilitud s###
-        for (j in 1:d) {
-        qt_j = qt[j,]
-        
-        #s_ll = s_ll - logDiffExp(logptweibull(data_l_sup[j], qt_j, sigma, t),logptweibull(data_l_inf[j], qt_j, sigma, t))
-        s_ll = s_ll - log(ptweibull(data_l_sup[j], qt_j, sigma, t)- ptweibull(data_l_inf[j], qt_j, sigma, t))
-        }
-        return(s_ll)
-    }
-    
-    #t_index = c(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9)
-    #inicial= list(c(7.6601709,-0.2040200, 0.3173124),
-               #c(7.866936,-0.204009,0.317338),
-               #c(7.9962011,-0.2040046,0.3173342),
-               #c(8.0952017,-0.2040035, 0.3173330),
-               #c(8.1793198,-0.2040044,0.3173373),
-               #c(8.2562373,-0.2040037,0.3173392),
-               #c(8.3314962,-0.2040040, 0.3173363),
-               #c(8.4114690,-0.2039752, 0.3173351),
-               #c(8.5102048,-0.2040047, 0.3173366))
-    
-    inicial = c(as.vector(coef(lm(data_l_inf~covar,data=data.frame(cbind(data_l_inf,covar))))),0.1)
-    #fit_mv =   optim(par = inicial, method="L-BFGS-B",fn = ll,hessian = T, t = t, upper = c(rep(Inf, ncol(covar) + 2)),lower = c(rep(0, ncol(covar) + 1), 0.1))
-    fit_mv = nlminb(inicial,ll,l_inf = li, l_fin = lf,t = t,lower = c(rep(0,ncol(covar)+1,0.1)),upper =c(rep(Inf,ncol(covar)+2)),control = list(iter.max = 800,eval.max=800,rel.tol=1e-8))
-    return(fit_mv)
 }
 
 lancet <- function(){
@@ -384,46 +321,138 @@ lancet <- function(){
 }
 info <- lancet()
 
-te = seq(0.1,0.9,0.1)
-fit_mv_0.1 = reg_ces_wei(info, 2, 3, 0.1)
-fit_mv_0.2 = reg_ces_wei(info, 2, 3, 0.2)
-fit_mv_0.3 = reg_ces_wei(info, 2, 3, 0.3)
-fit_mv_0.4 = reg_ces_wei(info, 2, 3, 0.4)
-fit_mv_0.5 = reg_ces_wei(info, 2, 3, 0.5)
-fit_mv_0.6 = reg_ces_wei(info, 2, 3, 0.6)
-fit_mv_0.7 = reg_ces_wei(info, 2, 3, 0.7)
-fit_mv_0.8 = reg_ces_wei(info, 2, 3, 0.8)
-fit_mv_0.9 = reg_ces_wei(info, 2, 3, 0.9)
+reg_ces_wei = function(data, li, lf, t) {
+    ### Test ###
+    # data = VADeaths
+    # li = 2
+    # li = 3
+    # param = c(rep(0.5, ncol(data) + 1))
+    # t=0.5
+    data_l_inf = data[,li]
+    data_l_sup = data[, lf]
+    covar = as.matrix(data[, - c(li, lf)])
+    n = ncol(covar)
+    d = nrow(covar)
 
-for (i in 1:length(te)) {print(eval(parse(text = paste("fit_mv_", te[i], "$par", sep = ""))))}
-conf.level <- 0.95
-crit <- qnorm((1+conf.level)/2)
+    ll = function(param, l_inf,l_fin, t) {
+        ### Creaci?n de betas ###
+        b_0 = 0
+        b = as.matrix(rep(0, ncol(covar)))
+        ### Asignaci?n de betas ###
+        b_0 = param[1]        
+        for (i in 1:n) {b[i] = param[i + 1]}
+        ### Asignaci?n de sigma ###
+        sigma = param[length(param)]
+        ### Asignaci?n de ct ###
+        ct = -(log(1-t))
 
-fit_mv_0.1$par[1] + c(-1,1)+crit*sqrt(diag(solve(fit_mv_0.1$hessian))[1])
-fit_mv_0.1$par[2] + c(-1,1)+crit*sqrt(diag(solve(fit_mv_0.1$hessian))[2])
-fit_mv_0.1$par[3] + c(-1,1)+crit*sqrt(diag(solve(fit_mv_0.1$hessian))[3])
+        ### Creaci?n de funci?n de enlace ###
+        qt = exp(b_0 + covar %*% b)
+        ### Inicializaci?n de la log-verosimilitud ###
+        s_ll = 0
 
-Yh = rtweibull(10000,1,2,0.5)
-sim = data.frame(   Li = ifelse(Yh < quantile(Yh,0.25),0,
-                                ifelse(Yh <  quantile(Yh,0.5),quantile(Yh,0.25),
-                                ifelse(Yh < quantile(Yh,0.75),quantile(Yh,0.50),quantile(Yh,0.70)))),
-                        Ls = ifelse(Yh < quantile(Yh,0.25),quantile(Yh,0.25),
-                                ifelse(Yh <  quantile(Yh,0.5),quantile(Yh,0.5),
-                                ifelse(Yh < quantile(Yh,0.75),quantile(Yh,0.75),quantile(Yh,0.99)))),
-                        X2 = rbeta(10000,2,3),
-                        X3 = rnorm(10000,3,1),
-                        X4 = rgamma(10000,2,4))
+        ### C?lculo de la log-verosimilitud s###
+        for (j in 1:d) {
+        qt_j = qt[j,]
+        
+        #s_ll = s_ll - logDiffExp(logptweibull(data_l_sup[j], qt_j, sigma, t),logptweibull(data_l_inf[j], qt_j, sigma, t))
+        s_ll = s_ll - log(ptweibull(data_l_sup[j], qt_j, sigma, t)- ptweibull(data_l_inf[j], qt_j, sigma, t))
+        }
+        return(s_ll)
+    }
+    
+    #t_index = c(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9)
+    #inicial= list(c(7.6601709,-0.2040200, 0.3173124),
+               #c(7.866936,-0.204009,0.317338),
+               #c(7.9962011,-0.2040046,0.3173342),
+               #c(8.0952017,-0.2040035, 0.3173330),
+               #c(8.1793198,-0.2040044,0.3173373),
+               #c(8.2562373,-0.2040037,0.3173392),
+               #c(8.3314962,-0.2040040, 0.3173363),
+               #c(8.4114690,-0.2039752, 0.3173351),
+               #c(8.5102048,-0.2040047, 0.3173366))
+    
+    inicial = c(as.vector(coef(lm((data_l_inf + data_l_sup)/2~covar,data=data.frame(cbind(data_l_inf,covar))))),1)
+    #fit_mv =   optim(par = inicial, method="L-BFGS-B",fn = ll,hessian = T, t = t, upper = c(rep(Inf, ncol(covar) + 2)),lower = c(rep(0, ncol(covar) + 1), 0.1))
+    fit_mv = nlminb(inicial,ll,l_inf = li, l_fin = lf,t = t,lower = c(rep(0,ncol(covar)+1,0.1)),upper =c(rep(Inf,ncol(covar)+2)))
+    inicial = fit_mv$par
+    return(fit_mv)
+}
+
+
+#te = seq(0.1,0.9,0.1)
+#fit_mv_0.1 = reg_ces_wei(info, 2, 3, 0.1)
+#fit_mv_0.2 = reg_ces_wei(info, 2, 3, 0.2)
+#fit_mv_0.3 = reg_ces_wei(info, 2, 3, 0.3)
+#fit_mv_0.4 = reg_ces_wei(info, 2, 3, 0.4)
+#fit_mv_0.5 = reg_ces_wei(info, 2, 3, 0.5)
+#fit_mv_0.6 = reg_ces_wei(info, 2, 3, 0.6)
+#fit_mv_0.7 = reg_ces_wei(info, 2, 3, 0.7)
+#fit_mv_0.8 = reg_ces_wei(info, 2, 3, 0.8)
+#fit_mv_0.9 = reg_ces_wei(info, 2, 3, 0.9)
+
+#for (i in 1:length(te)) {print(eval(parse(text = paste("fit_mv_", te[i], "$par", sep = ""))))}
+#conf.level <- 0.95
+#crit <- qnorm((1+conf.level)/2)
+
+
+
+
 
 head(sim)
 
-reg_ces_wei(sim,1,2,0.3)
 
-fit_mv_0.1 = reg_ces_wei(sim, 1, 2, 0.1)
-fit_mv_0.2 = reg_ces_wei(sim, 1, 2, 0.2)
-fit_mv_0.3 = reg_ces_wei(sim, 1, 2, 0.3)
-fit_mv_0.4 = reg_ces_wei(sim, 1, 2, 0.4)
-fit_mv_0.5 = reg_ces_wei(sim, 1, 2, 0.5)
-fit_mv_0.6 = reg_ces_wei(sim, 1, 2, 0.6)
-fit_mv_0.7 = reg_ces_wei(sim, 1, 2, 0.7)
-fit_mv_0.8 = reg_ces_wei(sim, 1, 2, 0.8)
-fit_mv_0.9 = reg_ces_wei(sim, 1, 2, 0.9)
+fit_mv_0.5$par[1] + c(-1,1)*crit*sqrt(diag(solve(fit_mv_0.5$hessian))[1])
+fit_mv_0.5$par[2] + c(-1,1)*crit*sqrt(diag(solve(fit_mv_0.5$hessian))[2])
+fit_mv_0.5$par[3] + c(-1,1)*crit*sqrt(diag(solve(fit_mv_0.5$hessian))[3])
+fit_mv_0.5$par[4] + c(-1,1)*crit*sqrt(diag(solve(fit_mv_0.5$hessian))[4])
+fit_mv_0.5$par[5] + c(-1,1)*crit*sqrt(diag(solve(fit_mv_0.5$hessian))[5])
+
+sesgo = sum(fit_mv_0.5$par - c(0,b_1,b_2,b_3,sig));sesgo
+ecm = sum(fit_mv_0.5$par - c(0,b_1,b_2,b_3,sig))**2;ecm
+
+M = 100
+t_sim = 0.5
+
+fit_sim_0.1= c()
+fit_sim_0.2= c()
+fit_sim_0.3= c()
+fit_sim_0.4= c()
+fit_sim_0.5= c()
+fit_sim_0.6= c()
+fit_sim_0.7= c()
+fit_sim_0.8= c()
+fit_sim_0.9= c()
+
+for(j in 1:length(t_sim)){
+    X2 = rbeta(10000,2,3)
+    X3 = rnorm(10000,3,0.5)
+    X4 = rgamma(10000,2,4)
+
+    b_1 = 0.3
+    b_2 = 0.6
+    b_3 = 0.8
+    sig = 2
+    Qt  = exp(b_1*X2 + b_2*X3 + b_3*X4)
+    Yh = c()
+
+fit_sim_0.5 = list()
+   for(k in 1:M){
+        for(i in 1:length(Qt)){
+            Yh[i]= rtweibull(1,Qt[i],sig,t_sim[j])
+            }
+        sim = data.frame(   Li = ifelse(Yh < quantile(Yh,0.25),0,
+                                ifelse(Yh <  quantile(Yh,0.5),quantile(Yh,0.25),
+                                ifelse(Yh < quantile(Yh,0.75),quantile(Yh,0.50),quantile(Yh,0.70)))),
+                                Ls = ifelse(Yh < quantile(Yh,0.25),quantile(Yh,0.25),
+                                ifelse(Yh <  quantile(Yh,0.5),quantile(Yh,0.5),
+                                ifelse(Yh < quantile(Yh,0.75),quantile(Yh,0.75),quantile(Yh,0.99)))),
+                                X2 =X2,
+                                X3 = X3,
+                                X4 = X4)
+        print(k)
+        fit_sim_0.5  <- append(fit_sim_0.5, reg_ces_wei(sim,1,2,t_sim[j]))
+    }
+}
+
+fit_sim_0.5
