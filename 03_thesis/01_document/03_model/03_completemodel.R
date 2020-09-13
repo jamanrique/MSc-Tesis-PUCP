@@ -33,22 +33,28 @@ Qt  = exp(b_1*X2 + b_2*X3 + b_3*X4)
 
 for(j in 1:length(t_sim)){
     Yh = c()
-    for(k in 1:M){
-        for(i in 1:length(Qt)){Yh[i]= rtweibull(1,Qt[i],sig,t_sim[j])}
-        sim = data.frame(
+    k = 0
+    while (M != 0) {
+        try({
+            for(i in 1:length(Qt)){Yh[i]= rtweibull(1,Qt[i],sig,t_sim[j])}
+            sim = data.frame(
                 Li = ifelse(Yh < quantile(Yh,0.25),0,
-                        ifelse(Yh <  quantile(Yh,0.5),quantile(Yh,0.25),
-                        ifelse(Yh < quantile(Yh,0.75),quantile(Yh,0.50),quantile(Yh,0.70)))),
+                            ifelse(Yh <  quantile(Yh,0.5),quantile(Yh,0.25),
+                                   ifelse(Yh < quantile(Yh,0.75),quantile(Yh,0.50),quantile(Yh,0.70)))),
                 Ls = ifelse(Yh < quantile(Yh,0.25),quantile(Yh,0.25),
-                        ifelse(Yh <  quantile(Yh,0.5),quantile(Yh,0.5),
-                        ifelse(Yh < quantile(Yh,0.75),quantile(Yh,0.75),quantile(Yh,0.99)))),
+                            ifelse(Yh <  quantile(Yh,0.5),quantile(Yh,0.5),
+                                   ifelse(Yh < quantile(Yh,0.75),quantile(Yh,0.75),quantile(Yh,0.99)))),
                 X2 =X2,
                 X3 = X3,
                 X4 = X4)
-        fit_sim_0.5  <- append(fit_sim_0.5, list(reg_ces_wei(sim,1,2,t_sim[j])))
-        print(paste("Resultado final de la simulación Nª ",k,", para el cuantil ",t_sim[j], ": ",fit_sim_0.5[[k]]$message, sep = ""))
-        print(paste("Valores óptimos de la ",k," optimización: ",sep=""))
-        print(fit_sim_0.5[[k]]$par)
+            fit_sim_0.5  <- append(fit_sim_0.5, list(reg_ces_wei(sim,1,2,t_sim[j])))
+            print(paste("Resultado final de la simulación Nª ",k,", para el cuantil ",t_sim[j], ": ",fit_sim_0.5[[k]]$message, sep = ""))
+            print(paste("Valores óptimos de la ",k," optimización: ",sep=""))
+            print(fit_sim_0.5[[k]]$par)
+            }
+        )
+        M <- M - 1
+        k = k+1
     }
 }
 
