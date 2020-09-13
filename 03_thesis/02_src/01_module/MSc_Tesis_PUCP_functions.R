@@ -141,7 +141,7 @@ reg_ces_wei = function(data, li, lf, t) {
   n = ncol(covar)
   d = nrow(covar)
   
-  ll = function(param, l_inf,l_fin, t) {
+  ll = function(param, t) {
     b_0 = 0
     b = as.matrix(rep(0, ncol(covar)))
     b_0 = param[1]        
@@ -152,14 +152,16 @@ reg_ces_wei = function(data, li, lf, t) {
     s_ll = 0
     for (j in 1:d) {
       qt_j = qt[j,]
-      s_ll = s_ll - log(ptweibull(data_l_sup[j], qt_j, sigma, t)- ptweibull(data_l_inf[j], qt_j, sigma, t))
+      s_ll = s_ll - logDiffExp(ptweibull(data_l_sup[j], qt_j, sigma, t), ptweibull(data_l_inf[j], qt_j, sigma, t))
     }
     return(s_ll)
   }
   inicial = c(as.vector(coef(lm(data_l_inf~covar,data=data.frame(cbind(data_l_inf,covar))))),1)
-  fit_mv = nlminb(inicial,ll,l_inf = li, l_fin = lf,t = t,lower = c(rep(0,ncol(covar)+1,0.1)),upper =c(rep(Inf,ncol(covar)+2)))
+  fit_mv = nlminb(inicial,ll,t = t,lower = c(rep(0,ncol(covar)+1,0.1)),upper =c(rep(Inf,ncol(covar)+2)))
   inicial = fit_mv$par
-  fit_mv =   optim(par = inicial, method="L-BFGS-B",fn = ll,hessian = T, t = t, upper = c(rep(Inf, ncol(covar) + 2)),lower = c(rep(0, ncol(covar) + 1), 0.01))
+  print(paste("Resultado de la 1ª Optimización: ",fit_mv$message))
+  fit_mv =   optim(par = inicial, fn = ll,t = t, upper = c(rep(Inf, ncol(covar) + 2)),lower = c(rep(0, ncol(covar) + 1), 0.01),hessian = T)
   
   return(fit_mv)
 }
+

@@ -8,6 +8,10 @@ library(dplyr)
 library(kyotil)
 library(ggpubr)
 library(ggthemes)
+library(BB)
+library(nloptr)
+library(optimx)
+library(optextras)
 
 #### Segunda parte: creaci?n de la funci?n de regresi?n #####
 
@@ -42,7 +46,9 @@ for(j in 1:length(t_sim)){
                 X3 = X3,
                 X4 = X4)
         fit_sim_0.5  <- append(fit_sim_0.5, list(reg_ces_wei(sim,1,2,t_sim[j])))
-        print(paste(k,fit_sim_0.5[[1]]$message, sep = ": "))
+        print(paste("Resultado final de la simulación Nª ",k,", para el cuantil ",t_sim[j], ": ",fit_sim_0.5[[k]]$message, sep = ""))
+        print(paste("Valores óptimos de la ",k," optimización: ",sep=""))
+        print(fit_sim_0.5[[k]]$par)
     }
 }
 
