@@ -15,8 +15,6 @@ library(optextras)
 
 #### Segunda parte: creaci?n de la funci?n de regresi?n #####
 
-info <- lancet()
-
 fit_sim= list(
     t_0.25 = list(),
     t_0.50 = list(),
@@ -37,7 +35,7 @@ Qt  = exp(b_1*X2 + b_2*X3 + b_3*X4)
 
 for(j in 1:length(t_sim)){
     Yh = c()
-    M = 2
+    M = 100
     while (M != 0) {
         try({
             for(i in 1:length(Qt)){Yh[i]= rtweibull(1,Qt[i],sig,t_sim[j])}
@@ -52,11 +50,11 @@ for(j in 1:length(t_sim)){
                 X3 = X3,
                 X4 = X4)
             fit_sim[[j]]  <- append(fit_sim[[j]], list(reg_ces_wei(sim,1,2,t_sim[j])))
-            print(paste("Resultado final de la simulación Nª ",abs(2-M+1),", para el cuantil ",t_sim[j], ": CONVIRGIÓ", sep = ""))
+            print(paste("Resultado final de la simulación Nª ",abs(100-M+1),", para el cuantil ",t_sim[j], ": CONVIRGIÓ", sep = ""))
             M <- M - 1
             }
         )
-    M=2
+    M = 100
     }
 }
 
