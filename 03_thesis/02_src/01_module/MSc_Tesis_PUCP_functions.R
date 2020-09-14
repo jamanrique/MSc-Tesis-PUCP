@@ -2,6 +2,17 @@
 ## Nombre: Justo A. Manrique Urbina ##
 ## Modulo MSc_Tesis_PUCP ##
 
+library(tidyverse)
+library(haven)
+library(dplyr)
+library(kyotil)
+library(ggpubr)
+library(ggthemes)
+library(BB)
+library(nloptr)
+library(optimx)
+library(optextras)
+
 rtweibull = function(n, qt, sigma, t) {
   ## Reparametrizaci?n de los datos a la f?rmula b?sica de Weibull en R ##
   alpha = 1 / (log(sigma + 1))

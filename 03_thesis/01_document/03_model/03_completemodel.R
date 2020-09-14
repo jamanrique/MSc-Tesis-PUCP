@@ -2,16 +2,6 @@
 # Regresi?n cuant?lica en datos intervalares: un estudio sobre la disparidad de ingresos entre hombres y mujeres en el sistema de salud peruano
 
 #### Carga de librer?as ####
-library(tidyverse)
-library(haven)
-library(dplyr)
-library(kyotil)
-library(ggpubr)
-library(ggthemes)
-library(BB)
-library(nloptr)
-library(optimx)
-library(optextras)
 
 #### Segunda parte: creaci?n de la funci?n de regresi?n #####
 
@@ -54,8 +44,8 @@ for(j in 1:length(t_sim)){
             M <- M - 1
             }
         )
-    M = 100
     }
+    M=100
 }
 
 crit=qnorm(0.975)
