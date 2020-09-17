@@ -18,17 +18,18 @@ b_2 = 0.6
 b_3 = 0.8
 sig = 2
 
+## incluir intercepto
 X2 = rbeta(10000,2,3)
 X3 = rnorm(10000,2,0.25)
 X4 = rgamma(10000,2,25)
-Qt  = exp(b_1*X2 + b_2*X3 + b_3*X4)
+Qt  = exp(b_1*X2 + b_2*X3 + b_3*X4) ### vector 10000
 
 for(j in 1:length(t_sim)){
     Yh = c()
     M = 100
     while (M != 0) {
         try({
-            for(i in 1:length(Qt)){Yh[i]= rtweibull(1,Qt[i],sig,t_sim[j])}
+            for(i in 1:length(Qt)){Yh[i]= rtweibull(1,Qt[i],sig,t_sim[j])} 
             sim = data.frame(
                 Li = ifelse(Yh < quantile(Yh,0.25),0,
                             ifelse(Yh <  quantile(Yh,0.5),quantile(Yh,0.25),
@@ -47,6 +48,9 @@ for(j in 1:length(t_sim)){
     }
     M=100
 }
+
+## Hacer una regresión con del dato directo
+## intervalos igualamente espaciados
 
 crit=qnorm(0.975)
 
