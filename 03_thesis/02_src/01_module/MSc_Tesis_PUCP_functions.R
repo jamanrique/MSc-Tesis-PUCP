@@ -13,6 +13,8 @@ library(nloptr)
 library(optimx)
 library(optextras)
 
+rm(list=ls())
+
 rtweibull = function(n, qt, sigma, t) {
   ## Reparametrizaci?n de los datos a la f?rmula b?sica de Weibull en R ##
   alpha = 1 / (log(sigma + 1))
@@ -163,7 +165,8 @@ reg_ces_wei = function(data, li, lf, t) {
     s_ll = 0
     for (j in 1:d) {
       qt_j = qt[j,]
-      s_ll = s_ll - logDiffExp(ptweibull(data_l_sup[j], qt_j, sigma, t), ptweibull(data_l_inf[j], qt_j, sigma, t))
+      # s_ll = s_ll - logDiffExp(ptweibull(data_l_sup[j], qt_j, sigma, t), ptweibull(data_l_inf[j], qt_j, sigma, t))
+      s_ll = s_ll - log(ptweibull(data_l_sup[j], qt_j, sigma, t)- ptweibull(data_l_inf[j], qt_j, sigma, t))
     }
     return(s_ll)
   }
