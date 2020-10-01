@@ -85,7 +85,7 @@
         t_0.90 = list( b_0 = list(),b_1 = list(),b_2=list(),b_3=list(),sig=list())
         )
     
-    sesgo = list(
+    sesgo_b1 = list(
         t_0.10 = list(),
         t_0.20 = list(),
         t_0.30 = list(),
@@ -96,7 +96,96 @@
         t_0.80 = list(),
         t_0.90 = list()
     )
-    ecm = list(
+    sesgo_b2 = list(
+        t_0.10 = list(),
+        t_0.20 = list(),
+        t_0.30 = list(),
+        t_0.40 = list(),
+        t_0.50 = list(),
+        t_0.60 = list(),
+        t_0.70 = list(),
+        t_0.80 = list(),
+        t_0.90 = list()
+    )
+    sesgo_b3 = list(
+        t_0.10 = list(),
+        t_0.20 = list(),
+        t_0.30 = list(),
+        t_0.40 = list(),
+        t_0.50 = list(),
+        t_0.60 = list(),
+        t_0.70 = list(),
+        t_0.80 = list(),
+        t_0.90 = list()
+    )
+    sesgo_b0 = list(
+        t_0.10 = list(),
+        t_0.20 = list(),
+        t_0.30 = list(),
+        t_0.40 = list(),
+        t_0.50 = list(),
+        t_0.60 = list(),
+        t_0.70 = list(),
+        t_0.80 = list(),
+        t_0.90 = list()
+    )
+    sesgo_sig = list(
+        t_0.10 = list(),
+        t_0.20 = list(),
+        t_0.30 = list(),
+        t_0.40 = list(),
+        t_0.50 = list(),
+        t_0.60 = list(),
+        t_0.70 = list(),
+        t_0.80 = list(),
+        t_0.90 = list()
+    )
+    
+    ecm_b0 = list(
+        t_0.10 = list(),
+        t_0.20 = list(),
+        t_0.30 = list(),
+        t_0.40 = list(),
+        t_0.50 = list(),
+        t_0.60 = list(),
+        t_0.70 = list(),
+        t_0.80 = list(),
+        t_0.90 = list()
+    )
+    ecm_b1 = list(
+        t_0.10 = list(),
+        t_0.20 = list(),
+        t_0.30 = list(),
+        t_0.40 = list(),
+        t_0.50 = list(),
+        t_0.60 = list(),
+        t_0.70 = list(),
+        t_0.80 = list(),
+        t_0.90 = list()
+    )
+    ecm_b2 = list(
+        t_0.10 = list(),
+        t_0.20 = list(),
+        t_0.30 = list(),
+        t_0.40 = list(),
+        t_0.50 = list(),
+        t_0.60 = list(),
+        t_0.70 = list(),
+        t_0.80 = list(),
+        t_0.90 = list()
+    )
+    ecm_b3 = list(
+        t_0.10 = list(),
+        t_0.20 = list(),
+        t_0.30 = list(),
+        t_0.40 = list(),
+        t_0.50 = list(),
+        t_0.60 = list(),
+        t_0.70 = list(),
+        t_0.80 = list(),
+        t_0.90 = list()
+    )
+    ecm_sig = list(
         t_0.10 = list(),
         t_0.20 = list(),
         t_0.30 = list(),
@@ -123,7 +212,51 @@
             if (between(b_3,b_3_test[1],b_3_test[2])) {coverage[[j]][[4]] = append(coverage[[j]][[4]],1)}
             if (between(sig,sig_test[1],sig_test[2])) {coverage[[j]][[5]] = append(coverage[[j]][[5]],1)}
             
-            sesgo[[j]] = append(sesgo[[j]],sum(pba$par - c(b_0,b_1,b_2,b_3,sig)))
-            ecm[[j]] = append(ecm[[j]],sum(pba$par - c(b_0,b_1,b_2,b_3,sig))**2)
+            sesgo_b0[[j]] = append(sesgo_b0[[j]],sum(pba$par[1] - c(b_0)))
+            sesgo_b1[[j]] = append(sesgo_b1[[j]],sum(pba$par[2] - c(b_1)))
+            sesgo_b2[[j]] = append(sesgo_b2[[j]],sum(pba$par[3] - c(b_2)))
+            sesgo_b3[[j]] = append(sesgo_b3[[j]],sum(pba$par[4] - c(b_3)))
+            sesgo_sig[[j]] = append(sesgo_b3[[j]],sum(pba$par[5] - c(sig)))
+    
+            ecm_b0[[j]] = append(ecm_b0[[j]],sum(pba$par[1] - c(b_0))**2)
+            ecm_b1[[j]] = append(ecm_b1[[j]],sum(pba$par[2] - c(b_1))**2)
+            ecm_b2[[j]] = append(ecm_b1[[j]],sum(pba$par[3] - c(b_2))**2)
+            ecm_b3[[j]] = append(ecm_b1[[j]],sum(pba$par[4] - c(b_3))**2)
+            ecm_sig[[j]] = append(ecm_b1[[j]],sum(pba$par[5] - c(sig))**2)
     }
     }
+    
+t_cuadro <- data.frame()
+
+for(p in 1:length(t_sim)){
+    sr_b0 <- mean(unlist(sesgo_b0[[p]]))/b_0
+    sr_b1 <- mean(unlist(sesgo_b1[[p]]))/b_1
+    sr_b2 <- mean(unlist(sesgo_b2[[p]]))/b_2
+    sr_b3 <- mean(unlist(sesgo_b3[[p]]))/b_3
+    sr_sig <- mean(unlist(sesgo_sig[[p]]))/sig
+    cov_b0 <-sum(unlist(coverage[[p]][[1]]))/100
+    cov_b1 <-sum(unlist(coverage[[p]][[2]]))/100
+    cov_b2 <-sum(unlist(coverage[[p]][[3]]))/100
+    cov_b3 <-sum(unlist(coverage[[p]][[4]]))/100
+    cov_sig <-sum(unlist(coverage[[p]][[5]]))/100
+    ecmb0 <- mean(unlist(ecm_b0[[p]]))
+    ecmb1 <- mean(unlist(ecm_b1[[p]]))
+    ecmb2 <- mean(unlist(ecm_b2[[p]]))
+    ecmb3 <- mean(unlist(ecm_b3[[p]]))
+    ecmsig <- mean(unlist(ecm_sig[[p]]))
+    
+    tot_sr <- rbind(sr_b0,sr_b1,sr_b2,sr_b3,sr_sig)
+    tot_cov <- rbind(cov_b0,cov_b1,cov_b2,cov_b3,cov_sig)
+    tot_ecm <- round(rbind(ecmb0,ecmb1,ecmb2,ecmb3,ecmsig),4)
+    cuad <- as.data.frame(cbind(tot_sr,tot_cov,tot_ecm))
+    t_cuadro <- rbind(t_cuadro,cuad);t_cuadro
+}
+    
+val <- c()
+for (i in 1:100) {
+    pba <- fit_sim$t_0.10[[i]]
+    val <- append(val,pba$value)
+    
+}
+plot(density(val))
+    
