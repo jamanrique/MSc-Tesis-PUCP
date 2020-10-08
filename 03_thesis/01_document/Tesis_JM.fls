@@ -134,6 +134,8 @@ INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/02_reparam
 INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/02_reparametrization/02_weibull.aux
 INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/03_model/03_model.aux
 INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/03_model/03_model.aux
+INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/04_simulation/04_simulation.aux
+INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/04_simulation/04_simulation.aux
 OUTPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/Tesis_JM.aux
 INPUT /usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -189,6 +191,9 @@ INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/../../02_f
 OUTPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/03_model/03_model.aux
 INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/03_model/03_model.tex
 INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/03_model/03_model.tex
+OUTPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/04_simulation/04_simulation.aux
+INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/04_simulation/04_simulation.tex
+INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/04_simulation/04_simulation.tex
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
 INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/Tesis_JM.aux
 INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/01_intro/01_intro.aux
@@ -197,6 +202,8 @@ INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/02_reparam
 INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/02_reparametrization/02_weibull.aux
 INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/03_model/03_model.aux
 INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/03_model/03_model.aux
+INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/04_simulation/04_simulation.aux
+INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/04_simulation/04_simulation.aux
 INPUT /usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
