@@ -11,6 +11,6 @@
 \contentsline {section}{\numberline {3.2}Modelo de regresión para datos positivos con censura intervalar}{9}%
 \contentsline {subsection}{\numberline {3.2.1}Función de verosimilitud}{9}%
 \contentsline {chapter}{\numberline {4}Estudio de Simulación}{11}%
-\contentsline {chapter}{\numberline {5}Aplicaciones}{12}%
-\contentsline {chapter}{\numberline {6}Conclusiones}{13}%
-\contentsline {chapter}{\numberline {7}Bibliografía}{14}%
+\contentsline {chapter}{\numberline {5}Aplicaciones}{13}%
+\contentsline {chapter}{\numberline {6}Conclusiones}{14}%
+\contentsline {chapter}{\numberline {7}Bibliografía}{15}%

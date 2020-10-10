@@ -1,4 +1,32 @@
 \chapter{Estudio de Simulación}
 El presente capítulo tiene como objetivo ejecutar un estudio de simulación para evaluar si tanto el modelo descrito permite capturar los parámetros de regresión cuantílica bajo censura intervalar. Para evaluar el desempeño de los parámetros obtenidos, evaluaremos el sesgo relativo, error cuadrático medio y la cobertura del intervalo de confianza con un nivel de significancia al 95\%.
 
-Para cada uno de los cuantiles $t=\{0.1, 0.2, 0.3, \dots , 0.9\}$ se realizó $1,000$ réplicas
+Para cada uno de los cuantiles $t=\{0.1, 0.2, 0.3, \dots , 0.9\}$ se realizó la simulación de $n=10000$ valores de las siguientes variables:
+\[X_{1} \sim Beta(2,3)\]
+\[X_{2} \sim Normal(2,0.5)\]
+\[X_{3} \sim Gamma(2,25)\]
+
+En base a estas variables simulamos la variable aleatoria dependiente $Y_{i} \sim W_{r}(q_{t},\alpha,t)$ en donde $q_{t}$ está definida de la siguiente forma:
+\[q_{t} = e^{X^{T}\beta}, X = \{1,X_{1},X_{2},X_{3}\}\]
+
+Para propósitos de la simulación, se fijaron los parámetros siguientes:
+\[\alpha=2\]
+\[\beta_{0}=0.5\]
+\[\beta_{1}=0.3\]
+\[\beta_{2}=0.6\]
+\[\beta_{3}=0.8\]
+
+Una vez generada la variable aleatoria $ Y_{i} $, se censuró esta información en base al criterio de particiones iguales hasta determinado el percentil 80. Esto se debe a que la variable respuesta $ Y_{i} $ tiene colas pesadas. Ver seudocódigo en la siguiente:
+
+Seudocódigo aquí
+
+Se tomó en cuenta las siguientes consideraciones:
+
+\begin{itemize}
+    \item Puntos iniciales
+    \item Cálculo de 
+\end{itemize}}
+
+Finalmente, se observa que:
+
+Ver cuadro a continuación

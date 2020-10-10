@@ -128,14 +128,6 @@ INPUT /usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 INPUT /usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/Tesis_JM.aux
 INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/Tesis_JM.aux
-INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/01_intro/01_intro.aux
-INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/01_intro/01_intro.aux
-INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/02_reparametrization/02_weibull.aux
-INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/02_reparametrization/02_weibull.aux
-INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/03_model/03_model.aux
-INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/03_model/03_model.aux
-INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/04_simulation/04_simulation.aux
-INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/04_simulation/04_simulation.aux
 OUTPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/Tesis_JM.aux
 INPUT /usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -161,11 +153,6 @@ OUTPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/Tesis_JM.
 INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
-INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/Tesis_JM.toc
-INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/Tesis_JM.toc
-INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
 OUTPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/Tesis_JM.toc
 OUTPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/01_intro/01_intro.aux
 INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/01_intro/01_intro.tex
@@ -179,6 +166,8 @@ OUTPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/02_repara
 INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/02_reparametrization/02_weibull.tex
 INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/02_reparametrization/02_weibull.tex
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
+INPUT /usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT /usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
 INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/../../02_figures/densidad1.jpeg
 INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/../../02_figures/densidad1.jpeg
 INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/../../02_figures/densidad1.jpeg
@@ -205,7 +194,6 @@ INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/03_model/0
 INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/04_simulation/04_simulation.aux
 INPUT /home/jamanrique/Documents/MSc-Tesis-PUCP/03_thesis/01_document/04_simulation/04_simulation.aux
 INPUT /usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
-INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
