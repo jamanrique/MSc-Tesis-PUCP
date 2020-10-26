@@ -252,11 +252,43 @@ for(p in 1:length(t_sim)){
     t_cuadro <- rbind(t_cuadro,cuad);t_cuadro
 }
     
-val <- c()
+val <- matrix(ncol=5,nrow=0)
+for (j in 1:length(t_sim)){
 for (i in 1:100) {
-    pba <- fit_sim$t_0.10[[i]]
-    val <- append(val,pba$value)
+    pba <- fit_sim[[j]][[i]]
+    val <- rbind(val,pba$par)
     
 }
-plot(density(val))
-    
+}
+
+colnames(val) <- c("B_0", "B_1", "B_2", "B_3", "Sigma")
+
+val[,1] <- val[,1]-b_0
+val[,2] <- val[,2]-b_1
+val[,3] <- val[,3]-b_2
+val[,4] <- val[,4]-b_3
+val[,5] <- val[,5]-sig
+
+
+val_0.1 <- val[1:100,]
+val_0.2 <- val[101:200,]
+val_0.3 <- val[201:300,]
+val_0.4 <- val[301:400,]
+val_0.5 <- val[401:500,]
+val_0.6 <- val[501:600,]
+val_0.7 <- val[601:700,]
+val_0.8 <- val[701:800,]
+val_0.9 <- val[801:900,]
+
+par(mfrow=c(3,3))
+
+boxplot(val_0.1,horizontal=T,notch=T,xlab="Cuantil 0.1",col = c("darkgreen","darkorange3","darkred","gold1","indianred1"),)
+boxplot(val_0.2,horizontal=T,notch=T,xlab="Cuantil 0.2",col = c("darkgreen","darkorange3","darkred","gold1","indianred1"),)
+boxplot(val_0.3,horizontal=T,notch=T,xlab="Cuantil 0.3",col = c("darkgreen","darkorange3","darkred","gold1","indianred1"),)
+boxplot(val_0.4,horizontal=T,notch=T,xlab="Cuantil 0.4",col = c("darkgreen","darkorange3","darkred","gold1","indianred1"),)
+boxplot(val_0.5,horizontal=T,notch=T,xlab="Cuantil 0.5",col = c("darkgreen","darkorange3","darkred","gold1","indianred1"),)
+boxplot(val_0.6,horizontal=T,notch=T,xlab="Cuantil 0.6",col = c("darkgreen","darkorange3","darkred","gold1","indianred1"),)
+boxplot(val_0.7,horizontal=T,notch=T,xlab="Cuantil 0.7",col = c("darkgreen","darkorange3","darkred","gold1","indianred1"),)
+boxplot(val_0.8,horizontal=T,notch=T,xlab="Cuantil 0.8",col = c("darkgreen","darkorange3","darkred","gold1","indianred1"),)
+boxplot(val_0.9,horizontal=T,notch=T,xlab="Cuantil 0.9",col = c("darkgreen","darkorange3","darkred","gold1","indianred1"),)
+

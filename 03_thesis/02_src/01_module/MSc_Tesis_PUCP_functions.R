@@ -12,6 +12,7 @@ library(BB)
 library(nloptr)
 library(optimx)
 library(optextras)
+library(quantreg)
 
 rm(list=ls())
 
@@ -142,8 +143,16 @@ lancet <- function(){
   newsalud_enf$lf <- newsalud_enf$lf
   
   newsalud_enf <- subset(newsalud_enf, (newsalud_enf$lf == Inf) == FALSE)
-  newsalud_enf <- dplyr::select(newsalud_enf, C2P4, li, lf)
-  newsalud_enf <- dplyr::mutate(newsalud_enf, pba = if_else(newsalud_enf$C2P4 == "Mujer", 1, 0)) %>% dplyr::select(pba, li, lf)
+  newsalud_enf <- dplyr::mutate(newsalud_enf, 
+                sexo = if_else(newsalud_enf$C2P4 == "Mujer", 1, 0)
+  )
+  
+  newsalud_enf <- newsalud_enf %>% select(C2P21, C2P27, C2P9, sexo, li,lf)
+  scale <- c(newsalud_enf$li,newsalud_enf$lf)
+  
+  newsalud_enf$li <- scales::rescale(newsalud_enf$li,to = c(0,10),from=c(min(scale),(max(scale))))
+  newsalud_enf$lf <- scales::rescale(newsalud_enf$lf,to = c(0,10),from=c(min(scale),(max(scale))))
+  
   return(newsalud_enf)
 }
 
@@ -170,12 +179,13 @@ reg_ces_wei = function(data, li, lf, t) {
     }
     return(s_ll)
   }
-  inicial = c(as.vector(coef(lm(data_l_inf~covar,data=data.frame(cbind(data_l_inf,covar))))),1)
+  inicial = c(as.vector(coef(glm(data_l_inf~covar,data=data.frame(cbind(data_l_inf,covar))),family=normal(),link="log")),1)
+  print(paste("Valores iniciales:",inicial,collapse = " "))
   fit_mv = nlminb(inicial,ll,t = t,lower = c(rep(0,ncol(covar)+1,0.1)),upper =c(rep(Inf,ncol(covar)+2)))
   inicial = fit_mv$par
+  print(paste("Valores de la primera optimización",inicial, collapse =" "))
   print(paste("Resultado de la 1ª Optimización: ",fit_mv$message))
-  fit_mv =   optim(par = inicial, fn = ll,t = t, upper = c(rep(Inf, ncol(covar) + 2)),lower = c(rep(0, ncol(covar) + 1), 0.01),hessian = T)
-  
+  fit_mv =   optim(par = inicial, method ="L-BFGS-B", fn = ll,t = t, upper = c(rep(Inf, ncol(covar) + 2)),lower = c(rep(-Inf, ncol(covar) + 1), 0.01),hessian = T)
   return(fit_mv)
 }
 

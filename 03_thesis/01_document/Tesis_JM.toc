@@ -11,6 +11,11 @@
 \contentsline {section}{\numberline {3.2}Modelo de regresión para datos positivos con censura intervalar}{9}%
 \contentsline {subsection}{\numberline {3.2.1}Función de verosimilitud}{9}%
 \contentsline {chapter}{\numberline {4}Estudio de Simulación}{11}%
-\contentsline {chapter}{\numberline {5}Aplicaciones}{13}%
-\contentsline {chapter}{\numberline {6}Conclusiones}{14}%
-\contentsline {chapter}{\numberline {7}Bibliografía}{15}%
+\contentsline {section}{\numberline {4.1}Implementación del modelo}{12}%
+\contentsline {section}{\numberline {4.2}Resultados}{12}%
+\contentsline {chapter}{\numberline {5}Aplicación en datos reales}{16}%
+\contentsline {section}{\numberline {5.1}ENSUSALUD 2015}{16}%
+\contentsline {subsection}{\numberline {5.1.1}Base de datos}{17}%
+\contentsline {section}{\numberline {5.2}Resultados}{17}%
+\contentsline {chapter}{\numberline {6}Conclusiones}{18}%
+\contentsline {chapter}{\numberline {7}Bibliografía}{19}%

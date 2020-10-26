@@ -8,11 +8,11 @@ El proceso de simulación consiste en generar 100 réplicas de la variable aleat
 
 Conforme lo mencionado en la sección 3.2.1), la función de enlace para crear las réplicas está denotada por $q_t =  \exp(x_i^T \beta)$, en dónde $\beta =[0.5, 0.3, 0.6, 0.8]^T$. Por otro lado, el parámetro de dispersión tiene el valor $\alpha = 2$. Finalmente, se realizará la evaluación por los cuantiles $t = [0.1, 0.2, \dots, 0.9]$.
 
-Cada réplica de la variable aleatoria $Y_i \sim W_r(q_t, \alpha,t)$ subyace la variable de censura intervalar $Z$, la cual particiona la variable $Y_i$ en intervalos de igual amplitud, con la excepción del último intervalo, el cual tiene la estructura $[L_{inf}, \infty]$. Una vez generada dicha variable, se realiza el modelamiento de la variable de censura intervalar sobre las variables independientes creadas previamente.
+Cada réplica de la variable aleatoria $Y_i \sim W_r(q_t, \alpha,t)$ subyace la variable de censura intervalar $Z$, la cual particiona la variable $Y_i$ en intervalos de igual amplitud, con la excepción del último intervalo, el cual tiene la estructura $[L_{inf}, \infty]$. Una vez generada dicha variable, se realiza el modelamiento de la variable de censura intervalar sobre las variables independientes creadas previamente. El objetivo final es, a través del modelo, obtener los coeficientes $\beta$ definidos previamente.
 
 \section{Implementación del modelo}
 
-El seudocódigo es el siguiente:
+La implementación del modelo se realizó a través del lenguaje de programación R, tomando en consideración las fórmulas especificadas en el capítulo 3 de la presente tesis. El seudocódigo de la implementación es el siguiente:
 
 \begin{lstlisting}
 Simulamos 10,000 valores de las siguientes distribuciones:
@@ -52,3 +52,73 @@ Una vez generados los resultados, se evaluó por cada cuantil lo siguiente:
 
 \section{Resultados}
 
+En la tabla a continuación se muestra, para cada tamaño de muestra y parámetros $\Theta = [\beta_0,\beta_1,\beta_2,\beta_3,\sigma] = [0.5, 0.3, 0.6, 0.8, 2]$ los resultados de las métricas utilizadas para evaluar el desempeño de los estimadores bajo la estructura propuesta. Para las 100 réplicas identificadas, se observa lo siguiente:
+
+\begin{itemize}
+	\item En relación al sesgo relativo, se observa que cada parámetro permite capturar adecuadamente los parámetros previamente precisados. Existe, no obstante una ligera subestimación de los parámetros para determinados cuantiles, como el cuantil 0.1 y 0.9
+	\item En relación a la cobertura, se observa que, en promedio, los intervalos de confianza contienen en un 95\% el valor real del parámetro.
+	\item En relación al error cuadrático medio, se observa que este es pequeño para todos los cuantiles y parámetros.
+\end{itemize}
+
+Ver tabla a continuación:
+
+\begin{longtable}[c]{|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{\textbf{Cuantil}} & \multirow{2}{*}{\textbf{Parámetros}} & \multicolumn{3}{c|}{\textbf{n = 10000}} \\ \cline{3-5} 
+ &  & \textbf{\begin{tabular}[c]{@{}c@{}}Sesgo \\ Relativo\end{tabular}} & \textbf{Cobertura} & \textbf{\begin{tabular}[c]{@{}c@{}}Error \\ Cuadrático \\ Medio\end{tabular}} \\ \hline
+\endhead
+%
+\multirow{5}{*}{0.1} & $\beta_0$ & 0.0847 & 98.00\% & 0.0091 \\ \cline{2-5} 
+ & $\beta_1$ & -0.0365 & 95.00\% & 0.0034 \\ \cline{2-5} 
+ & $\beta_2$ & -0.0292 & 98.00\% & 0.0034 \\ \cline{2-5} 
+ & $\beta_3$ & -0.0564 & 96.00\% & 0.0035 \\ \cline{2-5} 
+ & $\sigma$ & -0.0223 & 96.00\% & 0.0034 \\ \hline
+\multirow{5}{*}{0.2} & $\beta_0$ & -0.0170 & 90.00\% & 0.0161 \\ \cline{2-5} 
+ & $\beta_1$ & 0.0101 & 93.00\% & 0.0037 \\ \cline{2-5} 
+ & $\beta_2$ & 0.0070 & 93.00\% & 0.0037 \\ \cline{2-5} 
+ & $\beta_3$ & -0.0305 & 96.00\% & 0.0038 \\ \cline{2-5} 
+ & $\sigma$ & -0.0122 & 91.00\% & 0.0037 \\ \hline
+\multirow{5}{*}{0.3} & $\beta_0$ & -0.0263 & 98.00\% & 0.0074 \\ \cline{2-5} 
+ & $\beta_1$ & -0.0133 & 99.00\% & 0.0030 \\ \cline{2-5} 
+ & $\beta_2$ & 0.0104 & 98.00\% & 0.0030 \\ \cline{2-5} 
+ & $\beta_3$ & 0.0069 & 95.00\% & 0.0032 \\ \cline{2-5} 
+ & $\sigma$ & 0.0028 & 97.00\% & 0.0030 \\ \hline
+\multirow{5}{*}{0.4} & $\beta_0$ & -0.0229 & 91.00\% & 0.0141 \\ \cline{2-5} 
+ & $\beta_1$ & 0.0182 & 97.00\% & 0.0026 \\ \cline{2-5} 
+ & $\beta_2$ & 0.0024 & 95.00\% & 0.0026 \\ \cline{2-5} 
+ & $\beta_3$ & 0.0840 & 90.00\% & 0.0026 \\ \cline{2-5} 
+ & $\sigma$ & 0.0333 & 97.00\% & 0.0026 \\ \hline
+\multirow{5}{*}{0.5} & $\beta_0$ & 0.0137 & 96.00\% & 0.0117 \\ \cline{2-5} 
+ & $\beta_1$ & 0.0556 & 92.00\% & 0.0042 \\ \cline{2-5} 
+ & $\beta_2$ & -0.0134 & 95.00\% & 0.0042 \\ \cline{2-5} 
+ & $\beta_3$ & 0.0239 & 96.00\% & 0.0043 \\ \cline{2-5} 
+ & $\sigma$ & 0.0097 & 97.00\% & 0.0042 \\ \hline
+\multirow{5}{*}{0.6} & $\beta_0$ & 0.0170 & 96.00\% & 0.0113 \\ \cline{2-5} 
+ & $\beta_1$ & -0.0105 & 96.00\% & 0.0033 \\ \cline{2-5} 
+ & $\beta_2$ & -0.0049 & 95.00\% & 0.0033 \\ \cline{2-5} 
+ & $\beta_3$ & -0.0185 & 93.00\% & 0.0035 \\ \cline{2-5} 
+ & $\sigma$ & -0.0073 & 96.00\% & 0.0033 \\ \hline
+\multirow{5}{*}{0.7} & $\beta_0$ & -0.0107 & 96.00\% & 0.0108 \\ \cline{2-5} 
+ & $\beta_1$ & 0.0207 & 94.00\% & 0.0044 \\ \cline{2-5} 
+ & $\beta_2$ & 0.0011 & 93.00\% & 0.0044 \\ \cline{2-5} 
+ & $\beta_3$ & 0.0334 & 96.00\% & 0.0050 \\ \cline{2-5} 
+ & $\sigma$ & 0.0131 & 93.00\% & 0.0044 \\ \hline
+\multirow{5}{*}{0.8} & $\beta_0$ & -0.0357 & 96.00\% & 0.0084 \\ \cline{2-5} 
+ & $\beta_1$ & 0.0373 & 93.00\% & 0.0038 \\ \cline{2-5} 
+ & $\beta_2$ & 0.0141 & 95.00\% & 0.0038 \\ \cline{2-5} 
+ & $\beta_3$ & -0.0552 & 93.00\% & 0.0038 \\ \cline{2-5} 
+ & $\sigma$ & -0.0217 & 88.00\% & 0.0038 \\ \hline
+\multirow{5}{*}{0.9} & $\beta_0$ & 0.0206 & 96.00\% & 0.0094 \\ \cline{2-5} 
+ & $\beta_1$ & 0.0059 & 93.00\% & 0.0044 \\ \cline{2-5} 
+ & $\beta_2$ & -0.0108 & 96.00\% & 0.0045 \\ \cline{2-5} 
+ & $\beta_3$ & -0.0126 & 93.00\% & 0.0074 \\ \cline{2-5} 
+ & $\sigma$ & -0.0048 & 97.00\% & 0.0044 \\ \hline
+\end{longtable}
+
+Asimismo, se visualizó la dispersión de cada uno de los parámetros en relación al valor precisado anteriormente (es decir, el parámetro centrado en su valor prefijado). Se observa que las 100 réplicas son simétricas en su eje y tienen relativamente poca dispersión, a excepción del parámetro $bb_{3}$.
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{boxplot_simulacion}
+	\caption{Valores de los parámetros (100 réplicas).}
+\end{figure}
+Por lo tanto, los resultados muestran que la implementación ejecutada permite capturar los parámetros pre-establecidos del modelo de regresión con censura intervalar.
