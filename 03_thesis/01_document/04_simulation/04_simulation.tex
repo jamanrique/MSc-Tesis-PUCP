@@ -1,18 +1,18 @@
 \chapter{Estudio de Simulación}
-El presente capítulo tiene como objetivo realizar un estudio de simulación en el que se evalúe el adecuado rendimiento del modelo propuesto en los capítulos antecedentes. Esto comprende generar una base de datos en dónde se tenga una variable aleatoria $Y_i \sim W_r(q_t, \alpha,t)$, la cual está subyace la variable censurada $Z$ que sigue lo denotado en la sección 3.1). Asimismo, dicha base de datos contiene otras variables simuladas, las cuales actuarán como variables independientes en un contexto de regresión. El objetivo principal del estudio de simulación es observar si el modelo de regresión planteado, así como la implementación del mismo, permite capturar adecuadamente los parámetros de regresión establecidos a priori. Los criterios sobre los cuales se analizará el rendimiento del modelo son: sesgo relativo, error cuadrático medio y cobertura.
+El presente capítulo tiene como objetivo realizar un estudio de simulación en el que se evalúe el adecuado la adecuada estimación del modelo propuesto en los capítulos antecedentes. Esto comprende generar una base de datos en dónde se tenga una variable aleatoria $Y_i \sim W_r(q_t, \alpha,t)$, la cual está subyace la variable censurada $Z$ que sigue lo denotado en la sección 3.1. Asimismo, dicha base de datos contiene otras variables simuladas, las cuales actuarán como variables independientes en un contexto de regresión. El objetivo principal del estudio de simulación evaluar si el método de estimación planteado, permite recuperar adecuadamente los parámetros de regresión establecidos a priori. Los criterios sobre los cuales se analizará la estimación del modelo son: sesgo relativo, error cuadrático medio y cobertura.
 
-El proceso de simulación consiste en generar 100 réplicas de la variable aleatoria $Y_i \sim W_r(q_t, \alpha,t)$ basados en los valores de $n=\{1000, 5000, 10000\}$ de las siguientes variables:
-\[X_{1} \sim Beta(2,3)\]
-\[X_{2} \sim Normal(2,0.5)\]
-\[X_{3} \sim Gamma(2,25)\]
+El proceso de simulación consiste en generar 100 réplicas considerando tamaños de muestra de $n=\{10000\}$. Simularemos la variable respuesta $Y_{i} \sim W_r(Q_{t_{i}},\alpha,t)$ considerando 3 covariables $X_{1i},X_{2i},X_{3i}$ que serán simuladas como:
+\[X_{1i} \sim Beta(2,3)\]
+\[X_{2i} \sim Normal(2,0.5)\]
+\[X_{3i} \sim Gamma(2,25)\]
 
-Conforme lo mencionado en la sección 3.2.1), la función de enlace para crear las réplicas está denotada por $q_t =  \exp(x_i^T \beta)$, en dónde $\beta =[0.5, 0.3, 0.6, 0.8]^T$. Por otro lado, el parámetro de dispersión tiene el valor $\alpha = 2$. Finalmente, se realizará la evaluación por los cuantiles $t = [0.1, 0.2, \dots, 0.9]$.
+Conforme lo mencionado en la sección 3.2.1, $q_{t_{i}} =  \exp(x_i^T \beta)$, en dónde $\beta =[0.5, 0.3, 0.6, 0.8]^T$ y $x_{i}=(1,X_{1i},X_{2i},X_{3i})^{T}$. Por otro lado, el parámetro de dispersión tomará el valor $\alpha = 2$. Finalmente, se realizará la evaluación por los cuantiles $t = [0.1, 0.2, \dots, 0.9]$.
 
-Cada réplica de la variable aleatoria $Y_i \sim W_r(q_t, \alpha,t)$ subyace la variable de censura intervalar $Z$, la cual particiona la variable $Y_i$ en intervalos de igual amplitud, con la excepción del último intervalo, el cual tiene la estructura $[L_{inf}, \infty]$. Una vez generada dicha variable, se realiza el modelamiento de la variable de censura intervalar sobre las variables independientes creadas previamente. El objetivo final es, a través del modelo, obtener los coeficientes $\beta$ definidos previamente.
+Se asume que $Y_i \sim W_r(q_{ti}, \alpha,t)$ se observa con censura intervalar. En este estudio asumiremos que solo observamos una variable $Z$ que particiona la variable $Y_i$ en intervalos de igual amplitud, con la excepción del último intervalo, el cual tiene la estructura $[L_{inf}, \infty]$. Una vez generada dicha variable, se realiza el modelamiento de la variable con censura intervalar sobre las variables independientes creadas previamente. El objetivo final es, a través del modelo, estimar los coeficientes $\beta$ definidos previamente.
 
 \section{Implementación del modelo}
 
-La implementación del modelo se realizó a través del lenguaje de programación R, tomando en consideración las fórmulas especificadas en el capítulo 3 de la presente tesis. El seudocódigo de la implementación es el siguiente:
+La implementación del modelo se realizó a través del lenguaje de programación R, tomando en consideración las definiciones presentadas en el capítulo 3 de la presente tesis. El seudocódigo de la implementación es el siguiente:
 
 \begin{lstlisting}
 Simulamos 10,000 valores de las siguientes distribuciones:
@@ -45,10 +45,12 @@ Para cada cuantil en t:
 
 % Pseudocódigo del modelo?
 
-Una vez generados los resultados, se evaluó por cada cuantil lo siguiente:
-\[ \text{Sesgo relativo:} \frac{1}{M}(\hat{\theta_j} - \theta_j)\]
-\[ \text{ECM:} \frac{1}{M} \sum_1^M (\hat{\theta_j} - \theta_j)^2 \]
-\[ \text{Cobertura:} \frac{1}{M} \sum_1^M (\hat{\theta_j} - \theta_j)^2 \]
+Una vez generadas las simulaciones, se evaluó para cada escenario (cuantil y tamaño de muestra) lo siguiente:
+\[ \hat{\text{Sesgo relativo:}} \frac{1}{M}(\hat{\theta_j} - \theta)\]
+\[ \hat{\text{ECM:} \frac{1}{M}} \sum_1^M (\hat{\theta_j} - \theta)^2 \]
+\[ \hat{\text{Cobertura:} \frac{1}{M}} \sum_1^M (\hat{\theta_j} - \theta)^2 \]
+
+\noindent dónde $\theta$ es el verdadero valor del parámetro, $\hat{\theta}_{j}$ la estimación obtenida en la j-ésima réplica y M el número de réplicas.
 
 \section{Resultados}
 
@@ -115,10 +117,11 @@ Ver tabla a continuación:
  & $\sigma$ & -0.0048 & 97.00\% & 0.0044 \\ \hline
 \end{longtable}
 
-Asimismo, se visualizó la dispersión de cada uno de los parámetros en relación al valor precisado anteriormente (es decir, el parámetro centrado en su valor prefijado). Se observa que las 100 réplicas son simétricas en su eje y tienen relativamente poca dispersión, a excepción del parámetro $bb_{3}$.
+Para observar visualmente los resultados obtenidos en el estudio de simulación, se presenta en la Figura 4.1. diagramas de caja de las estimaciones obtenidas para cada uno de los parámetros. En estos diagramas se han construido considerando las estimaciones menos el verdadero valor del parámetro, de manera que un boxplot centrado en 0 indicará una estimación insesgada. Se observa en el gráfico que todos los estimadores son insestados y tienen relativamente poca dispersión, a excepción del parámetro $\beta_3$
 
 \begin{figure}[H]
 	\includegraphics[width=\textwidth]{boxplot_simulacion}
 	\caption{Valores de los parámetros (100 réplicas).}
 \end{figure}
-Por lo tanto, los resultados muestran que la implementación ejecutada permite capturar los parámetros pre-establecidos del modelo de regresión con censura intervalar.
+
+Por lo tanto, los resultados muestran que el método de estimación permite recuperar los parámetros pre-establecidos del modelo de regresión con censura intervalar.

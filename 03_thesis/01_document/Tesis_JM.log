@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7440 64-bit) (preloaded format=pdflatex 2020.6.29)  26 OCT 2020 01:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7440 64-bit) (preloaded format=pdflatex 2020.6.29)  26 OCT 2020 22:10
 entering extended mode
 **./Tesis_JM.tex
 (Tesis_JM.tex
@@ -573,6 +573,20 @@ Overfull \hbox (8.09541pt too wide) detected at line 60
 
  (04_simulation/04_simulation.tex
 Chapter 4.
+
+Overfull \hbox (7.88943pt too wide) in paragraph at lines 4--5
+[]\OT1/cmr/m/n/10 El pro-ceso de sim-u-lacion con-siste en generar 100 replic
+as con-siderando tama~nos
+ []
+
+
+Overfull \hbox (2.22354pt too wide) in paragraph at lines 4--5
+\OT1/cmr/m/n/10 de mues-tra de $\OML/cmm/m/it/10 n \OT1/cmr/m/n/10 = \OMS/cmsy/
+m/n/10 f\OT1/cmr/m/n/10 10000\OMS/cmsy/m/n/10 g$\OT1/cmr/m/n/10 . Sim-u-la-re-m
+os la vari-able re-spuesta $\OML/cmm/m/it/10 Y[] \OMS/cmsy/m/n/10  \OML/cmm/m/
+it/10 W[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 Q[]; ; t\OT1/cmr/m/n/10 )$
+ []
+
 [11
 
 
@@ -610,7 +624,7 @@ Overfull \hbox (21.00372pt too wide) in paragraph at lines 42--43
  []
 
 
-Overfull \hbox (3.77841pt too wide) in paragraph at lines 55--56
+Overfull \hbox (3.77841pt too wide) in paragraph at lines 57--58
 \OT1/cmr/m/n/10 En la tabla a con-tin-uacion se mues-tra, para cada tama~no de
  mues-tra y parametros
  []
@@ -620,7 +634,7 @@ Overfull \hbox (3.77841pt too wide) in paragraph at lines 55--56
 File: ../../02_figures/boxplot_simulacion.jpeg Graphic file (type jpg)
 <use ../../02_figures/boxplot_simulacion.jpeg>
 Package pdftex.def Info: ../../02_figures/boxplot_simulacion.jpeg  used on inpu
-t line 121.
+t line 123.
 (pdftex.def)             Requested size: 345.0pt x 258.75684pt.
  [14]) [15 <../../02_figures/boxplot_simulacion.jpeg>]
 \openout2 = `05_datosreales/05_datosreales.aux'.
@@ -653,7 +667,7 @@ f wide ap-pli-ca-bil-ity"\OT1/cmr/m/it/10 ASME
 Here is how much of TeX's memory you used:
  13577 strings out of 480797
  260519 string characters out of 2905361
- 507126 words of memory out of 3000000
+ 507127 words of memory out of 3000000
  29318 multiletter control sequences out of 15000+200000
  539614 words of font info for 49 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -673,7 +687,7 @@ fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
 msfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
 cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10
 .pfb>
-Output written on Tesis_JM.pdf (20 pages, 436199 bytes).
+Output written on Tesis_JM.pdf (20 pages, 436887 bytes).
 PDF statistics:
  138 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

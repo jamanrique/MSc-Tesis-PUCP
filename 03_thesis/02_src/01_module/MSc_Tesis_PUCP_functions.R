@@ -65,6 +65,13 @@ ptweibull <- function(value, qt, sigma, t) {
   return(pt)
 }
 
+ptweibull2 <- function(value,qt, alpha,t){
+  ct = (-log(1 - t)) ^ (1 / alpha)
+  val = 1 - exp(-ct * (value/qt)^alpha)
+  return(val)
+}
+
+
 lancet <- function(){
   temp <- tempfile()
   download.file("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/447-Modulo552.zip", temp)
@@ -147,12 +154,7 @@ lancet <- function(){
                 sexo = if_else(newsalud_enf$C2P4 == "Mujer", 1, 0)
   )
   
-  newsalud_enf <- newsalud_enf %>% select(C2P21, C2P27, C2P9, sexo, li,lf)
-  scale <- c(newsalud_enf$li,newsalud_enf$lf)
-  
-  newsalud_enf$li <- scales::rescale(newsalud_enf$li,to = c(0,10),from=c(min(scale),(max(scale))))
-  newsalud_enf$lf <- scales::rescale(newsalud_enf$lf,to = c(0,10),from=c(min(scale),(max(scale))))
-  
+  newsalud_enf <- newsalud_enf %>% dplyr::select(C2P21, C2P27, C2P9, sexo, li,lf)
   return(newsalud_enf)
 }
 
@@ -175,11 +177,11 @@ reg_ces_wei = function(data, li, lf, t) {
     for (j in 1:d) {
       qt_j = qt[j,]
       # s_ll = s_ll - logDiffExp(ptweibull(data_l_sup[j], qt_j, sigma, t), ptweibull(data_l_inf[j], qt_j, sigma, t))
-      s_ll = s_ll - log(ptweibull(data_l_sup[j], qt_j, sigma, t)- ptweibull(data_l_inf[j], qt_j, sigma, t))
+      s_ll = s_ll - log(ptweibull(data_l_sup[j], qt_j, sigma, t)-ptweibull(data_l_inf[j], qt_j, sigma, t))
     }
     return(s_ll)
   }
-  inicial = c(as.vector(coef(glm(data_l_inf~covar,data=data.frame(cbind(data_l_inf,covar))),family=normal(),link="log")),1)
+  inicial = c(coef(glm(data_l_inf ~ . ,family = Gamma(link="log"),data = data.frame(cbind(data_l_inf,covar)))),1)
   print(paste("Valores iniciales:",inicial,collapse = " "))
   fit_mv = nlminb(inicial,ll,t = t,lower = c(rep(0,ncol(covar)+1,0.1)),upper =c(rep(Inf,ncol(covar)+2)))
   inicial = fit_mv$par
