@@ -1,80 +1,118 @@
-using Distributions, DataFrames, Optim, DataFramesMeta
+using Distributions, DataFrames, Optim, DataFramesMeta, StatsModels, Plots, StatsPlots, GLM
 
-function cdf_Wᵣ(Val::Real,Qₜ::Real,σ :: Real,t::Real)
-    if Qₜ <= 0
-        error("Qₜ es menor a 0, ello no es posible.")
-    end
-    α=1/(log(σ + 1))
-    Cₜ=(-log(1-t))^(1/α)
-    β = Qₜ/Cₜ
-    W = Weibull(α,β)
-    Wᵣ = cdf(W,Val)
-    return Wᵣ
+### Funciones ###
+
+# Especificación de Cₜ
+function Cₜ(α::Real, τ::Real)
+    return (-log(1-τ))^(1/α)
 end
 
-function rand_Wᵣ(n::Int,Qₜ::Real,σ::Real,t::Real)
-    if t >= 1
-        error("t debe estar entre 0 y 1")
-    end
-    α = 1/(log(σ+1))
-    Cₜ=(-log(1-t))^(1/α)
-    β = Qₜ/Cₜ
+# Especificación de función acumulada de la nueva reparametricación
+function F_Wᵣ(Y::Real,Qₜ::Real,α::Real,τ::Real)
+    β = Qₜ/Cₜ(α,τ)
+    W = Weibull(α,β)
+    return cdf(W,Y)
+end
+
+# Especificación del parámetro Qₜ en base a los datos y la nueva función de enlace
+function Qₜ(β::AbstractArray, Database::AbstractArray)
+    return exp.(Database * β)
+end
+
+# Especificación de la función generadora de números aleatorios
+function rand_Wᵣ(n::Int,Qₜ::Real,α::Real,τ::Real)
+    β = Qₜ/Cₜ(α, τ)
     W = Weibull(α,β)
     random = rand(W,n)
     return random
 end
 
-function Lₖ(Parameters::AbstractVector,DF::AbstractDataFrame,ϕᵢ::Int,ϕᵢ₊₁::Int,t::Real)
-    # t=0.5
-    # ϕᵢ = 1
-    # ϕᵢ₊₁ = 2
-        Cₜ = -log(1-t)
-        X = DF[:,Not([ϕᵢ,ϕᵢ₊₁])]
-       # Controles #
-        if length(Parameters) != ncol(X)+1
-            error("La dimensión de parámetros es errónea. Debe ser igual a la cantidad de columnas de la matriz de diseño más 1")
-        end
-        β = [Parameters[i] for i in 1:ncol(X)]
-        σ = Parameters[ncol(X)+1]
-        Qₜ = exp.(Matrix(X)*β)
-        Lᵢ = DF[:,ϕᵢ]
-        Lₛ = DF[:,ϕᵢ₊₁]
-        Sₗ = 0
-        for i in 1:nrow(X)
-            local Qₜⱼ = Qₜ[i]
-            Sₗ = Sₗ .+ log.(cdf_Wᵣ.(Lₛ[i,:],Qₜⱼ,σ,t)-cdf_Wᵣ.(Lᵢ[i,:],Qₜⱼ,σ,t))
-        end
-        return Sₗ
+# Espeficiación de la base de datos de covariables simuladas
+function DF_simulation(n::Int)
+    X₁ = Normal(2,0.25)
+    X₂ = Beta(2,3)
+    X₃ = Gamma(1,0.5)
+    DF = DataFrame(X₁ = rand(X₁,n),
+                   X₂= rand(X₂,n),
+                   X₃ = rand(X₃,n))
+    return DF
 end
 
-function Simulation()
-        Yʰ = rand_Wᵣ(10000,1,2,0.5)
-        Zʰ = ifelse.(Yʰ .< quantile(Yʰ,0.25),1, 
-                    ifelse.(Yʰ .< quantile(Yʰ,0.50),2,
-                    ifelse.(Yʰ .< quantile(Yʰ,0.75),3,
-                    ifelse.(Yʰ .> quantile(Yʰ,0.75),4,0))))
-
-        ϕᵢ = ifelse.(Yʰ .< quantile(Yʰ,0.25),0, 
-                    ifelse.(Yʰ .< quantile(Yʰ,0.50),quantile(Yʰ,0.25),
-                    ifelse.(Yʰ .< quantile(Yʰ,0.75),quantile(Yʰ,0.5),
-                    ifelse.(Yʰ .> quantile(Yʰ,0.75),quantile(Yʰ,0.75),0))))
-
-        ϕₛ = ifelse.(Yʰ .< quantile(Yʰ,0.25),quantile(Yʰ,0.25),
-                    ifelse.(Yʰ .< quantile(Yʰ,0.50),quantile(Yʰ,0.5),
-                    ifelse.(Yʰ .< quantile(Yʰ,0.75),quantile(Yʰ,0.75),
-                    ifelse.(Yʰ .> quantile(Yʰ,0.75),quantile(Yʰ,0.999999999999),0))))
-
-        DF    = DataFrame(ϕᵢ=ϕᵢ,
-                ϕₛ=ϕₛ,
-                X₁ = 1,
-                X₂=rand(Normal(4,2),10000),
-                X₃=rand(Beta(2,4),10000),
-                X₄=rand(Gamma(4,7),10000))
-                
-        return DF
+# Especificación de la base de datos final, que contiene la variable censurada
+function DF_F_Simulation(df::AbstractDataFrame,βs::AbstractArray,τ::Real)
+    M = size(df,1)
+    des_matrix = convert(Matrix,hcat(ones(M),df))
+    Qₜᵢ = Qₜ(βs,des_matrix)
+    Y =  first.(rand_Wᵣ.(1,Qₜᵢ,1,0.5))
+    min_Y = minimum(Y); Q₉_Y = quantile(Y,0.8); interval = (Q₉_Y-min_Y)/6
+    # Creación del intervalo de censura
+    range = [min_Y:interval:Q₉_Y;Inf]
+    # Inicialización de variable censurada: límites superiores (ϕₛ) e inferiores (ϕᵢ:)
+    ϕᵢ = zeros(M)
+    ϕₛ = zeros(M)
+    # Censura de la variable Y: Definición del límite superior ϕₛ
+    for i in 1:length(Y)
+        for j in 1:length(range)
+            if Y[i] < range[j]
+                ϕₛ[i] = range[j]
+                break
+            end
+        end
+    end
+    # Censura de la variable Y: Definición del límite inferior ϕᵢ
+    for i in 1:length(Y)
+        for j in 1:length(range)
+            if Y[i] > reverse(range)[j]
+                ϕᵢ[i] = reverse(range)[j]
+                break
+            end
+        end
+    end
+    # Creación de la base de datos finalj
+    F_df = hcat(DataFrame(ϕᵢ = ϕᵢ, ϕₛ = ϕₛ),df)
+    return F_df
 end
 
-DF = Simulation()
+sim = DF_simulation(1000)
+β_sim = [0.9,0.4,0.6,0.9]
+t_sim = 0.5
+final_db = DF_F_Simulation(sim,β_sim,t_sim)
+
+## Recordatorio: Los límites inferiores y superiores requieren tener la notación indicada en el paper (ϕᵢ, ϕₛ)'
+function reg_Wᵣ(df::AbstractDataFrame,Lᵢ::Int, Lₛ::Int,param::AbstractVector)
+    Lₛ = 2
+    covariates = select(final_db,Not(Lₛ))
+    ## Creación de la matriz de diseño
+    names_cov = Symbol.(names(covariates))
+    f = Term(:ϕᵢ) ~ sum(term.(names_cov[2:length(names_cov)]))
+    design_matrix = modelmatrix(ModelFrame(f,covariates))
+    ## Creación de los betas relacionados
+    M₀ = lm(f,covariates)
+    first.(coef(M₀))
+    
+
+    βs = [first.(log.(first.([first.(coef(lm(f,covariates))),2])))]
+
+
+
+end
+
+
+function log_Lₖ(param::AbstractVector,df::AbstractDataFrame,τ::real)
+    n = length(param) - 1
+    for i in 1:n
+        βs[i] = param[i]
+    end
+    α = param[n+1]
+    Qₜ = Qₜ(βs,sim)
+    Lₖ = 
+        
+    end
+    
+end
+
+
+
 
 function reg_Wᵣ(DF::AbstractDataFrame,ϕᵢ::Int,ϕᵢ₊₁::Int,t::Real)
     Parameters =[1.0,1.0,1.0,1.0,2.0]
