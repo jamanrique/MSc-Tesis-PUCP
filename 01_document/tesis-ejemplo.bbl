@@ -1,0 +1,21 @@
+\begin{thebibliography}{xx}
+
+\harvarditem[Branscum et~al.]{Branscum, Johnson \harvardand\
+  Thurmond}{2007}{betareg2}
+Branscum, A.~J., Johnson, W.~O. \harvardand\ Thurmond, M.~C.  \harvardyearleft
+  2007\harvardyearright .
+\newblock Bayesian beta regression; application to househol data and genetic
+  distance between foot-and-mouth disease viruses, {\em Australian \& New
+  Zealand Journal of Statistics} {\bf 49}(3):~287--301.
+
+\harvarditem{Congdon}{2003}{Congdon2003}
+Congdon, P.  \harvardyearleft 2003\harvardyearright .
+\newblock {\em {Applied-Bayesian-Modelling }}, John Wiley \& Sons.
+
+\harvarditem{Ferrari \harvardand\ Cribari-Neto}{2004}{betareg}
+Ferrari, S. \harvardand\ Cribari-Neto, F.  \harvardyearleft
+  2004\harvardyearright .
+\newblock Beta regression for modelling rates and proportions, {\em Journal of
+  Applied Statistics} {\bf 31}:~799--815.
+
+\end{thebibliography}

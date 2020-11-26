@@ -3,6 +3,7 @@ library(gamlss.cens)
 library(haven)
 library(tidyverse)
 library(BB)
+library(matrixStats)
 gen.cens(family="WEI3",type="interval")
 
 Ct = function(alpha, tau){
@@ -31,7 +32,7 @@ Simulation = function(n){
   df = data.frame(X1 = X1, X2 = X2, X3 = X3)
   return(df)
 }
-DF_Simulation = function(df,betas,alpha,tau){
+DF_Simulation = function(df,betas,alpha){
   M = dim(df)[1]
   design_matrix = model.matrix(~ . ,df)
   Qt_i = Qt_a(betas,design_matrix)
@@ -166,12 +167,35 @@ lancet <- function(){
   newsalud_enf$sexo <- as.factor(newsalud_enf$sexo)
   return(newsalud_enf)
 }
+Qt_sim <- function(sim){
+  
+  
+}
+
+dbf = t(colQuantiles(as.matrix(model.matrix(~.,sim)),probs = c(0.35,0.65)))
+betas = matrix(data = c(3,0.4,0.8,1.2,4,0.9,1.2,1.7,6,1,1.5,2.4),nrow = nrow(dbf)+1,ncol = ncol(dbf),byrow = T)
+
+* < 
+
+
+
+
+for (i in 1:nrow(dbf)) {
+  for (j in 1:ncol(dbf)) {
+    
+  }
+}
+
+dbf * betas
+
+c(2,0.4,0.7,0.9) + 2
+
+
 
 #### Simulación ####
 sim = Simulation(1000)
 
 betas_sim = c(7,0.3,0.84,2.5)
-tau_sim = 0.2
 alpha_sim = 2
 df_sim = DF_Simulation(sim,betas_sim,alpha_sim,tau_sim)
 df_sim = na.omit(df_sim)

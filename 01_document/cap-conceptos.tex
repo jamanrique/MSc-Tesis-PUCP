@@ -1,0 +1,66 @@
+%% ------------------------------------------------------------------------- %%
+\chapter{Distribución Beta}
+\label{cap:conceptos}
+
+Introducción al capítulo
+
+%% ------------------------------------------------------------------------- %%
+\section{Distribución Beta}
+\label{sec:dbeta}
+
+Una clase de distribuciones que permite modelar variables continuas limitadas al intervalo $(0,1)$ es la distribución beta.
+
+%% ------------------------------------------------------------------------- %%
+\subsection{Función de densidad de probabilidad}
+\label{sec:fdpbeta}
+la función de densidad de probabilidad de una variable aleatória $Y$ que sigue una distribución beta es dada por
+
+\begin{equation}
+f_{Y}(y\mid \alpha,\beta)=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}
+y^{\alpha-1}(1-y)^{\beta-1}, \ \ \ 0 < y < 1. \label{densidad}
+\end{equation}
+
+
+\noindent Esta distribución es bastante flexible para modelar este tipo de datos debido a que su función de densidad de probabilidad puede tomar diversas formas dependiendo del valor de los parámetros que caracterizan a esta distribución (ver figura \ref{densidades}). 
+
+\begin{figure}[!htb]
+\begin{center}
+%\framebox{
+\includegraphics[scale=.80]{densidades}
+%}
+\caption{Densidades de la distribución beta para diferentes valores de los parámetros}
+\label{densidades}
+\end{center}
+\end{figure}
+
+%% ------------------------------------------------------------------------- %%
+\subsection{Propiedades}
+\label{sec:betaprop}
+
+
+\noindent La media y la variancia de una distribución son expresadas por
+\begin{equation}
+E(y)=\frac{\alpha} {\alpha + \beta} \ \ \ \ \mbox{y}\ \ \ \  Var(y)=\frac{\alpha \beta}{(\alpha+\beta)^2(\alpha+\beta+1)}.\label{mv}
+\end{equation}
+
+
+
+\section{Parametrización alternativa}
+\label{sec:paralter}
+
+Por este motivo, recientemente en la literatura han sido propuestos modelos de regresión basados en esta distribución, por ejemplo ver \citet{betareg}. El modelo propuesto por estos autores permite la interpretación de los parámetros en términos de la respuesta en su escala original (variable respuesta sin transformar). Ellos consideran una reparametrización del modelo donde $\mu = \alpha / (\alpha + \beta)$ y $\phi=\alpha + \beta$, y de (\ref{mv}) obtenemos que 
+
+\begin{equation}
+E(y)=\mu \ \ \ \ \mbox{y}\ \ \ \  Var(y)=\frac{V(\mu)}{1+\phi}
+\end{equation}
+
+\noindent donde $V(\mu)=\mu(1-\mu)$, así tenemos que $\mu$ es la media de la variable respuesta y $\phi$ puede ser interpretado como un parámetro de precisión. Luego, en la nueva parametrización la densidad de la distribución beta puede ser escrita como
+
+\begin{equation}
+f_{Y}(y\mid \mu,\phi)=\frac{\Gamma(\phi)}{\Gamma(\mu\phi)\Gamma((1-\mu)\phi)}
+y^{\mu\phi-1}(1-y)^{(1-\mu)\phi-1}, \ \ \ 0 < y < 1. \label{densidad2}
+\end{equation}
+
+\noindent donde $0<\mu<1$ y $\phi>0$.
+
+
