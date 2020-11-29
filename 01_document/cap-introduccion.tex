@@ -3,16 +3,19 @@
 \label{cap:introduccion}
 
 %% ------------------------------------------------------------------------- %%
-\section{Consideraciones Preliminares}
-\label{sec:consideraciones}
+Por distintas razones, los datos recabados en una investigación de índole estadística carecen de precisión: existen discrepancias entre el valor real del objeto de medición y el valor obtenido. Este proceso puede ser sistémico: durante la administración de cuestionarios a una población objetivo, el encuestado puede omitir, rehúsar o incluso responder incorrectamente preguntas embarazosas o invasivas. Este dilema es conocido entre los encuestadores: sus encuestados, si bien están dispuestos a ofrecer la mejor ayuda posible, no están dispuestos a ofrecer información que posteriormente les pueda comprometer. Para obtener dichos datos, el encuestador usa todo su ingenio para equilibrar la privacidad del encuestado y los objetivos de su investigación. En un esfuerzo de aminorar el estrés del encuestado, el encuestador puede censurar los datos de forma intervalar.
 
-En muchas situaciones prácticas deseamos investigar como ciertas variables influyen en una variable continua que asume valores en el intervalo $(0,1)$, tales como, porcentajes, proporciones, tasas, etc. Por ejemplo, la tasa de desnutrición de una cierta región puede ser influenciada por el PBI, o la fracción del gasto de un hogar destinado a alimentos puede ser influenciada por variables como el tamaño de la familia, el ingreso total de la familia, etc. En estos casos, los modelos de regresión pueden no ser apropiados para modelar este tipo de datos porque la variable respuesta sólo toma valores en un rango limitado y los valores estimados pueden caer fuera del rango. Una posible solución es transformar este tipo de datos para que asuman valores en toda la recta y modelarlos mediante una regresión. Este enfoque puede presentar varios problemas, uno de ellos es que los parámetros del modelo no sean fácilmente interpretados en términos de los datos originales. Otro problema es que generalmente las proporciones presentan asimetría, por lo tanto la suposición de normalidad no seria adecuada.\footnote{Pie de pagina de ejemplo.}
+Naturalmente, ello trae retos en el proceso de modelamiento de datos. Los modelos estándares de regresión presumen que el dato es directamente observable. No obstante, en situaciones como la precisada en el párrafo precedente dichos modelos tienen que adaptarse a la estructura de los datos. Estos modelos han sido explorados con anterioridad: Gentleman y Geyer (1994) investigaron cómo determinar la máxima verosimilitud, asegurar su consistencia e identificar métodos algorítmicos para su cómputo. Utilizando los puntos de corte del dato (el inicio y final del intervalo), era posible identificar la máxima verosímilitud a través de la diferencia entre las funciones de distribución acumulada para dichos puntos. Posteriormente, métodos de regresión lineal atendiendo esta estructura fueron explorados por Zhang y Li (1996), quien (... pendiente)
+
+(párrafo sobre regresión cuantílica)
+
 
 
 %% ------------------------------------------------------------------------- %%
 \section{Objetivos}
 \label{sec:objetivo}
 
+El objetivo principal de la tesis consiste en proponer un método de regresión cuantílica adaptado a datos positivos con censura intervalar y analizar dicho método a través de datos simulados y reales. Para ello, :
 
 El objetivo general de la tesis es estudiar propiedades, estimar y aplicar a conjuntos de datos reales el
 modelo de regresión beta desde el punto de vista de la estadística bayesiana. De manera específica:
