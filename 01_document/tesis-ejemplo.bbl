@@ -1,21 +1,25 @@
 \begin{thebibliography}{xx}
 
-\harvarditem[Branscum et~al.]{Branscum, Johnson \harvardand\
-  Thurmond}{2007}{betareg2}
-Branscum, A.~J., Johnson, W.~O. \harvardand\ Thurmond, M.~C.  \harvardyearleft
-  2007\harvardyearright .
-\newblock Bayesian beta regression; application to househol data and genetic
-  distance between foot-and-mouth disease viruses, {\em Australian \& New
-  Zealand Journal of Statistics} {\bf 49}(3):~287--301.
+\harvarditem{Gentleman \harvardand\ Geyer}{1994}{gentleman:lmk}
+Gentleman, R. \harvardand\ Geyer, C.~J.  \harvardyearleft 1994\harvardyearright
+  .
+\newblock Maximum likelihood for interval censored data: Consistency and
+  computation, {\em Biometrika} {\bf 81}(3).
 
-\harvarditem{Congdon}{2003}{Congdon2003}
-Congdon, P.  \harvardyearleft 2003\harvardyearright .
-\newblock {\em {Applied-Bayesian-Modelling }}, John Wiley \& Sons.
-
-\harvarditem{Ferrari \harvardand\ Cribari-Neto}{2004}{betareg}
-Ferrari, S. \harvardand\ Cribari-Neto, F.  \harvardyearleft
+\harvarditem[Gomez et~al.]{Gomez, Calle \harvardand\ Oller}{2004}{Gomez:cal}
+Gomez, G., Calle, M.~L. \harvardand\ Oller, R.  \harvardyearleft
   2004\harvardyearright .
-\newblock Beta regression for modelling rates and proportions, {\em Journal of
-  Applied Statistics} {\bf 31}:~799--815.
+\newblock Frequentist and bayesian approaches for interval-censored data, {\em
+  Statistical Papers} {\bf 45}(1).
+
+\harvarditem{Lindsey}{1998}{lindsey:lid}
+Lindsey, J.  \harvardyearleft 1998\harvardyearright .
+\newblock A study of interval censoring in parametric regression models, {\em
+  Lifetime Data Analysis} {\bf 4}(4).
+
+\harvarditem{Peto}{1973}{peto:p}
+Peto, R.  \harvardyearleft 1973\harvardyearright .
+\newblock Experimental survival curves for interval-censored data, {\em Journal
+  of the Royal Statistical Society} {\bf 22}(1).
 
 \end{thebibliography}

@@ -3,37 +3,38 @@
 \label{cap:introduccion}
 
 %% ------------------------------------------------------------------------- %%
-Por distintas razones, los datos recabados en una investigación de índole estadística carecen de precisión: existen discrepancias entre el valor real del objeto de medición y el valor obtenido. Este proceso puede ser sistémico: durante la administración de cuestionarios a una población objetivo, el encuestado puede omitir, rehúsar o incluso responder incorrectamente preguntas embarazosas o invasivas. Este dilema es conocido entre los encuestadores: sus encuestados, si bien están dispuestos a ofrecer la mejor ayuda posible, no están dispuestos a ofrecer información que posteriormente les pueda comprometer. Para obtener dichos datos, el encuestador usa todo su ingenio para equilibrar la privacidad del encuestado y los objetivos de su investigación. En un esfuerzo de aminorar el estrés del encuestado, el encuestador puede censurar los datos de forma intervalar.
+Por distintas razones, los datos recabados en una investigación de índole estadística carecen de precisión: existen discrepancias entre el valor real del objeto de medición y el valor obtenido. Este proceso puede ser sistémico: durante la administración de cuestionarios a una población objetivo, el encuestado puede omitir, rehúsar o incluso responder incorrectamente preguntas embarazosas o invasivas. Este dilema es conocido entre los encuestadores: sus encuestados, si bien están dispuestos a ofrecer la mejor ayuda posible, no están dispuestos a ofrecer información que posteriormente les pueda comprometer. Para obtener dichos datos, el encuestador usa todo su ingenio para equilibrar la privacidad del encuestado y los objetivos de su investigación. En un esfuerzo de aminorar el estrés del encuestado, el encuestador puede censurar los datos.
 
-Naturalmente, ello trae retos en el proceso de modelamiento de datos. Los modelos estándares de regresión presumen que el dato es directamente observable. No obstante, en situaciones como la precisada en el párrafo precedente dichos modelos tienen que adaptarse a la estructura de los datos. Estos modelos han sido explorados con anterioridad: Gentleman y Geyer (1994) investigaron cómo determinar la máxima verosimilitud, asegurar su consistencia e identificar métodos algorítmicos para su cómputo. Utilizando los puntos de corte del dato (el inicio y final del intervalo), era posible identificar la máxima verosímilitud a través de la diferencia entre las funciones de distribución acumulada para dichos puntos. Posteriormente, métodos de regresión lineal atendiendo esta estructura fueron explorados por Zhang y Li (1996), quien (... pendiente)
+Este tipo de datos han sido estudiados previamente. Siguiendo las ideas de \cite{peto:p}, una variable $C$ se le denota censurada cuando su valor $c$ no se conoce y la única información sobre la misma es un intervalo no-cero $I$. Esta construcción permite definir tres tipos de datos censurados: datos censurados \textit{hacia la izquierda} (en dónde el intervalo $I$ se define de la forma $[-\infty,L_i]$), datos censurados \textit{intervalares} (definido de la forma $[L_i, L_f]; L_i < L_f$), datos censurados \textit{hacia la derecha} (definido de la forma $[L_f, \infty]$). El presente estudio se enfoca en el segundo tipo.
 
-(párrafo sobre regresión cuantílica)
+Naturalmente, ello trae retos en el proceso de modelamiento de datos. Los modelos estándares de regresión presumen que la variable respuesta es directamente observable. No obstante, en situaciones como la precisada en el párrafo precedente dichos modelos tienen que adaptarse a la estructura de los datos. Estos modelos han sido explorados con anterioridad: \cite{gentleman:lmk} investigaron cómo determinar la máxima verosimilitud de los datos censurados, asegurar su consistencia e identificar métodos algorítmicos para su cómputo. Utilizando los puntos de corte del dato, $L_i$ y $L_f$, era posible identificar la máxima verosímilitud a través de la diferencia entre las funciones de distribución acumulada en dichos puntos. Posteriormente, métodos de regresión lineal atendiendo esta estructura fueron explorados por \cite{lindsey:lid} de forma paramétrica. Un recuento de este tipo de métodos se encuentra en \cite{Gomez:cal}.
 
+Cabe resaltar que dichos métodos de regresión lineal modelan la respuesta esperada de la variable respuesta condicionada por un conjunto de variables.Sin embargo, el interés del investigador puede recaer en otro objetivo: más allá de la respuesta media, el investigador busca los factores subyacentes que impactan a distintos cuantiles de la variable respuesta. Los factores relacionados a una persona con un gran sueldo son distintos a una persona que no percibe mucho. Para estudios de dicho corte, los modelos de regresión cuantílica brinda la flexibilidad requerida. Dicho modelo fue propuesto inicialmente por Koenker y Basset (1978) quienes, ante la situación en dónde la estimación de mínimos cuadrados es deficiente en modelos con errores no gaussianos, proponen una regresión de cuantiles que permiten modelar libremente los cuantiles de la variable respuesta en relación a las covariables.
 
+La presente tesis propone utilizar los temas anteriormente expuestos para implementar un modelo de regresión cuantílica aplicado a datos con censura intervalar. Para efectos de la aplicación, los datos se modelarán bajo la distribución Weibull, la cual es de amplia aplicabilidad. Dicha distribución será reparametrizada para adecuarse al modelo de regresión. Asimismo, el método de estimación será el de máxima verosimilitud,  siguiendo el marco de la inferencia clásica. 
 
 %% ------------------------------------------------------------------------- %%
 \section{Objetivos}
 \label{sec:objetivo}
 
-El objetivo principal de la tesis consiste en proponer un método de regresión cuantílica adaptado a datos positivos con censura intervalar y analizar dicho método a través de datos simulados y reales. Para ello, :
+El objetivo de la tesis, conforme indicado anteriormente, consiste en proponer un método de regresión cuantílica adaptado a datos con censura intervalar e implementar dicho modelo utilizando los datos de la Encuesta Nacional de Satisfacción de Usuarios en Salud. Para ello, asumimos que los datos subyacentes tienen una distribución Weibull. Los objetivos específicos son los siguientes:
 
-El objetivo general de la tesis es estudiar propiedades, estimar y aplicar a conjuntos de datos reales el
-modelo de regresión beta desde el punto de vista de la estadística bayesiana. De manera específica:
 \begin{itemize}
-\item Revisar la literatura acerca de los diferentes propuestas de modelos de regresión para proporciones.
-\item Proponer estudiar, propiedades, e implementar la estimación del modelo de regresión beta desde la perspectiva bayesiana.
-\item Realizar estudios de simulación de computación intensiva aprovechando el uso de un GRID computacional (proyecto LEGION).
-\item Aplicar el modelo a conjunto de datos reales.
+	\item Revisar literatura académica relacionada a las propuestas de modelos de regresión con datos censurados intervalarmente.
+	\item Identificar una estructura apropiada de la distribución Weibull para el modelo de regresión cuantílica vía una reparametrización del modelo. Posteriormente, estudiar el comportamiento de dicha estructura.
+	\item Estimar los parámetros del modelo propuesto bajo inferencia clásica.
+	\item Implementar el método de estimación para el modelo propuesto en el lenguaje R y aplicarlo en datos simulados.
+	\item Aplicar el modelo propuesto en datos de la Encuesta Nacional de Satisfacción de Usuarios en Salud.
 \end{itemize}
 
 %% ------------------------------------------------------------------------- %%
 \section{Organización del Trabajo}
 \label{sec:organizacion}
 
-En el Capítulo \ref{cap:conceptos}, presentamos conceptos previos al desarrollo de ...
+En el capítulo 2, se presenta una estructura de la distribución Weibull, apropiada para los datos con censura intervalar. Por ello, se realiza una parametrización alternativa y se estudia los 
 
-Finalmente, en el Capítulo \ref{cap:conclusiones} discutimos algunas conclusiones obtenidas en este trabajo. Analizamos la ventajas y desventajas de los métodos propuestos,...
+En el capítulo 3, se propone el modelo de regresión con datos censurados intervalarmente.
 
-En el anexo presentamos algunas pruebas de resultados en más detalles (Apéndice \ref{ape:demostraciones}) y también los programas utilizadas en las aplicaciones a conjuntos de datos reales.
+En el capítulo 4, se presenta la aplicación del modelo propuesto para determinar si existe diferencia entre los sueldos de enfermeras y enfermeros a lo largo de todos los cuantiles. Ello se realiza mediante inferencia clásica.
 
-
+Finalmente, en el capítulo 5 se presentan las principales conclusiones obtenidas en la presente tesis así como los próximos pasos.

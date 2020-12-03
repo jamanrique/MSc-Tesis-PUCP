@@ -1,3 +1,4 @@
+rm(list=ls())
 library(gamlss)
 library(gamlss.cens)
 library(haven)
@@ -32,7 +33,7 @@ Simulation = function(n){
   df = data.frame(X1 = X1, X2 = X2, X3 = X3)
   return(df)
 }
-DF_Simulation = function(df,betas,alpha){
+DF_Simulation = function(df,betas,alpha,tau){
   M = dim(df)[1]
   design_matrix = model.matrix(~ . ,df)
   Qt_i = Qt_a(betas,design_matrix)
@@ -40,7 +41,9 @@ DF_Simulation = function(df,betas,alpha){
   for (j in 1:M) {
     Y=rbind(Y,Rand_Wr(1,Qt_i[j],alpha,tau))
   }
-  min_Y = min(Y); Q8_Y = quantile(Y,0.8); interval = (Q8_Y-min_Y) / 6
+  min_Y = floor(min(Y))
+  Q8_Y = round(quantile(Y,0.8),2)
+  interval = round((Q8_Y-min_Y) / 6,2)
   seq_interv = c(seq(min_Y,Q8_Y,interval),Inf)
   Ls = c()
   for (u in 1:length(Y)) {
@@ -167,43 +170,28 @@ lancet <- function(){
   newsalud_enf$sexo <- as.factor(newsalud_enf$sexo)
   return(newsalud_enf)
 }
-Qt_sim <- function(sim){
-  
-  
-}
-
-dbf = t(colQuantiles(as.matrix(model.matrix(~.,sim)),probs = c(0.35,0.65)))
-betas = matrix(data = c(3,0.4,0.8,1.2,4,0.9,1.2,1.7,6,1,1.5,2.4),nrow = nrow(dbf)+1,ncol = ncol(dbf),byrow = T)
-
-* < 
-
-
-
-
-for (i in 1:nrow(dbf)) {
-  for (j in 1:ncol(dbf)) {
-    
-  }
-}
-
-dbf * betas
-
-c(2,0.4,0.7,0.9) + 2
-
-
 
 #### Simulación ####
-sim = Simulation(1000)
 
+L = 5000
+n = c(100,500,1000)
 betas_sim = c(7,0.3,0.84,2.5)
 alpha_sim = 2
-df_sim = DF_Simulation(sim,betas_sim,alpha_sim,tau_sim)
-df_sim = na.omit(df_sim)
+tau_sim = seq(0.1,0.9,0.1)
 
-m0 = gamlss(Surv(Li,Ls,type="interval2")~.,family = WEI3ic,data = na.omit(df_sim))
-init = as.vector(c(coef(m0),m0$sigma.coefficients));init
+sim_list= list(n100 = list(), n500 = list(), n1000 = list())
 
-reg_Wr(data = df_sim,li = 1,lf = 2,tau = tau_sim,param = init)
+for (j in 1:length(n)) {
+  for (k in 1:length(tau_sim)) {
+    for (p in 1:L) {
+      sim = Simulation(n[j])
+      df_sim = DF_Simulation(sim,betas_sim,alpha_sim,tau_sim[k])
+      m0 = gamlss(Surv(Li,Ls,type="interval2")~.,family = WEI3ic,data = na.omit(df_sim))
+      init = as.vector(c(coef(m0),m0$sigma.coefficients))
+      sim_list[[j]] = append(sim_list[[j]],list(reg_Wr(data = df_sim,li = 1,lf = 2,tau = tau_sim[k],param = init)))
+    }
+  }
+}
 
 #### Datos reales ####
 real_data = lancet()

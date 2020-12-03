@@ -7,44 +7,44 @@ Reallocating 'name_of_file' (item size: 1) to 13 items.
 Reallocating 'name_of_file' (item size: 1) to 4 items.
 The style file: dcu.bst
 Database file #1: bibliografia.bib
-You've used 3 entries,
+You've used 4 entries,
             2921 wiz_defined-function locations,
-            657 strings with 5201 characters,
-and the built_in function-call counts, 12038 in all, are:
-= -- 1967
-> -- 141
+            662 strings with 5276 characters,
+and the built_in function-call counts, 11413 in all, are:
+= -- 1809
+> -- 165
 < -- 0
-+ -- 926
-- -- 42
-* -- 1025
-:= -- 2442
-add.period$ -- 6
-call.type$ -- 3
-change.case$ -- 41
-chr.to.int$ -- 3
-cite$ -- 3
-duplicate$ -- 43
-empty$ -- 96
-format.name$ -- 53
-if$ -- 2160
++ -- 836
+- -- 49
+* -- 945
+:= -- 2419
+add.period$ -- 8
+call.type$ -- 4
+change.case$ -- 56
+chr.to.int$ -- 4
+cite$ -- 4
+duplicate$ -- 52
+empty$ -- 101
+format.name$ -- 62
+if$ -- 2019
 int.to.chr$ -- 5
 int.to.str$ -- 0
 missing$ -- 4
-newline$ -- 15
-num.names$ -- 31
-pop$ -- 11
+newline$ -- 19
+num.names$ -- 41
+pop$ -- 7
 preamble$ -- 1
-purify$ -- 45
+purify$ -- 60
 quote$ -- 0
-skip$ -- 37
+skip$ -- 58
 stack$ -- 0
-substring$ -- 2773
-swap$ -- 5
-text.length$ -- 42
+substring$ -- 2465
+swap$ -- 8
+text.length$ -- 56
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 10
+type$ -- 16
 warning$ -- 0
-while$ -- 65
+while$ -- 84
 width$ -- 0
-write$ -- 43
+write$ -- 56
