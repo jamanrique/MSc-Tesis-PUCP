@@ -6,10 +6,5 @@
 \contentsline {chapter}{\numberline {1}Introducci\'on}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Objetivos}{2}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Organizaci\'on del Trabajo}{2}{section.1.2}%
-\contentsline {chapter}{\numberline {2}Distribuci\'on Weibull}{3}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Distribuci\'on Weibull}{3}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Funci\'on de densidad}{3}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Proposici\'on de una nueva estructura de la distribuci\'on}{3}{subsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.1.3}Estudio de la parametrizaci\'on propuesta}{4}{subsection.2.1.3}%
-\contentsline {chapter}{\numberline {A}Resultados te\'oricos}{7}{appendix.Alph1}%
-\contentsline {chapter}{Bibliograf\'{\i }a}{8}{appendix*.13}%
+\contentsline {chapter}{\numberline {A}Resultados te\'oricos}{3}{appendix.Alph1}%
+\contentsline {chapter}{Bibliograf\'{\i }a}{4}{appendix*.10}%
