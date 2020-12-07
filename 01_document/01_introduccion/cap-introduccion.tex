@@ -1,0 +1,40 @@
+%% ------------------------------------------------------------------------- %%
+\chapter{Introducción}
+\label{cap:introduccion}
+
+%% ------------------------------------------------------------------------- %%
+Por distintas razones, los datos recabados en una investigación de índole estadística carecen de precisión: existen discrepancias entre el valor real del objeto de medición y el valor obtenido. Este proceso puede ser sistémico: durante la administración de cuestionarios a una población objetivo, el encuestado puede omitir, rehúsar o incluso responder incorrectamente preguntas embarazosas o invasivas. Este dilema es conocido entre los encuestadores: sus encuestados, si bien están dispuestos a ofrecer la mejor ayuda posible, no están dispuestos a ofrecer información que posteriormente les pueda comprometer. Para obtener dichos datos, el encuestador usa todo su ingenio para equilibrar la privacidad del encuestado y los objetivos de su investigación. En un esfuerzo de aminorar el estrés del encuestado, el encuestador puede censurar los datos con el fin de obtener una respuesta.
+
+Dichos datos censurados han sido estudiados previamente en la literatura académica. Formalmente, y siguiendo las ideas plasmadas por \cite{peto:p}, una variable $C$ se le denota censurada cuando su valor $c$ no es del todo observable y la única información sobre la misma es un intervalo no-cero $I$. Esta construcción permite definir tres tipos de datos censurados: datos censurados \textit{hacia la izquierda} (en dónde el intervalo $I$ se define de la forma $[-\infty,L_i]$), datos censurados \textit{intervalares} (definido de la forma $[L_i, L_f]; L_i < L_f$), datos censurados \textit{hacia la derecha} (definido de la forma $[L_f, \infty]$). Este tipo de datos naturalmente generan retos en el proceso de modelamiento, pues los modelos estándares de regresión presumen que la variable respuesta es directamente observable.
+
+Situaciones como la precisada en el parráfo precedente han sido exploradas previamente: desde la determinación de la verosimilitud, la elaboración de modelos de regresión y su estimación bajo inferencia clásica y bayesiana. \cite{gentleman:lmk} identificaron un método de máxima verosimilitud para este tipo de datos, asegurando su consistencia estadística e identificando métodos algorítmicos para su cómputo. Utilizado los puntos extremos del intervalo, $L_i$ y $L_f$, era posible identificar la máxima verosímilitud a través de la diferencia de las funciones de distribución acumulada en dichos puntos. Tomando en consideración dicho método de estimación, distintos autores propusieron modelos de regresión paramétricos bajo inferencia clásica y bayesiana, tales como \cite{mun:xu}, quienes identificaron modelos paramétricos de supervivencia para este tipo de datos.
+
+Cabe resaltar que los modelos anteriormente expuestos identifican el valor esperado de la variable respuesta condicionada por un conjunto de variables. Sin embargo, el interés del investigador puede recaer en otro objetivo: más allá de la respuesta media, el investigador busca los factores subyacentes que impactan a distintos cuantiles de la variable respuesta. Los factores relacionados a una persona con un gran sueldo son distintos a una persona que no percibe mucho. Para estudios de dicho corte, los modelos de regresión cuantílica brinda la flexibilidad requerida. Dicho modelo fue propuesto inicialmente por Koenker y Basset (1978) quienes, ante la situación en dónde la estimación de mínimos cuadrados es deficiente en modelos con errores no gaussianos, proponen una regresión de cuantiles que permiten modelar libremente los cuantiles de la variable respuesta en relación a las covariables.
+
+\textbf{Pendiente: Texto explicando los estudios de regresión cuantílica con censura intervalar}
+
+La presente tesis propone utilizar los temas y modelos anteriormente expuestos para implementar un modelo paramétrico de regresión cuantílica aplicado a datos con censura intervalar. Para efectos de la aplicación, los datos se modelarán bajo una distribución Weibull, la cual es de amplia aplicabilidad y permite modelar colas pesadas. Con el propósito de implementar la regresión cuantílica y, atendiendo a la estructura de los datos, dicha distribución será reparametrizada. Finalmente, el método de estimación será el de máxima verosimilitud, siguiendo el marco de la inferencia clásica.
+
+\section{Objetivos}
+\label{sec:objetivo}
+
+El objetivo de la tesis consiste en proponer un método de regresión cuántiliza adaptado a datos con censura intervalar. Para identificar que el modelo propuesto es adecuado, aplicaremos la regresión en dos conjuntos de datos: uno simulado y otro real. La base de datos a utilizar será la Encuesta Nacional de Satisfacción de Usuarios en Salud elaborada por el Instituto Nacional de Estadística e Informática el año 2015. Los objetivos específicos de la tesis son los siguientes:
+
+\begin{itemize}
+	\item Revisar literatura académica relacionada a las propuestas de modelos de regresión con datos censurados intervalarmente.
+	\item Identificar una estructura apropiada de la distribución Weibull para el modelo de regresión cuantílica vía una reparametrización del modelo. Posteriormente, estudiar el comportamiento de dicha estructura.
+	\item Estimar los parámetros del modelo propuesto bajo inferencia clásica.
+	\item Implementar el método de estimación para el modelo propuesto en el lenguaje R y aplicarlo en datos simulados.
+	\item Aplicar el modelo propuesto en datos de la Encuesta Nacional de Satisfacción de Usuarios en Salud.
+\end{itemize}
+
+\section{Organización del Trabajo}
+\label{sec:organizacion}
+
+En el capítulo 2, se presenta una estructura de la distribución Weibull, apropiada para los datos con censura intervalar. Por ello, se realiza una parametrización alternativa y se estudia los 
+
+En el capítulo 3, se propone el modelo de regresión con datos censurados intervalarmente.
+
+En el capítulo 4, se presenta la aplicación del modelo propuesto para determinar si existe diferencia entre los sueldos de enfermeras y enfermeros a lo largo de todos los cuantiles. Ello se realiza mediante inferencia clásica.
+
+Finalmente, en el capítulo 5 se presentan las principales conclusiones obtenidas en la presente tesis así como los próximos pasos.

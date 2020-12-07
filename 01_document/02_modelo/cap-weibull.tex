@@ -1,32 +1,30 @@
 \chapter{Distribución Weibull}
 
-El presente capítulo tiene como objetivo estudiar las principales propiedades de la distribución Weibull vía una reparametrización del modelo original. Dicha distribución se utilizará en los capítulos futuros. Para esta reparametrización, se define su función de probabilidad y sus propiedades (esperanza y varianza).
+El presente capítulo tiene el objetivo de proponer una reparametrización de la distribución Weibull para adaptarla al modelo de regresión cuantílica. Se definirán su función de densidad y función acumulada, y asimismo se estudiarán sus propiedades.
 
 \section{Distribución Weibull}
 
 \subsection{Función de densidad}
 
-La distribución Weibull, fue desarrollada por el ingeniero sueco Waloddi Weibull, es una distribución de amplia aplicabilidad (Weibull, 1951). Una variable aleatoria continua $y$, en dónde $y > 0$, tiene distribución Weibull con parámetro de forma $\alpha$ y dispersión $\sigma$ respectivamente si su función de densidad es dada por la siguiente expresión:
+Una variable aleatoria continua $Y$, con soporte $Y \in [0,\infty]$, sigue una distribución Weibull si su función de densidad, la cual tiene parámetro de forma $\alpha$ y dispersión $\sigma$, es dada por la siguiente expresión:
 
 \begin{equation*}
 f{(y)}= \frac{\alpha}{\sigma}\left(\frac{y}{\sigma}\right)^{\alpha-1} \exp{\left(-\frac{y}{\sigma}\right)^{\alpha}}
 \end{equation*}
-\noindent en dónde $\alpha > 0$ y $\sigma > 0$. La notación de una variable aleatoria $u$ que sigue esta distribución se indica como $y \sim W(\alpha,\sigma)$.
-.
-Asimismo, la función acumulada de $y$ corresponde a la siguiente expresión:
+\noindent en dónde $\alpha > 0$ y $\sigma > 0$. La notación de una variable aleatoria $Y$ que sigue esta distribución se indica como $Y \sim W(\alpha,\sigma)$. Asimismo, la función acumulada de $Y$ corresponde a la siguiente expresión:
 
 \[F{(y)}=1-\exp^{-{(\frac{y}{\sigma})}^{\alpha}}.\]
 
-Y la función de cuantiles es dada por:
+y su función de cuantiles es dada por:
 
 \[q_{t}=\sigma{(-\log{(1-t)})}^{\frac{1}{\alpha}}\]
 
 \noindent para $0 < t < 1$.
 
-Para dicha variable aleatoria $y$ la media y varianza es de la siguiente forma:
+Para dicha variable aleatoria $Y$ la media y varianza es de la siguiente forma:
 
-\[E(y)=\sigma \Gamma\left( 1+\frac{1}{\alpha} \right).\]
-\[V(y)=\sigma^{2}\left[ \Gamma\left( 1+\frac{2}{\alpha} \right)-\left( \Gamma\left( 1+\frac{1}{\alpha} \right) \right)^{2} \right].\]
+\[E(Y)=\sigma \Gamma\left( 1+\frac{1}{\alpha} \right).\]
+\[V(Y)=\sigma^{2}\left[ \Gamma\left( 1+\frac{2}{\alpha} \right)-\left( \Gamma\left( 1+\frac{1}{\alpha} \right) \right)^{2} \right].\]
 
 \subsection{Proposición de una nueva estructura de la distribución}
 
@@ -34,14 +32,16 @@ Consideramos, para la distribución Weibull, una reparametrización en términos
 
 \[q_{t}=\sigma\left( -\log\left( 1-t \right) \right)^{\frac{1}{\alpha}}.\]
 
-Al respecto, cabe indicar que $t$ será un valor conocido y se encuentra en el intervalo $[0,1]$. En esta nueva esctructura, $q_{t}$ y $\alpha$ tienen espacios paramétricos independientes tal que $(q_{t},\alpha) \in (0,\infty)$ x $(0,\infty)$. Una variable aleatoria que sigue esta parametrización se denota como $Y \sim W_{r}(q_{t},\alpha,t)$.
+Al respecto, cabe indicar que $t$ será un valor conocido y se encuentra en el intervalo $[0,1]$. En esta nueva esctructura, $q_{t}$ y $\alpha$ tienen espacios paramétricos independientes tal que $(q_{t},\alpha) \in (0,\infty)$ x $(0,\infty)$. Una variable aleatoria que sigue esta parametrización se denota como $Y \sim W_{r}(q_{t},\alpha)$.
 
 La función de densidad de dicha variable $Y$ tiene la siguiente expresión:
 \begin{equation}
-f_{y}(y| q_{t},\alpha,t)=\frac{\alpha c(t)}{q_{t}}\left( \frac{y}{q_{t}} \right)^{\alpha-1}\exp\left( -c(t)\left( \frac{y}{q_{t}} \right)^{\alpha} \right)
+f_{Y}(y| q_{t},\alpha)=\frac{\alpha c(t)}{q_{t}}\left( \frac{y}{q_{t}} \right)^{\alpha-1}\exp\left( -c(t)\left( \frac{y}{q_{t}} \right)^{\alpha} \right)
 \end{equation}
 \\
-\noindent en dónde $c(t)= \left( -\log(1-t) \right)^{\frac{1}{\alpha}}$. Los parámetros $q_{t}$ y $\alpha$ caracterizan la función de densidad conforme se observa en el gráfico siguiente:
+\noindent en dónde $c(t)= \left( -\log(1-t) \right)^{\frac{1}{\alpha}}$. Los parámetros $q_{t}$ y $\alpha$ caracterizan la función de densidad conforme se observa el gráfico siguiente:
+
+\textbf{Nota del profesor Valdivieso: Mejorar esta densidad.}
 
 \begin{figure}[H]
 \includegraphics[width=\textwidth]{densidad1}
@@ -52,7 +52,7 @@ f_{y}(y| q_{t},\alpha,t)=\frac{\alpha c(t)}{q_{t}}\left( \frac{y}{q_{t}} \right)
 
 Reexpresando la función acumulada en los términos de la parametrización propuesta, esta tendría la siguiente forma:
 \begin{equation} \label{eq:1}
-F_{y}\left(y| q_{t},\alpha,t \right)=1-\exp\left( -c(t)\left( \frac{y}{q_{t}} \right)^{\alpha} \right).
+F_{Y}\left(y| q_{t},\alpha,t \right)=1-\exp\left( -c(t)\left( \frac{y}{q_{t}} \right)^{\alpha} \right).
 \end{equation}
 \subsection{Estudio de la parametrización propuesta}
 
@@ -62,10 +62,12 @@ E(Y)=\frac{q_{t}}{c(t)^{\frac{1}{\alpha}}}\Gamma\left( 1+\frac{1}{\alpha} \right
 \end{equation}
 
 \begin{equation}
-Var(y)=\frac{q_{t}^{2}}{c(t)^{\frac{1}{\alpha}}}\left[ \Gamma\left( 1+\frac{2}{\alpha}\right)-\Gamma\left( 1+\frac{1}{\alpha} \right)^{2} \right]
+Var(Y)=\frac{q_{t}^{2}}{c(t)^{\frac{1}{\alpha}}}\left[ \Gamma\left( 1+\frac{2}{\alpha}\right)-\Gamma\left( 1+\frac{1}{\alpha} \right)^{2} \right]
 \end{equation}
 
 Bajo la parametrización propuesta, se observa que para un $\alpha$ fijo el valor esperado se comporta de forma lineal en la medida que aumente el parámetro $q_{t}$ conforme se observa en el cuadro siguiente:
+
+\textbf{Nota del profesor Valdivieso: Mejorar esta densidad.}
 
 \begin{figure}[H]
 	\includegraphics[width=\textwidth]{esperado}
