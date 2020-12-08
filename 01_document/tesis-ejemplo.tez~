@@ -6,12 +6,12 @@
 \usepackage{pifont}
 \usepackage{amsfonts}
 \usepackage{amssymb} 
-\usepackage{setspace}
-\usepackage[small,compact]{titlesec}
-\usepackage{indentfirst} 
-\usepackage[round]{natbib}
-\usepackage{subfigure} 	
-\usepackage[nottoc]{tocbibind}
+\usepackage{setspace}                   % espaciamento flex¿ble
+\usepackage[small,compact]{titlesec} 	% encabezamiento de los t¿tulos: menores y compactos
+\usepackage{indentfirst} 				% indentaci¿n del primer parrafo
+\usepackage[round]{natbib} % libreria para la bibliografia
+\usepackage{subfigure} 					% uso de v¿rias figuras en una sola
+\usepackage[nottoc]{tocbibind} 			% para que la bibliografia aparezca en el indice
 \usepackage{setspace}
 \usepackage{longtable}
 \usepackage{lscape}
@@ -20,6 +20,7 @@
 \usepackage[a4paper,top=2.54cm, bottom=2.54cm, left=3cm, right=2.54cm]{geometry} %margenes
 
 % ---------------------------------------------------------------------------- %
+% Algunos comandos
 \graphicspath{{./figuras/}}
 \makeindex  
 \raggedbottom
@@ -120,7 +121,7 @@ Abstract
 % Indice
 \tableofcontents    % imprime el indice
 % ---------------------------------------------------------------------------- %
-
+% Listas: abreviaturas, s¿mbolos, figuras y cuadros
 
 \chapter{Lista de Abreviaturas}
 \begin{tabular}{ll}
@@ -142,8 +143,6 @@ Abstract
 \onehalfspacing              % interlineado 1.5
 
 \input{01_introduccion/cap-introduccion}
-\input{02_modelo/cap-modelo}
-
 \appendix
 \include{ape-1}      % associado ao arquivo: 'ape-1.tex'
 

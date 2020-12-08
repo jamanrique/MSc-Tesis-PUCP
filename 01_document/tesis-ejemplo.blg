@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: tesis-ejemplo.aux
+Reallocating 'name_of_file' (item size: 1) to 10 items.
+A level-1 auxiliary file: ape-1.aux
+Reallocating 'name_of_file' (item size: 1) to 13 items.
+Reallocating 'name_of_file' (item size: 1) to 4 items.
+The style file: dcu.bst
+Database file #1: bibliografia.bib
+You've used 4 entries,
+            2921 wiz_defined-function locations,
+            661 strings with 5258 characters,
+and the built_in function-call counts, 9705 in all, are:
+= -- 1518
+> -- 142
+< -- 0
++ -- 683
+- -- 42
+* -- 781
+:= -- 2104
+add.period$ -- 8
+call.type$ -- 4
+change.case$ -- 56
+chr.to.int$ -- 4
+cite$ -- 4
+duplicate$ -- 52
+empty$ -- 100
+format.name$ -- 58
+if$ -- 1710
+int.to.chr$ -- 5
+int.to.str$ -- 0
+missing$ -- 4
+newline$ -- 19
+num.names$ -- 40
+pop$ -- 10
+preamble$ -- 1
+purify$ -- 60
+quote$ -- 0
+skip$ -- 56
+stack$ -- 0
+substring$ -- 2027
+swap$ -- 7
+text.length$ -- 56
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 16
+warning$ -- 0
+while$ -- 84
+width$ -- 0
+write$ -- 54
