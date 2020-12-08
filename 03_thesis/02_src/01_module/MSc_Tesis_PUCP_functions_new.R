@@ -42,6 +42,9 @@ DF_Simulation = function(df,betas,alpha,tau){
     Y=rbind(Y,Rand_Wr(1,Qt_i[j],alpha,tau))
   }
   min_Y = floor(min(Y))
+  if (min_Y == 0) {
+    min_Y <- 0.01
+  }
   Q8_Y = round(quantile(Y,0.8),2)
   interval = round((Q8_Y-min_Y) / 6,2)
   seq_interv = c(seq(min_Y,Q8_Y,interval),Inf)
@@ -173,7 +176,7 @@ lancet <- function(){
 
 #### Simulación ####
 
-L = 5000
+L = 1000
 n = c(100,500,1000)
 betas_sim = c(7,0.3,0.84,2.5)
 alpha_sim = 2
