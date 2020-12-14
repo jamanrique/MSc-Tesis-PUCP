@@ -1,9 +1,12 @@
 library(rgl)
 library(tidyverse)
 library(ggridges)
+library(ggpubr)
+library(latex2exp)
+library(gridExtra)
 
 rm(list=ls())
-x <- 1000
+x <- 10000
 seqsigma <- seq(1,9,1)
 col_names <- c("\U003C3 = 1","\U003C3 = 2","\U003C3 = 3","\U003C3 = 4","\U003C3 = 5","\U003C3 = 6","\U003C3 = 7","\U003C3 = 8","\U003C3 = 9")
 
@@ -20,7 +23,13 @@ density1 <- ggplot(dbf, aes(x=value,y=x1,fill=x1)) +
   scale_discrete_manual(aesthetics = "point_fill", values = c(21, 22, 23,24,25,26,27,28,29)) + 
   theme_ridges(grid = FALSE, center_axis_labels = TRUE) +
   theme(axis.text.y = element_blank()) +
-  labs(x="y",y="Función de densidad para Y \U0007E W(\U03B1,\U003C3), \U03B1 = 2") 
+  labs(x="y",y="Densidad",title="Y \U0007E W(\U03B1,\U003C3), \U03B1 = 2",subtitle = "Simulación de 10,000 valores") +
+  theme(plot.title = element_text(face="bold",hjust=1,size=16),
+        plot.subtitle = element_text(face="italic",hjust=1,size=14),
+        panel.background = element_rect(fill = "gray90"),
+        panel.grid.major = element_line(color = "gray40", size = .25),
+        panel.grid.minor = element_line(color = "gray70", size = .25),
+        axis.title = element_text(size=8))
 
 
 seqalpha <- seq(1,9,1)
@@ -38,10 +47,97 @@ colnames(dbf_b) <- c("value","x1")
 density2 <- ggplot(dbf_b, aes(x=value,y=x1,fill=x1)) +
   geom_density_ridges(aes(point_fill=x1),  alpha = .35, point_alpha = 1) +
   scale_point_color_hue(l = 40) +
-  scale_discrete_manual(aesthetics = "point_fill", values = c(21, 22, 23,24,25,26,27,28,29)) + 
+  scale_discrete_manual(aesthetics = "point_fill", values = c(21, 22, 23,24,25,26,27,28,29)) +
   theme_ridges(grid = FALSE, center_axis_labels = TRUE) +
   theme(axis.text.y = element_blank()) +
-  labs(x="y",y="Función de densidad para Y \U0007E W(\U03B1,\U003C3), \U003C3 = 2") 
+  labs(x="y",y="Densidad" , title="Y \U0007E W(\U03B1,\U003C3), \U003C3 = 2",subtitle = "Simulación de 10,000 valores")+
+  theme(plot.title = element_text(face="bold",hjust=1,size=16),
+        plot.subtitle = element_text(face="italic",hjust=1,size=14),
+        panel.background = element_rect(fill = "gray90"),
+        panel.grid.major = element_line(color = "gray40", size = .25),
+        panel.grid.minor = element_line(color = "gray70", size = .25),
+        axis.title = element_text(size=8))
+ 
 
-density1
-density2
+ggarrange(density1,density2,ncol=2,legend="bottom")
+
+#### Generación de densidad ####
+
+rm(list=ls())
+
+rtweibull = function(n, qt, alpha, t) {
+  ## Reparametrizaci?n de los datos a la f?rmula b?sica de Weibull en R ##
+  beta = qt / (-log(1 - t)) ^ (1 / alpha)
+  qm = rweibull(n = n, scale = alpha, shape = beta)
+  return(qm)
+}
+
+dtweibull <- function(value, qt, alpha, t) {
+  if (t > 1 | t < 0) {stop("par?metro t solo puede contener valores entre 0 y 1")}
+  if (qt < 0) {stop("par?metro qt solo puede ser superior a 0")}
+  if (alpha < 0) {stop("par?metro alpha solo puede ser superior a 0")}
+  ct = (-log(1 - t)) ^ (1 / alpha)
+  b = qt / ct
+  a = alpha
+  dt = dweibull(x = value, shape = a,scale =  b)
+  return(dt)
+}
+
+vtweibull <- function(qt, alpha, t) {
+  if (t > 1 | t < 0) {stop("par?metro t solo puede contener valores entre 0 y 1")}
+  if (qt < 0) {stop("par?metro qt solo puede ser superior a 0")}
+  if (alpha < 0) {stop("par?metro alpha solo puede ser superior a 0")}
+  ct = (-log(1 - t)) ^ (1 / alpha)
+  var = ((qt ^ 2) / (ct) ^ (1 / alpha)) * (gamma(1 + (2 / alpha)) - (gamma(1 + (1 / alpha))) ^ 2)
+  return(var)
+}
+
+mtweibull <- function(qt, alpha, t) {
+  if (t > 1 | t < 0) {stop("par?metro t solo puede contener valores entre 0 y 1")}
+  if (qt < 0) {stop("par?metro qt solo puede ser superior a 0")}
+  if (alpha < 0) {stop("par?metro alpha solo puede ser superior a 0")}
+  ct = (-log(1 - t)) ^ (1 / alpha)
+  mt = ((qt) / (ct ^ (1 / alpha))) * gamma(1 + 1 / alpha)
+  return(mt)
+}
+
+seq_qt <- seq(1,10,length.out = 5)
+seq_tau <- seq(0.1,0.9,length.out = 5)
+alpha <- 1
+n <- 10000
+
+densityplot <- function(n,qt,tau,alpha,xlim1,xlim2){
+  dens <- data.frame(x=rtweibull(n = n,qt = qt,alpha = alpha,t = tau))
+  dens.mean <- data.frame(y=mean(dens$x))
+  gg <- ggplot(dens,
+               aes(x=x)) +
+    geom_density(color="black",fill="firebrick",alpha=0.8) +
+    xlim(c(xlim1,xlim2))+
+    labs(y="Densidad",
+         x = "y", 
+         title = (paste("Y \U0007E W\U01D63(Qt = ",qt,", \U003B1 = ",alpha,"); \U003C4 =",tau,sep = "")),
+         subtitle = "Simulación de 10,000 valores")+
+    theme(plot.title = element_text(face="bold",hjust=1,size=10),
+          plot.subtitle = element_text(face="italic",hjust=1,size=8),
+          panel.background = element_rect(fill = "gray90"),
+          panel.grid.major = element_line(color = "gray40", size = .25),
+          panel.grid.minor = element_line(color = "gray70", size = .25),
+          axis.title = element_text(size=8))
+  return(gg)
+}
+gg_plots <- list()
+for (qt in 1:length(seq_qt)) {
+    for(t in 1:length(seq_tau)){
+    gg_plots <- append(gg_plots,list(densityplot(n,seq_qt[qt],seq_tau[t],2,0,5)))
+  }
+}
+plot_grid <- do.call(grid.arrange,gg_plots)
+
+seq_alpha <- seq(1,10,length.out = 5)
+gg_plots_a <- list()
+for (qt in 1:length(seq_alpha)) {
+  for(t in 1:length(seq_tau)){
+    gg_plots_a <- append(gg_plots_a,list(densityplot(n,2,seq_tau[t],seq_alpha[qt],0,20)))
+  }
+}
+plot_grid_alpha <- do.call(grid.arrange,gg_plots_a)

@@ -20,7 +20,12 @@ f{(y)}= \frac{\alpha}{\sigma}\left(\frac{y}{\sigma}\right)^{\alpha-1} \exp{\left
 
 \noindent para $0 < t < 1$.
 
-La flexibilidad denotada por Weibull puede observarse a través de la figura 1, en dónde se observa que el parámetro de forma permite ..... Asimismo, el parámetro de escala permite identificar lo junta que puede ser la distribución,
+La flexibilidad denotada por Weibull puede observarse a través de \label{weib:original}. En dicha figura, observamos que una modificación del parámetro de forma $\sigma$ estira la distribución; es decir, la distribución tiene una dispersión cada vez mayor en la medida que $\sigma$ aumenta. Asimismo, se observa que la distribución tiende a ser asimétrica: se observa que la cola derecha de la distribución es más pesada. Por otro lado, se observa que la alteración del parámetro de escala $\alpha$ produce una contracción de la distribución hacia el valor central de la misma. Esto es más pronunciado en la medida que dicho parámetro aumenta, manteniendo $\sigma$ constante. No obstante, cabe resaltar que la distribución se torna asimétrica en tanto los valores de $\alpha$ son pequeños.
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{weib_distrib}
+	\label{weib:original}
+\end{figure}
 
 Para una variable $Y \sim W(\alpha, \sigma)$, la media y varianza se define de la siguiente forma:
 
@@ -33,23 +38,19 @@ Consideramos una reparametrización del parámetro de forma $\sigma$ en términos d
 
 \[q_{t}=\sigma\left( -\log\left( 1-t \right) \right)^{\frac{1}{\alpha}}.\]
 
-\noindent en dónde $t$ será un valor conocido y se encuentra en el intervalo $[0,1]$. En esta nueva esctructura, $q_{t}$ y $\alpha$ tienen espacios paramétricos independientes tal que $(q_{t},\alpha) \in (0,\infty)$ x $(0,\infty)$. Una variable aleatoria que sigue esta parametrización se denota como $Y \sim W_{r}(q_{t},\alpha)$.
+\noindent en dónde $t$ será un valor conocido y se encuentra en el intervalo $[0,1]$. En esta nueva estructura, $q_{t}$ y $\alpha$ tienen espacios paramétricos independientes tal que $(q_{t},\alpha) \in (0,\infty)$ x $(0,\infty)$. Una variable aleatoria que sigue esta parametrización se denota como $Y \sim W_{r}(q_{t},\alpha)$.
 
 La función de densidad de dicha variable $Y$ tiene la siguiente expresión:
 \begin{equation}
 f_{Y}(y| q_{t},\alpha)=\frac{\alpha c(t)}{q_{t}}\left( \frac{y}{q_{t}} \right)^{\alpha-1}\exp\left( -c(t)\left( \frac{y}{q_{t}} \right)^{\alpha} \right)
 \end{equation}
 \\
-\noindent en dónde $c(t)= \left( -\log(1-t) \right)^{\frac{1}{\alpha}}$. Los parámetros $q_{t}$ y $\alpha$ caracterizan la función de densidad conforme se observa el gráfico siguiente:
+\noindent en dónde $c(t)= \left( -\log(1-t) \right)^{\frac{1}{\alpha}}$. Los parámetros $q_{t}$ y $\alpha$, así como el cuantil $t$, caracterizan la función de densidad conforme se observa en \label{newdens:qt}. En dicha figura, se observa el efecto del nuevo parámetro $q_t$ y el cuantil $t$. Un estudio transversal del nuevo parámetro por cada cuantil $t$ nos permite observar que el aumento de dicho parámetro contrae la distribución hacia su valor central, el cual se observa que es el parámetro de forma $\alpha$. Por otro lado, un estudio transversal de cada cuantil $t$ por cada valor del nuevo parámetro $q_t$ nos permite observar que la distribución se expande; y, en determinados casos, torna la distribución asimétrica con la cola derecha pesada. Finalmente, observamos que valores pequeños del parámetro $q_t$ se traduce en una mayor dispersión en torno al valor central de la distribución.
 
-\textbf{Nota del profesor Valdivieso: Mejorar esta densidad.}
-
-\begin{figure}
-\includegraphics[width=\textwidth]{densidad1}
-\caption{Función de densidad de una distribución Weibull bajo la reparametrización propuesta.}
-\end{figure}
-
-\noindent Se observa que en la medida que $q_{t}$ aumenta, la distribución incrementa su asimetría hacia la derecha. Ello también sucede, aunque en menor grado, cuando $\alpha$ aumenta. No obstante, se observa que en la medida que $\alpha$ tiende a 0, incrementa la dispersión.
+\begin{sidewaysfigure}[ht]
+	\includegraphics[textwidth]{rep_weibull_qt}
+	\label{newdens:qt}
+\end{sidewaysfigure}
 
 Reexpresando la función acumulada en los términos de la parametrización propuesta, esta tendría la siguiente forma:
 \begin{equation} \label{eq:1}

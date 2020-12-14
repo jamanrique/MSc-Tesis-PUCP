@@ -84,7 +84,6 @@ reg_Wr = function(data,li,lf,tau,param){
   df = data_mgmt(data,li,lf)
   Bs = as.matrix(rep(0,ncol(df[['matriz.diseno']])))
   fit_mv = optim(par = param,fn = likelihood,hessian = T,betas=Bs,df=df,tau=tau)
-  print(fit_mv$convergence)
   return(fit_mv)
 }
 lancet <- function(){
