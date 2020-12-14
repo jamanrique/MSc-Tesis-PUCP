@@ -21,7 +21,6 @@
 \usepackage{lscape}
 \usepackage{rotating}
 \usepackage{epstopdf}
-\usepackage{pdflscape}
 \usepackage[colorlinks=true,urlcolor=red,citecolor=green,linkcolor=blue]{hyperref}
 \usepackage[a4paper,top=2.54cm, bottom=2.54cm, left=3cm, right=2.54cm]{geometry} %margenes
 
@@ -58,7 +57,7 @@
 \thispagestyle{empty}
 \begin{center}
 \vspace*{1cm}
-\textbf{\Large{PONTIFICIA UNIVERSIDAD CATÓLICA DEL PERÚ }}\\
+\textbf{\Large{PONTIFICIA UNIVERSIDAD CAT¿LICA DEL PER¿ }}\\
 \vspace*{1.2cm}
 
 \textbf{\Large{ESCUELA DE GRADUADOS}}\\
@@ -72,14 +71,14 @@
   para datos positivos}}\\
 \vspace{1.2cm}
 \textbf{\large{TESIS PARA OPTAR POR EL GRADO DE MAGISTER EN\\
-  ESTADÍSTICA}}\\
+  ESTAD¿STICA}}\\
   
 \vspace*{1.2cm}
 \textbf{\large{Presentado por:}}\\
 \vspace*{0.3cm}
-\textbf{\large{Justo Andrés Manrique Urbina}}\\
+\textbf{\large{Justo Andr¿s Manrique Urbina}}\\
 \vspace*{1.2cm}
-\textbf{\large{Asesor: Cristian Luis Bayes Rodríguez}}\\
+\textbf{\large{Asesor: Cristian Luis Bayes Rodr¿guez}}\\
 
 \vspace*{1.2cm}
 
@@ -113,7 +112,7 @@ A mi asesor Cristian Bayes y al profesor Giancarlo Sal y Rosas, quienes ofrecier
 % Resumen
 \chapter*{Resumen}
 
-\noindent \textbf{Palabras clave:} censura intervalar, regresión con censura.
+\noindent \textbf{Palabras clave:} censura intervalar, regresi¿n con censura.
 
 % ---------------------------------------------------------------------------- %
 % Abstract
@@ -130,11 +129,11 @@ Abstract
 
 \chapter{Lista de Abreviaturas}
 \begin{tabular}{ll}
- 		fdp     & Función de densidad de probabilidad.\\
+ 		fdp     & Funci¿n de densidad de probabilidad.\\
 	pBF 		& Pseudo factor de Bayes(\emph{Pseudo bayes factor}).\\
 \end{tabular}
 
-\chapter{Lista de Símbolos}
+\chapter{Lista de S¿mbolos}
 \begin{tabular}{ll}
 		$\mu$    & Media.\\
 \end{tabular}

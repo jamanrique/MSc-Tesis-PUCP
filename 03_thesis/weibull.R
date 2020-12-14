@@ -68,37 +68,8 @@ rm(list=ls())
 rtweibull = function(n, qt, alpha, t) {
   ## Reparametrizaci?n de los datos a la f?rmula b?sica de Weibull en R ##
   beta = qt / (-log(1 - t)) ^ (1 / alpha)
-  qm = rweibull(n = n, scale = alpha, shape = beta)
+  qm = rweibull(n = n, scale = beta, shape = alpha)
   return(qm)
-}
-
-dtweibull <- function(value, qt, alpha, t) {
-  if (t > 1 | t < 0) {stop("par?metro t solo puede contener valores entre 0 y 1")}
-  if (qt < 0) {stop("par?metro qt solo puede ser superior a 0")}
-  if (alpha < 0) {stop("par?metro alpha solo puede ser superior a 0")}
-  ct = (-log(1 - t)) ^ (1 / alpha)
-  b = qt / ct
-  a = alpha
-  dt = dweibull(x = value, shape = a,scale =  b)
-  return(dt)
-}
-
-vtweibull <- function(qt, alpha, t) {
-  if (t > 1 | t < 0) {stop("par?metro t solo puede contener valores entre 0 y 1")}
-  if (qt < 0) {stop("par?metro qt solo puede ser superior a 0")}
-  if (alpha < 0) {stop("par?metro alpha solo puede ser superior a 0")}
-  ct = (-log(1 - t)) ^ (1 / alpha)
-  var = ((qt ^ 2) / (ct) ^ (1 / alpha)) * (gamma(1 + (2 / alpha)) - (gamma(1 + (1 / alpha))) ^ 2)
-  return(var)
-}
-
-mtweibull <- function(qt, alpha, t) {
-  if (t > 1 | t < 0) {stop("par?metro t solo puede contener valores entre 0 y 1")}
-  if (qt < 0) {stop("par?metro qt solo puede ser superior a 0")}
-  if (alpha < 0) {stop("par?metro alpha solo puede ser superior a 0")}
-  ct = (-log(1 - t)) ^ (1 / alpha)
-  mt = ((qt) / (ct ^ (1 / alpha))) * gamma(1 + 1 / alpha)
-  return(mt)
 }
 
 seq_qt <- seq(1,10,length.out = 5)
@@ -128,7 +99,7 @@ densityplot <- function(n,qt,tau,alpha,xlim1,xlim2){
 gg_plots <- list()
 for (qt in 1:length(seq_qt)) {
     for(t in 1:length(seq_tau)){
-    gg_plots <- append(gg_plots,list(densityplot(n,seq_qt[qt],seq_tau[t],2,0,5)))
+    gg_plots <- append(gg_plots,list(densityplot(n,seq_qt[qt],seq_tau[t],2,0,30)))
   }
 }
 plot_grid <- do.call(grid.arrange,gg_plots)
@@ -141,3 +112,18 @@ for (qt in 1:length(seq_alpha)) {
   }
 }
 plot_grid_alpha <- do.call(grid.arrange,gg_plots_a)
+
+vtweibull <- function(qt, alpha, t) {
+  ct = (-log(1 - t)) ^ (1 / alpha)
+  var = ((qt^2) / (ct)) * (gamma(1 + (2 / alpha)) - (gamma(1 + (1 / alpha))) ^ 2)
+  return(var)
+}
+
+mtweibull <- function(qt, alpha, t) {
+  ct = (-log(1-t))^(1/alpha)
+  mt = ((qt) / (ct)) * gamma(1 + 1 / alpha)
+  return(mt)
+}
+
+mtweibull(10,2,0.5)
+vtweibull(10,2,0.5)

@@ -1,0 +1,39 @@
+\begin{thebibliography}{xx}
+
+\harvarditem{Gentleman \harvardand\ Geyer}{1994}{gentleman:lmk}
+Gentleman, R. \harvardand\ Geyer, C.~J.  \harvardyearleft 1994\harvardyearright
+  .
+\newblock Maximum likelihood for interval censored data: Consistency and
+  computation, {\em Biometrika} {\bf 81}(3).
+
+\harvarditem{Koenker \harvardand\ Bassett}{1978}{koenker:kk}
+Koenker, R. \harvardand\ Bassett, G.  \harvardyearleft 1978\harvardyearright .
+\newblock Regression quantiles, {\em Econometrica} {\bf 46}(1).
+
+\harvarditem{Koenker \harvardand\ Hallock}{2001}{koenker:2001}
+Koenker, R. \harvardand\ Hallock, K.  \harvardyearleft 2001\harvardyearright .
+\newblock Quantile regression, {\em Journal of Economic Perspectives} {\bf
+  15}(4).
+
+\harvarditem{Munoz \harvardand\ Xu}{1996}{mun:xu}
+Munoz, l. \harvardand\ Xu, J.  \harvardyearleft 1996\harvardyearright .
+\newblock Models for the incubation of aids and variations according to age and
+  period, {\em Statistics in Medicine} {\bf 15}(1).
+
+\harvarditem{Peto}{1973}{peto:p}
+Peto, R.  \harvardyearleft 1973\harvardyearright .
+\newblock Experimental survival curves for interval-censored data, {\em Journal
+  of the Royal Statistical Society} {\bf 22}(1).
+
+\harvarditem{Weibull}{1951}{weib:weib}
+Weibull, W.  \harvardyearleft 1951\harvardyearright .
+\newblock A statistical distribution funcion of wide applicability, {\em
+  Applied Mechanics Division} .
+
+\harvarditem[Zhou et~al.]{Zhou, Feng \harvardand\ Du}{2016}{zhou:x}
+Zhou, X., Feng, Y. \harvardand\ Du, X.  \harvardyearleft 2016\harvardyearright
+  .
+\newblock Quantile regression for interval censored data, {\em Communications
+  in Statistics - Theory and Methods} .
+
+\end{thebibliography}

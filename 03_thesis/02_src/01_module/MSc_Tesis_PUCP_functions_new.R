@@ -12,7 +12,7 @@ Ct = function(alpha, tau){
 }
 F_Wr = function(Y,Qt,alpha,tau){
   B = Qt/Ct(alpha,tau)
-  pweibull(Y,alpha,B)
+  pweibull(Y,shape=alpha,scale=B)
 }
 Qt_b = function(betas, df){
   Qt_c = exp(as.matrix(df[['matriz.diseno']]) %*% betas)
@@ -24,7 +24,7 @@ Qt_a = function(betas, df){
 }
 Rand_Wr = function(n,Qt,alpha,tau){
   B = Qt/Ct(alpha,tau)
-  rweibull(n,alpha,B)
+  rweibull(n,shape = alpha,scale = B)
 }
 Simulation = function(n){
   X1 = rnorm(n,2,0.25)
@@ -42,9 +42,6 @@ DF_Simulation = function(df,betas,alpha,tau){
     Y=rbind(Y,Rand_Wr(1,Qt_i[j],alpha,tau))
   }
   min_Y = floor(min(Y))
-  if (min_Y == 0) {
-    min_Y <- 0.01
-  }
   Q8_Y = round(quantile(Y,0.8),2)
   interval = round((Q8_Y-min_Y) / 6,2)
   seq_interv = c(seq(min_Y,Q8_Y,interval),Inf)
@@ -84,6 +81,7 @@ reg_Wr = function(data,li,lf,tau,param){
   df = data_mgmt(data,li,lf)
   Bs = as.matrix(rep(0,ncol(df[['matriz.diseno']])))
   fit_mv = optim(par = param,fn = likelihood,hessian = T,betas=Bs,df=df,tau=tau)
+  print(fit_mv$convergence)
   return(fit_mv)
 }
 lancet <- function(){
@@ -175,7 +173,7 @@ lancet <- function(){
 
 #### Simulación ####
 
-L = 1000
+L = 5000
 n = c(100,500,1000)
 betas_sim = c(7,0.3,0.84,2.5)
 alpha_sim = 2
