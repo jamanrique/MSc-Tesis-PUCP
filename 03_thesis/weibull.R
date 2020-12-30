@@ -125,5 +125,41 @@ mtweibull <- function(qt, alpha, t) {
   return(mt)
 }
 
-mtweibull(10,2,0.5)
-vtweibull(10,2,0.5)
+library(tidyverse)
+
+M = 10
+seq_qt <- c(0.8,seq(1,M,1))
+seq_alpha <- c(0.8,seq(1,M,1))
+
+data <- expand.grid(X=seq_qt, Y=seq_alpha)
+data$Z <- mtweibull(data$X,data$Y,t=0.5)
+
+plot1 <- ggplot(data,aes(factor(X),factor(Y),fill=Z))+
+  geom_tile(colour="black") +
+  scale_fill_gradient(low = "#fdf6e3", high = "firebrick") +
+  geom_text(aes(label=round(Z,2)),size = 3.25)+
+  theme(plot.title = element_text(face="bold",hjust=1,size=16),
+        plot.subtitle = element_text(face="italic",hjust=1,size=14),
+        panel.background = element_rect(fill="white", colour="white"),
+        panel.grid.major = element_line(color = "white"),
+        panel.grid.minor = element_line(color = "white"),
+        axis.title = element_text(size=10),
+        legend.position = "none")+ 
+  labs(x="Parámetro q\U01D57",y="Parámetro \U003B1" , title="Y \U0007E Wr(q\U01D57,\U003B1), \U003C4 = 0.5",subtitle = "Valor Esperado") 
+
+data$W <- vtweibull(data$X,data$Y,t=0.5)
+
+plot2 <- ggplot(data,aes(factor(X),factor(Y),fill=W))+
+  geom_tile(colour="black") +
+  scale_fill_gradient(low = "#fdf6e3", high = "firebrick") +
+  geom_text(aes(label=round(W,2)),size = 3.25)+
+  theme(plot.title = element_text(face="bold",hjust=1,size=16),
+        plot.subtitle = element_text(face="italic",hjust=1,size=14),
+        panel.background = element_rect(fill="white", colour="white"),
+        panel.grid.major = element_line(color = "white"),
+        panel.grid.minor = element_line(color = "white"),
+        axis.title = element_text(size=10),
+        legend.position = "none") + 
+  labs(x="Parámetro q\U01D57",y="Parámetro \U003B1" , title="Y \U0007E Wr(q\U01D57,\U003B1), \U003C4 = 0.5",subtitle = "Varianza") 
+
+ggarrange(plot1,plot2,ncol = 2)

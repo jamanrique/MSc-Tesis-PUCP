@@ -15,7 +15,7 @@ Se asume que $Y_i \sim W_r(q_{ti}, \alpha,t)$ se observa con censura intervalar.
 La implementación del modelo se realizó a través del lenguaje de programación R, tomando en consideración las definiciones presentadas en el capítulo 3 de la presente tesis. El seudocódigo de la implementación es el siguiente:
 
 \begin{lstlisting}
-Simulamos 10,000 valores de las siguientes distribuciones:
+Simulamos n valores de las siguientes distribuciones:
 
 X1 ~ Beta(2,3) 
 X2 ~ Normal(2,0.5)
@@ -27,11 +27,11 @@ B = [0.5, 0.3, 0.6, 0.8]
 Sigma = 2
 Qt = exp(B[1] + B[2]*X1 + B[3]*X2 + B[4]*X3)
 t=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
-M = 100
+M = 5,000
 
 Para cada cuantil en t:
 	Para cada replica en M:
-		1 Simular 10,000 valores de la distribucion 
+		1 Simular n valores de la distribucion 
 			Y ~ W_r(Qt, Sigma, cuantil)
 		2 Censurar la variable Y de forma intervalar tal que
 			Z ~ Categorica

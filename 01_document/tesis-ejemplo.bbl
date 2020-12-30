@@ -6,6 +6,17 @@ Gentleman, R. \harvardand\ Geyer, C.~J.  \harvardyearleft 1994\harvardyearright
 \newblock Maximum likelihood for interval censored data: Consistency and
   computation, {\em Biometrika} {\bf 81}(3).
 
+\harvarditem[Gomez et~al.]{Gomez, Calle \harvardand\ Oller}{2004}{calle:oller}
+Gomez, G., Calle, L. \harvardand\ Oller, R.  \harvardyearleft
+  2004\harvardyearright .
+\newblock Interval censoring: model characterizations for the validity of the
+  simplified likelihood, {\em Canadian Journal of Statistics} {\bf 32}(3).
+
+\harvarditem{INEI}{2015}{inei:ensusalud}
+INEI  \harvardyearleft 2015\harvardyearright .
+\newblock Encuesta nacional de satisfaccion de usuarios del aseguramiento
+  universal en salud.
+
 \harvarditem{Koenker \harvardand\ Bassett}{1978}{koenker:kk}
 Koenker, R. \harvardand\ Bassett, G.  \harvardyearleft 1978\harvardyearright .
 \newblock Regression quantiles, {\em Econometrica} {\bf 46}(1).

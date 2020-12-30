@@ -3,6 +3,8 @@
 \usepackage[latin1]{inputenc}
 \usepackage[pdftex]{graphicx}           % para insertar figuras en formato pdf/png/jpg
 \usepackage{color}
+\usepackage{multirow}
+\usepackage[table,xcdraw]{xcolor}
 \usepackage{pifont}
 \usepackage{amsfonts}
 \usepackage{amssymb} 
@@ -22,9 +24,20 @@
 \usepackage{rotating}
 \usepackage{epstopdf}
 \usepackage{pdflscape}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{tcolorbox}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{multirow}
+\graphicspath{{../../02_figures/}}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{adjustbox}
 \usepackage[colorlinks=true,urlcolor=red,citecolor=green,linkcolor=blue]{hyperref}
 \usepackage[a4paper,top=2.54cm, bottom=2.54cm, left=3cm, right=2.54cm]{geometry} %margenes
-
 % ---------------------------------------------------------------------------- %
 \graphicspath{{./figuras/}}
 \makeindex  
@@ -130,8 +143,9 @@ Abstract
 
 \chapter{Lista de Abreviaturas}
 \begin{tabular}{ll}
- 		fdp     & Función de densidad de probabilidad.\\
-	pBF 		& Pseudo factor de Bayes(\emph{Pseudo bayes factor}).\\
+ 		\textbf{f.d.a.}     & Función de distribución acumulada. \\
+		pBF 		& Pseudo factor de Bayes(\emph{Pseudo bayes factor}).\\
+
 \end{tabular}
 
 \chapter{Lista de Símbolos}
@@ -149,6 +163,8 @@ Abstract
 
 \input{01_introduccion/cap-introduccion}
 \input{02_modelo/cap-modelo}
+\input{03_regresion/03_regresion}
+\input{04_real data/04_real data}
 
 \appendix
 \include{ape-1}      % associado ao arquivo: 'ape-1.tex'

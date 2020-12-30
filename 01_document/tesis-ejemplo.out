@@ -8,5 +8,19 @@
 \BOOKMARK [0][-]{chapter.2}{Distribuci\363n Weibull}{}% 8
 \BOOKMARK [1][-]{section.2.1}{Distribuci\363n Weibull}{chapter.2}% 9
 \BOOKMARK [1][-]{section.2.2}{Proposici\363n y estudio de una nueva estructura de la distribuci\363n}{chapter.2}% 10
-\BOOKMARK [0][-]{appendix.Alph1}{Resultados te\363ricos}{}% 11
-\BOOKMARK [0][-]{appendix*.14}{Bibliograf\355a}{}% 12
+\BOOKMARK [0][-]{chapter.3}{Modelo de regresi\363n cuant\355lica para datos positivos}{}% 11
+\BOOKMARK [1][-]{section.3.1}{Datos positivos con censura intervalar}{chapter.3}% 12
+\BOOKMARK [1][-]{section.3.2}{Funci\363n de verosimilitud para datos positivos con censura intervalar}{chapter.3}% 13
+\BOOKMARK [1][-]{section.3.3}{Modelo de regresi\363n para datos positivos con censura intervalar}{chapter.3}% 14
+\BOOKMARK [2][-]{subsection.3.3.1}{Funci\363n de verosimilitud}{section.3.3}% 15
+\BOOKMARK [1][-]{section.3.4}{Simulaci\363n de datos}{chapter.3}% 16
+\BOOKMARK [2][-]{subsection.3.4.1}{Implementaci\363n del modelo}{section.3.4}% 17
+\BOOKMARK [2][-]{subsection.3.4.2}{Resultados}{section.3.4}% 18
+\BOOKMARK [0][-]{chapter.4}{Aplicaci\363n en datos reales}{}% 19
+\BOOKMARK [1][-]{section.4.1}{ENSUSALUD 2015}{chapter.4}% 20
+\BOOKMARK [1][-]{section.4.2}{Estudio sobre la disparidad de sueldos en profesionales de la salud}{chapter.4}% 21
+\BOOKMARK [1][-]{section.4.3}{Base de datos}{chapter.4}% 22
+\BOOKMARK [1][-]{section.4.4}{Conjunto de Variables}{chapter.4}% 23
+\BOOKMARK [1][-]{section.4.5}{Resultados}{chapter.4}% 24
+\BOOKMARK [0][-]{appendix.Alph1}{Resultados te\363ricos}{}% 25
+\BOOKMARK [0][-]{appendix*.13}{Bibliograf\355a}{}% 26

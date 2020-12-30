@@ -24,7 +24,7 @@ La flexibilidad denotada por Weibull puede observarse a través de la Figura \ref
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{weib_distrib}
-	\caption{Estudio de una variable $Y$ con distribución Weibull}
+	\caption{Función de densidad de una variable $Y$ con distribución Weibull}
 	\label{weib:original}
 \end{figure}
 
@@ -39,7 +39,7 @@ Consideramos una reparametrización del parámetro de forma $\sigma$ en términos d
 
 \[\sigma = \frac{q_t}{(-\log(1-t))^{\frac{1}{\alpha}}} \]
 
-\noindent en dónde $t$ será un valor conocido y se encuentra en el intervalo $[0,1]$. En esta nueva estructura, $q_{t}$ y $\alpha$ tienen espacios paramétricos independientes tal que $(q_{t},\alpha) \in (0,\infty)$ x $(0,\infty)$. Una variable aleatoria que sigue esta parametrización se denota como $Y \sim W_{r}(q_{t},\alpha)$.
+\noindent en dónde $t$ será un valor conocido y se encuentra en el intervalo $[0,1]$. En esta nueva estructura, $q_{t}$ y $\alpha$ tienen espacios paramétricos independientes tal que $(q_{t},\alpha) \in (0,\infty) \times (0,\infty)$. Una variable aleatoria que sigue esta parametrización se denota como $Y \sim W_{r}(q_{t},\alpha)$.
 
 La función de densidad de dicha variable $Y$ tiene la siguiente expresión:
 \begin{equation}
@@ -48,7 +48,7 @@ f_{Y}(y| q_{t},\alpha)=\frac{\alpha c(t)}{q_{t}}\left( \frac{y}{q_{t}} \right)^{
 \\
 \noindent en dónde $c(t)= \left( -\log(1-t) \right)$. 
 
-Los parámetros $q_{t}$ y $\alpha$, así como el cuantil $t$ (el cual es conocido), caracterizan la función de densidad conforme se observa en la Figura \ref{fig:newdens}. En dicha figura, se observa el efecto del nuevo parámetro $q_t$ y el cuantil $t$. Podemos observar lo siguiente: 
+Los parámetros $q_{t}$ y $\alpha$, así como el nivel del cuantil $t$ (el cual es conocido), caracterizan la función de densidad conforme se observa en la Figura \ref{fig:newdens}. En dicha figura, se observa el efecto del nuevo parámetro $q_t$ y el cuantil $t$. Podemos observar lo siguiente: 
 
 \begin{itemize}
 	\item Se observa que, para un mismo cuantil $t$, el nuevo parámetro $q_t$ tiende a mover la tendencia central de la distribución en la misma dirección, manteniendo el parámetro de escala $\alpha$ constante. Asimismo, dicho aumento del parámetro genera valores extremos: la distribución se torna asimétrica, con valores extremos generados cada vez con mayor frecuencia.
@@ -64,13 +64,14 @@ Los parámetros $q_{t}$ y $\alpha$, así como el cuantil $t$ (el cual es conocido)
 \end{figure}
 \end{landscape}
 
-En base a la reparametrización propuesta, la función acumulada de una variable $Y$ que siga dicha distribución sería de la forma:
+En base a la reparametrización propuesta, la función acumulada de $Y \sim W_r(q_t,\alpha)$ es de la forma:
 
 \begin{equation} \label{eq:1}
-F_{Y}\left(y| q_{t},\alpha,t \right)=1-\exp\left( -c(t)\left( \frac{y}{q_{t}} \right)^{\alpha} \right).
+F_{Y}\left(y| q_{t},\alpha,t \right)=1-\exp\left( c(t)\left( \frac{y}{q_{t}} \right)^{\alpha} \right).
 \end{equation}
 
-En torno a dicha reparametrización, la esperanza y varianza de una variable aleatoria $Y$ está dada por las siguientes expresiones:
+Asimismo, el valor esperado y varianza de dicha variable aleatoria está dada por:
+
 \begin{equation}
 E(Y)=\frac{q_{t}}{c(t)^{\frac{1}{\alpha}}}\Gamma\left( 1+\frac{1}{\alpha} \right)
 \end{equation}
@@ -79,17 +80,23 @@ E(Y)=\frac{q_{t}}{c(t)^{\frac{1}{\alpha}}}\Gamma\left( 1+\frac{1}{\alpha} \right
 Var(Y)=\frac{q_{t}^{2}}{c(t)^{\frac{1}{\alpha}}}\left[ \Gamma\left( 1+\frac{2}{\alpha}\right)-\Gamma\left( 1+\frac{1}{\alpha} \right)^{2} \right]
 \end{equation}
 
-Bajo la parametrización propuesta, se observa que para un $\alpha$ fijo el valor esperado se comporta de forma lineal en la medida que aumente el parámetro $q_{t}$ conforme se observa en el cuadro siguiente:
+Evaluamos las propiedades de la distribución por cada valor de los parámetros, conforme se observa en la figura \ref{espvar}. Se observa lo siguiente:
+
+\begin{itemize}
+	\item \textbf{En relación al valor esperado:}
+	\begin{itemize}
+		\item Para cada $\alpha$ fijo, el parámetro $q_t$ mueve el valor esperado de la distribución hacia la dirección en la que dicho parámetro aumenta o disminuye. Ello se observa a lo largo de todos los posibles valores de $\alpha$. No obstante, la fuerza en que afecta el valor esperado depende del valor de $\alpha$, y se observa que el cambio en la esperanza disminuye en la medida que $\alpha$ aumente.
+		\item Para cada $q_t$ fijo, el parámetro $\alpha$ dismuye el valor esperado de la distribución en la medida que dicho parámetro aumente. Este efecto es marginalmente menor por cada aumento de $\alpha$, hasta tener una diferencia mínima cuando $\alpha$ considere valores cada vez más grandes. Asimismo, se observa que la esperanza es alta en la medida que $\alpha$ es pequeño, y esta propiedad aumenta rápidamente en la medida que $\alpha$ se acerque a 0.
+	\end{itemize}
+	\item \textbf{En relación a la varianza:}
+	\begin{itemize}
+		\item De forma similar que en la esperanza, el parámetro $\alpha$ disminuye considerablemente la varianza de la distribución. Esto tiene consistencia con la Figura \ref{weib:original}, pues dicha variable no ha sido reexpresada en términos de la función cuantílica. Se observa, asimismo, que la varianza es alta en la medida que $\alpha$ es pequeño. Este efecto es mayor cuando el parámetro $q_t$ aumenta conjuntamente.
+		\item El parámetro $q_t$ aumenta la varianza de la distribución en la medida este aumente. No obstante, el efecto es modulado por el efecto del parámetro $\alpha$: en la medida que $\alpha$ es alto, el efecto marginal en la varianza por cada aumento de $q_t$ es pequeño. Por otro lado, cuando $\alpha$ es pequeño, el efecto marginal de la varianza por cada aumento de $q_t$ es considerable e incrementa rápidamente.
+	\end{itemize}
+\end{itemize}
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{esperado}
 	\caption{Valor esperado de una distribución Weibull bajo la parametrización propuesta.}
-\end{figure}
-\noindent No obstante, para un $q_{t}$ fijo, lo mismo no se observa en la medida que aumente $\alpha$. Se observa un comportamiento no lineal y asintótico: cuando $\alpha$ tiende a 0, el valor esperado tiende a infinito. Cuando $\alpha$ aumenta, el valor esperado se estabiliza.
-
-En el caso de la varianza se observa que para un $\alpha$ fijo, en la medida que aumente el parámetro $q_{t}$ la varianza aumenta de forma exponencial. No obstante, y como se puede apreciar cuando $q_{t}$ está fijo, en la medida que los valores de $\alpha$ sean pequeños, la varianza incrementa drásticamente. Asimismo, como se aprecia en el cuadro adjunto, la varianza tiende a 0 en la medida que $\alpha$ aumente.
-
-\begin{figure}
-	\includegraphics[width=\textwidth]{varianza}
-	\caption{Varianza bajo la parametrización propuesta.}
+	\label{espvar}
 \end{figure}

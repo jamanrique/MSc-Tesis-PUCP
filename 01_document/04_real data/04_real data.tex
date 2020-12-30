@@ -1,0 +1,44 @@
+\chapter{Aplicación en datos reales}
+
+El presente capítulo presenta una aplicación del modelo de regresión cuantílica para datos intervalares en datos reales. Para tal fin, se utilizará la Encuesta Nacional de Satisfacción de Usuarios del Aseguramiento Universal en Salud (ENSUSALUD) la cual ha sido generada por el Instituto Nacional de Estadística e Informática del Perú (INEI). En dicha aplicación, se evaluará el efecto de cada covariable en la variable respuesta a lo largo de todos los cuantiles. Asimismo, ...
+
+\section{ENSUSALUD 2015}
+Conforme el Convenio de Cooperación Interinstitucional Nª 017-2013-INEI, el INEI y la Superintendencia Nacional de Aseguramiento en Salud (SUNASA) acordaron en implementar y ejecutar la encuesta de satisfacción en salud el año 2015. Dicha encuesta es una investigación estadística, cuyo objetivo es <<evaluar el grado de satisfacción de los usuarios internos y externos de los servicios de salud>> \cite{inei:ensusalud}. Al respecto, dicha encuesta comprende como unidad muestral a los usuarios de consulta externa, bóticas y farmacias, seguros, y profesionales de la salud. Los usuarios y profesionales han sido atendidos o forman parte del conjunto de establecimientos del Ministerio de Salud (MINSA), Seguro Social de Salud (EsSalud), Clínicas privadas y Establecimientos de Sanidad de las Fuerzas Armadas y Policiales.
+
+En relación al diseño muestral de la encuesta, esta consiste en un muestreo probabilístico polietápico, cuya unidad primaria de muestreo (UPM) está constituida cada establecimiento de salud de las redes hospitalarias del MINSA, EsSalud, clínicas privadas y Establecimientos de las Fuerzas Armadas y Policiales. La unidad secundaria de muestreo (USM) consiste en los usuarios elegibles y profesionales de la salud. En resumen, la investigación estadística tiene el siguiente alcance:
+
+\begin{itemize}
+	\item \textbf{Cobertura geográfica:} Los 24 departamentos del Perú y 181 establecimientos de salud del MINSA, EsSalud, Sanidades y establecimientos privados.
+	\item \textbf{Unidad de análisis:} La unidad muestral comprende a los siguientes:
+		\begin{itemize}
+			\item Usuarios de Consulta Externa.
+			\item Usuarios en Boticas y Farmacias.
+			\item Usuarios en Unidades de Seguros.
+			\item Profesionales de la Salud.
+		\end{itemize}
+	\item \textbf{Niveles de inferencia:} Nacional y dirigida a cada una de las unidades de análisis.
+\end{itemize}
+
+\section{Estudio sobre la disparidad de sueldos en profesionales de la salud}
+
+\section{Base de datos}
+Para propósitos de la aplicación, se utilizó la encuesta ejecutada a profesionales de la salud (enfermería y personal médico). Esta encuesta se realizó a 5,067 profesionales en el año 2015 \cite{inei:ensusalud}, y tiene como objetivo <<conocer características del personal relacionados a formación académica, actividad laboral, satisfacción con el trabajo, estrés laboral y conocimiento referido a la SUNASA>>. La base de datos presenta las siguientes características:
+
+
+\section{Conjunto de Variables}
+
+De dicha base de datos, se utilizaron las siguientes variables:
+\begin{itemize}
+	\item Años de experiencia en el sector salud.
+	\item Horas de trabajo semanales.
+	\item Cantidad de personas que dependen económicamente del encuestado.
+	\item Sexo del encuestado
+	\item Límite inferior del sueldo percibido por el encuestado.
+	\item Límite superior del sueldo percibido por el encuestado.
+\end{itemize}
+
+El modelo propuesto en el capítulo 3 será utilizado en la presente base de datos, tomando en consideración que el sueldo constituye una variable censurada de forma intervalar. 
+
+\section{Resultados}
+
+		Esta sección se entregará en posteriores entregas.

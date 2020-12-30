@@ -5,6 +5,7 @@ library(haven)
 library(tidyverse)
 library(BB)
 library(matrixStats)
+library(gridExtra)
 gen.cens(family="WEI3",type="interval")
 
 Ct = function(alpha, tau){
@@ -42,6 +43,9 @@ DF_Simulation = function(df,betas,alpha,tau){
     Y=rbind(Y,Rand_Wr(1,Qt_i[j],alpha,tau))
   }
   min_Y = floor(min(Y))
+  if (min_Y==0) {
+    min_Y <- 0.01
+  }
   Q8_Y = round(quantile(Y,0.8),2)
   interval = round((Q8_Y-min_Y) / 6,2)
   seq_interv = c(seq(min_Y,Q8_Y,interval),Inf)
@@ -193,18 +197,116 @@ for (j in 1:length(n)) {
   }
 }
 
+se_calc <- function(lista) {
+  ic_contain <- matrix(nrow=0,ncol=5)
+  for (k in 1:length(lista)) {
+    little_t <- lista[[k]]
+    ic <- rbind( little_t$par - qnorm(0.975) * sqrt(diag(solve(little_t$hessian))),
+                 little_t$par + qnorm(0.975) * sqrt(diag(solve(little_t$hessian))))
+    ic_contain <- rbind(ic_contain,cbind(between(betas_sim[1],left = ic[1,1],right = ic[2,1]),
+                        between(betas_sim[2],left = ic[1,2],right = ic[2,2]),
+                        between(betas_sim[3],left = ic[1,3],right = ic[2,3]),
+                        between(betas_sim[4],left = ic[1,4],right = ic[2,4]),
+                        between(alpha_sim,left = ic[1,5],right = ic[2,5])))
+  }
+  final_df <- as.matrix(t(colSums(ic_contain)/length(lista)))
+  return(final_df)
+}
+
+final_database <- matrix(nrow=0,ncol=5)
+seq_t <- seq(1,8,1);seq_t
+
+for (j in 1:length(n)) {
+  df <- sim_list[[j]]
+  actual_t <- df[1:5000*seq_t[1]]
+  vf_df <- se_calc(actual_t)
+  rownames(vf_df) <- paste("n_",n[j],sep="")
+  final_database <- rbind(final_database,vf_df)
+  
+  for (l in 1:length(seq_t)) {
+   actual_t <-  df[(5000*seq_t[l]+1):(5000*(seq_t[l]+1))]
+   vf_df <- se_calc(actual_t)
+   rownames(vf_df) <- paste("n_",n[j],sep="")
+   final_database <- rbind(final_database,vf_df)
+  }
+}
+
+final_database
+
+ecm_calc <- function(lista) {
+  ic_contain <- matrix(nrow=0,ncol=5)
+  for (k in 1:length(lista)) {
+    little_t <- lista[[k]]
+    ecm <- (little_t$par - c(betas_sim,alpha_sim))**2
+    ic_contain <- rbind(ic_contain,ecm)
+  }
+  final_df <- as.matrix(t(colSums(ic_contain)/length(lista)))
+  return(final_df)
+}
+
+  final_database <- matrix(nrow=0,ncol=5)
+
+seq_t <- seq(1,8,1);seq_t
+
+for (j in 1:length(n)) {
+  df <- sim_list[[j]]
+  actual_t <- df[1:5000*seq_t[1]]
+  vf_df <- ecm_calc(actual_t)
+  rownames(vf_df) <- paste("n_",n[j],sep="")
+  final_database <- rbind(final_database,vf_df)
+  
+  for (l in 1:length(seq_t)) {
+    actual_t <-  df[(5000*seq_t[l]+1):(5000*(seq_t[l]+1))]
+    vf_df <- ecm_calc(actual_t)
+    rownames(vf_df) <- paste("n_",n[j],sep="")
+    final_database <- rbind(final_database,vf_df)
+  }
+}
+round(final_database,4)
+
+ses_calc <- function(lista) {
+  ic_contain <- matrix(nrow=0,ncol=5)
+  for (k in 1:length(lista)) {
+    little_t <- lista[[k]]
+    ecm <- (little_t$par - c(betas_sim,alpha_sim))
+    ic_contain <- rbind(ic_contain,ecm)
+  }
+  final_df <- as.matrix(t(colSums(ic_contain)/length(lista)))
+  return(final_df)
+}
+
+final_database <- matrix(nrow=0,ncol=5)
+
+seq_t <- seq(1,8,1);seq_t
+
+for (j in 1:length(n)) {
+  df <- sim_list[[j]]
+  actual_t <- df[1:5000*seq_t[1]]
+  vf_df <- ses_calc(actual_t)
+  rownames(vf_df) <- paste("n_",n[j],sep="")
+  final_database <- rbind(final_database,vf_df)
+  
+  for (l in 1:length(seq_t)) {
+    actual_t <-  df[(5000*seq_t[l]+1):(5000*(seq_t[l]+1))]
+    vf_df <- ses_calc(actual_t)
+    rownames(vf_df) <- paste("n_",n[j],sep="")
+    final_database <- rbind(final_database,vf_df)
+  }
+}
+round(final_database,4)
+
 #### Datos reales ####
+
 real_data = lancet()
 
-tau_seq_sim = seq(0.15,0.9,0.15)
+tau_seq_sim = seq(0.10,0.9,0.1)
 m1 = gamlss(Surv(li,lf,type="interval2")~.,family = WEI3ic,data = real_data)
 init_real = as.vector(c(coef(m1),m1$sigma.coefficients));init_real
-  
+
 var = list()
 for (j in 1:length(tau_seq_sim)) {
   var = append(var,list(reg_Wr(data = real_data,li = 5, lf= 6,tau_seq_sim[j],param = init_real)))
-}
-var
+}  
 
 val <- matrix(ncol=length(var[[1]]$par),nrow = 0)
 for (l in 1:length(tau_seq_sim)) {
@@ -212,3 +314,27 @@ for (l in 1:length(tau_seq_sim)) {
   val <- rbind(val,pba$par)
 }
 val
+pred <- as.data.frame(rbind(var[[1]]$par - qnorm(0.975) * sqrt(diag(solve(var[[1]]$hessian))),
+                            var[[1]]$par + qnorm(0.975) * sqrt(diag(solve(var[[1]]$hessian)))))
+
+val
+ggplot_aa <- list()
+for (k in 1:6) {
+  ar <- matrix(nrow=0,ncol=2)
+  for (t in 1:length(tau_seq_sim)) {
+   ar <- rbind(ar,cbind(var[[t]]$par[k]  + qnorm(0.975) * sqrt(diag(solve(var[[t]]$hessian))[k]),
+         var[[t]]$par[k]  - qnorm(0.975) * sqrt(diag(solve(var[[t]]$hessian))[k])
+   ))}
+  ar <- as.data.frame(ar)
+
+  p = ggplot(data=as.data.frame(val),
+              aes_string(x=tau_seq_sim,y=val[,k])) +
+              geom_point() +
+              geom_line() +
+              geom_ribbon(data = ar,
+                          aes_string(ymin=ar[,1],ymax=ar[,2]),
+                          alpha=0.4)
+  ggplot_aa[[k]] = p
+  }
+
+plot_grid_alpha <- do.call("grid.arrange",ggplot_aa)
