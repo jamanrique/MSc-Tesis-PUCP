@@ -1,50 +1,50 @@
 This is BibTeX, Version 0.99d
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: tesis-ejemplo.aux
-Reallocating 'name_of_file' (item size: 1) to 10 items.
-A level-1 auxiliary file: ape-1.aux
 Reallocating 'name_of_file' (item size: 1) to 13 items.
 Reallocating 'name_of_file' (item size: 1) to 4 items.
 The style file: dcu.bst
 Database file #1: bibliografia.bib
-You've used 9 entries,
+Warning--can't use both author and editor fields in casella:berg
+You've used 11 entries,
             2921 wiz_defined-function locations,
-            687 strings with 5878 characters,
-and the built_in function-call counts, 25400 in all, are:
-= -- 4019
-> -- 400
+            698 strings with 6198 characters,
+and the built_in function-call counts, 38716 in all, are:
+= -- 6238
+> -- 580
 < -- 0
-+ -- 1854
-- -- 119
-* -- 2100
-:= -- 5381
-add.period$ -- 18
-call.type$ -- 9
-change.case$ -- 126
-chr.to.int$ -- 9
-cite$ -- 9
-duplicate$ -- 117
-empty$ -- 223
-format.name$ -- 155
-if$ -- 4507
++ -- 2956
+- -- 175
+* -- 3289
+:= -- 7984
+add.period$ -- 22
+call.type$ -- 11
+change.case$ -- 153
+chr.to.int$ -- 11
+cite$ -- 12
+duplicate$ -- 145
+empty$ -- 276
+format.name$ -- 220
+if$ -- 6901
 int.to.chr$ -- 5
 int.to.str$ -- 0
-missing$ -- 9
-newline$ -- 39
-num.names$ -- 92
-pop$ -- 24
+missing$ -- 12
+newline$ -- 47
+num.names$ -- 113
+pop$ -- 32
 preamble$ -- 1
-purify$ -- 135
+purify$ -- 165
 quote$ -- 0
-skip$ -- 126
+skip$ -- 150
 stack$ -- 0
-substring$ -- 5436
-swap$ -- 14
-text.length$ -- 126
+substring$ -- 8622
+swap$ -- 18
+text.length$ -- 154
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 36
-warning$ -- 0
-while$ -- 189
+type$ -- 42
+warning$ -- 1
+while$ -- 231
 width$ -- 0
-write$ -- 122
+write$ -- 150
+(There was 1 warning)

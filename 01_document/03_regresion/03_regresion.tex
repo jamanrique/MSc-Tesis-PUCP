@@ -1,27 +1,27 @@
-\chapter{Modelo de regresión cuantílica para datos positivos}
-El presente capítulo tiene como objetivo especificar el modelo de regresión cuantílica para datos positivos con censura intervalar. Asimismo, detallamos la estimación de los parámetros desde la perspectiva de inferencia clásica.
+	\chapter{Modelo de regresión cuantílica para datos positivos}
+	El presente capítulo tiene como objetivo especificar el modelo de regresión cuantílica para datos positivos con censura intervalar. Asimismo, detallamos la estimación de los parámetros desde la perspectiva de inferencia clásica.
 
-\section{Datos positivos con censura intervalar}
+	\section{Datos positivos con censura intervalar}
 
-Siguiendo la definición expuesta en \cite{peto:p}, definimos a $Y$ como una variable aleatoria con una \textbf{f.d.a.} $F(Y)$. Dicha variable se entiende como \textit{censurada} si la única información que tenemos sobre $Y$ es que $Y$ yace en un intervalo $I$. Bajo este contexto, podemos definir una variable aleatoria $Z$ como una variable indicadora que precisa el $j$-ésimo intervalo $[a_i,b_i]$ en el que se encuentra la variable $Y$. Por lo tanto, durante el proceso de recolección de datos, observamos directamente la variable $Z$, mientras que la variable $Y$ es una variable latente. Para ilustrar este proceso, imaginemos un proceso de administración de encuestas, en dónde el encuestador consulta a la persona en qué intervalo se encuentra su sueldo mensual. Esto requiere que la variable $Z$ sea una variable categórica, pues la persona solo indica una opción. Entonces, podemos definir dicha variable mediante la siguiente expresión:
+	Siguiendo la definición expuesta en \cite{peto:p}, definimos a $Y$ como una variable aleatoria con una \textbf{f.d.a.} $F(Y)$. Dicha variable se entiende como \textit{censurada} si la única información que tenemos sobre $Y$ es que $Y$ yace en un intervalo $I$. Bajo este contexto, podemos definir una variable aleatoria $Z$ como una variable indicadora que precisa el $j$-ésimo intervalo $[a_i,b_i]$ en el que se encuentra la variable $Y$. Por lo tanto, durante el proceso de recolección de datos, observamos directamente la variable $Z$, mientras que la variable $Y$ es una variable latente. Para ilustrar este proceso, imaginemos un proceso de administración de encuestas, en dónde el encuestador consulta a la persona en qué intervalo se encuentra su sueldo mensual. Esto requiere que la variable $Z$ sea una variable categórica, pues la persona solo indica una opción. Entonces, podemos definir dicha variable mediante la siguiente expresión:
 
-\begin{equation}
-Z = 
-	\begin{cases}
-		1, a_{1}< y < a_{2} \\
-		2, a_{2} \leq Y < a_{3} \\
-		3, a_{3} \leq Y < a_{4} \\
-		\vdots \\
-		K, a_{k} \leq Y < a_{k+1} \\
-	\end{cases}
-\end{equation}
+	\begin{equation}
+	Z = 
+		\begin{cases}
+			1, a_{1}< y < a_{2} \\
+			2, a_{2} \leq Y < a_{3} \\
+			3, a_{3} \leq Y < a_{4} \\
+			\vdots \\
+			K, a_{k} \leq Y < a_{k+1} \\
+		\end{cases}
+	\end{equation}
 
-\noindent en dónde $a_1 < a_2 < \cdots <a_{k+1}$. Esto corresponde a los límites del intervalo $I$, con $a_{1}=0$ y $a_{K+1}=\infty$. La \textbf{f.d.p} de la variable observable $Z$ está definida de la siguiente forma:
-\begin{equation} \label{eq:2}
-P\left( Z=j \right)=P\left(a_{j} \leq Y < a_{j+1} \right) = F_Y(a_j) - F_Y(a_{j+1})
-\end{equation}
+	\noindent en dónde $a_1 < a_2 < \cdots <a_{k+1}$. Esto corresponde a los límites del intervalo $I$, con $a_{1}=0$ y $a_{K+1}=\infty$. La \textbf{f.d.p} de la variable observable $Z$ está definida de la siguiente forma:
+	\begin{equation} \label{eq:2}
+	P\left( Z=j \right)=P\left(a_{j} \leq Y < a_{j+1} \right) = F_Y(a_j) - F_Y(a_{j+1})
+	\end{equation}
 
-\noindent en dónde $F_Y(\cdot)$ es la función de distribución acumulada de Y. La variable $Z$ que sigue la distribución anteriormente mencionada está denotada por 
+	\noindent en dónde $F_Y(\cdot)$ es la función de distribución acumulada de Y. La variable $Z$ que sigue la distribución anteriormente mencionada está denotada por 
 \[Z \sim \text{Categórica}(\pi)\]
 
 \noindent dónde $\pi=\left( \pi_{1},\dots,\pi_{k}\right)$y $\pi_{j}=P(Z=j)$.
@@ -44,7 +44,7 @@ Considerando los resultados identificados en la ecuación \ref{eq:2}, la verosími
 	L(\theta) = \prod_{i=1}^{n}(F_Y(a_{j+1}) - F_Y(a_{j})) 
 \end{equation}
 
-Bajo este criterio, la verosímilitud solo depende de los valores extremos del intervalo $[a_j,a_{j+1}]$ y de la \textbf{f.d.a.} de la variable latente $Y$. Para hallar los puntos óptimos de la verosímilitud, utilizaremos el método de optimización de Nelder-Mead, implementado en la rutina \textit{optim} d-el lenguaje de programación R. En la siguiente sección, adaptaremos el 
+Bajo este criterio, la verosímilitud solo depende de los valores extremos del intervalo $[a_j,a_{j+1}]$ y de la \textbf{f.d.a.} de la variable latente $Y$. Para hallar los puntos óptimos de la verosímilitud, utilizaremos el método de optimización de Nelder-Mead, implementado en la rutina \textit{optim} del lenguaje de programación R. En la siguiente sección, adaptaremos el 
 
 \section{Modelo de regresión para datos positivos con censura intervalar}
 
@@ -53,7 +53,7 @@ Considerando la reparametrización expuesta en la sección 2, el modelo de regresi
 \[Y_{i} \sim W_{r}\left( q_{t_{i}},\alpha,t \right).\]
 \[g\left( q_{t_{i}} \right) = x_{i}^{T}\beta.\]
 
-\noindent en dónde $\beta=\left[ \beta_0,\beta_{1},\dots,\beta_{p} \right]^{T}$ y $x_{i}^{T} =\left[ 1,x_{i1},x_{i2},\dots,x_{ip}, \right]^{T}$. La función $g(\cdot)$ es una función de enlace estrictamente monótona y doblemente diferenciable. En el presente modelo, se utilizará la función de enlace logarítmica. El parámetro $\alpha$, el parámetro $q_{t_{i}}$ y $t$ está definido conforme la sección 2.1. La estimación de los parámetros $\beta$ y $\alpha$ se realizará mediante el método de máxima verosimilitud.
+\noindent en dónde $\beta=\left[ \beta_0,\beta_{1},\dots,\beta_{p} \right]^{T}$ y $x_{i}^{T} =\left[ 1,x_{i1},x_{i2},\dots,x_{ip}, \right]^{T}$. La función $g(\cdot)$ es una función de enlace estrictamente monótona y doblemente diferenciable. En el presente modelo, se utilizará la función de enlace logarítmica. El parámetro $\alpha$, el parámetro $q_{t_{i}}$ y $t$ está definido conforme la sección 2.2. La estimación de los parámetros $\beta$ y $\alpha$ se realizará mediante el método de máxima verosimilitud.
 
 \subsection{Función de verosimilitud}
 Consideramos que solo conocemos que $Y_{i}$ se encuentra en un intervalo de $K$ posibles intervalos de la forma $[a_{j},a_{j+1}]$ con $a_1 < a_2 < \dots < a_{k+1}$ y que $Z_{i}=j$ denota que $Y_{i} \in [a_{j},a_{j+1}]$. Por lo tanto, considerando los resultados de la sección 3.1, tenemos que
@@ -87,11 +87,30 @@ Los estimadores de máxima verosimilitud para los parámetros $\alpha$ y $\beta$ s
 \[ \lambda_{i_{1}} = \exp\left( -c(t) \left(\frac{a_{i_{j}}}{\gamma_{i}}\right)^{\alpha} \right)\]
 \[ \lambda_{i_{2}} = \exp\left( -c(t) \left(\frac{a_{i_{j+1}}}{\gamma_{i}}\right)^{\alpha} \right)\]
 
-Considerando ello, la hessianda
+Dichos estimadores de máxima verosimilitud, bajo ciertas condiciones de regularidad, son consistentes (es decir, que $\hat{\theta} \rightarrow \theta$ cuando $n \rightarrow \infty$) y asíntoticamente normales con distribución:
+
+\[\hat{\theta} \sim \mathcal{N}\left(\theta,\frac{1}{\mathcal{I}(\theta)}\right).\]
+
+\noindent cuando $n \rightarrow \infty$. $\mathcal{I}(\theta)$ es la matriz de información de Fisher, la cual en nuestro modelo tiene la estructura:
+
+\[
+\begin{bmatrix}
+
+\frac{\partial L(\theta)}{\partial ^{2} \alpha} & \frac{\partial L(\theta)}{\partial \alpha \partial \beta_{j}}\\
+
+\frac{\partial L(\theta)}{\partial \alpha \partial \beta_{j}} & \frac{\partial L(\theta)}{\partial^{2}\beta_{j}}
+
+\end{bmatrix}\]
+
+Los errores estándares de cada coeficiente se estiman a través de la matriz de información de Fisher observada, $\mathcal{I}(\hat{\theta})$, la cual es la matriz evaluada en los estimadores de máxima verosimilitud \cite{casella:berg}. Los errores estándares corresponden a la raíz cuadrada de cada elemento de la diagonal. Finalmente, en el marco de la inferencia clásica, los intervalos de confianza para cada parámetro está definido de la forma:
+
+\[\hat{\theta} \pm \frac{z_{1-\frac{\alpha}{2}}}{\sqrt{\mathcal{I}(\hat{\theta)}}}.\]
+
+\noindent en dónde $\mathcal{I}(\hat{\theta})$ corresponde a la matriz de información de Fisher observada.
 
 \section{Simulación de datos}
 
-La presente sección tiene como objetivo realizar un estudio de simulación en el que se evalúe el adecuado la adecuada estimación del modelo propuesto. Esto comprende generar una base de datos en dónde se tenga una variable aleatoria $Y_i \sim W_r(q_t, \alpha,t)$, la cual está subyace la variable censurada $Z$ que sigue lo denotado en la sección 3.1. Asimismo, dicha base de datos contiene otras variables simuladas, las cuales actuarán como variables independientes en un contexto de regresión. El objetivo principal del estudio de simulación evaluar si el método de estimación planteado, permite recuperar adecuadamente los parámetros de regresión establecidos a priori. Los criterios sobre los cuales se analizará la estimación del modelo son: sesgo relativo, error cuadrático medio y cobertura.
+La presente sección tiene como objetivo realizar un estudio de simulación en el que se evalúe el adecuado la adecuada estimación del modelo propuesto. Esto comprende generar una base de datos en dónde se tenga una variable aleatoria $Y_i \sim W_r(q_t, \alpha,t)$, la cual está subyace la variable censurada $Z$ que sigue lo denotado en la sección 3.1. Asimismo, dicha base de datos contiene otras variables simuladas, las cuales actuarán como variables independientes en un contexto de regresión. El objetivo principal del estudio de simulación evaluar si el método de estimación planteado, permite recuperar adecuadamente los parámetros de regresión establecidos anteriormente. Los criterios sobre los cuales se analizará la estimación del modelo son: sesgo relativo, error cuadrático medio y cobertura.
 
 El proceso de simulación consiste en generar $5.000$ réplicas considerando tamaños de muestra de $n=\{100, 500, 1.000\}$. Simularemos la variable respuesta $Y_{i} \sim W_r(Q_{t_{i}},\alpha,t)$ considerando 3 covariables $X_{1i},X_{2i},X_{3i}$ que serán simuladas como:
 \[X_{1i} \sim N(2,0.25)\]
@@ -108,7 +127,6 @@ La implementación del modelo se realizó a través del lenguaje de programación R,
 
 \begin{lstlisting}
 Simulamos valores de las siguientes distribuciones:
-
 
 Definimos los siguientes valores:
 N = [100, 500, 1000]
@@ -129,17 +147,15 @@ Para cada cuantil en t:
 		3 Para cada i en n:
 			Simular 1 valor de la siguiente distribucion:
 			Y[i] ~ W_r(Qt[i], Sigma, cuantil)
-		2 Censurar la variable Y de forma intervalar tal que
+		4 Censurar la variable Y de forma intervalar tal que
 			Z ~ Categorica
-		3 Obtener los limites inferiores y superiores de
+		5 Obtener los limites inferiores y superiores de
 			cada categoria de Z
-		4 Crear la base de datos simulada
+		6 Crear la base de datos simulada
 			df <- [L_inf, L_sup, X1, X2, X3]
-		5 Ejecutar la regresion de censura intervalar
-		6 Guardar los resultados
+		7 Ejecutar la regresion de censura intervalar
+		8 Guardar los resultados
 \end{lstlisting}
-
-% Pseudocódigo del modelo?
 
 Una vez generadas las simulaciones, se evaluó para cada escenario (cuantil y tamaño de muestra) lo siguiente:
 \[ \hat{\text{Sesgo relativo:}} \frac{1}{M}(\hat{\theta_j} - \theta)\]
@@ -161,7 +177,7 @@ Conforme lo mencionado anteriormente, podemos concluir que el algoritmo propuest
 
 \begingroup % localize the following settings                                                                    
 \setlength\tabcolsep{2pt}
-\setlength\LTcapwidth{\textwidth}
+\setlength\LTcapwidth{\linewidth}
 \setlength\LTleft{0pt}            % default: \fill
 \setlength\LTright{0pt}           % default: \fill      
 % Please add the following required packages to your document preamble:
@@ -172,6 +188,7 @@ Conforme lo mencionado anteriormente, podemos concluir que el algoritmo propuest
 % \usepackage{longtable}
 % Note: It may be necessary to compile the document several times to get a multi-page table to line up properly
 \begin{landscape}
+\footnotesize
 \begin{longtable}[c]{cc|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c}
 \cline{3-17}
 \multicolumn{1}{l}{} &
@@ -659,5 +676,6 @@ Conforme lo mencionado anteriormente, podemos concluir que el algoritmo propuest
   -0.0014 &
   -0.0022 &
   \multicolumn{1}{c|}{0.0143} \\ \hline
+\caption{Evaluación del estudio de simulación}
 \end{longtable}
 \end{landscape}

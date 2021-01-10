@@ -23,7 +23,7 @@ density1 <- ggplot(dbf, aes(x=value,y=x1,fill=x1)) +
   scale_discrete_manual(aesthetics = "point_fill", values = c(21, 22, 23,24,25,26,27,28,29)) + 
   theme_ridges(grid = FALSE, center_axis_labels = TRUE) +
   theme(axis.text.y = element_blank()) +
-  labs(x="y",y="Densidad",title="Y \U0007E W(\U03B1,\U003C3), \U03B1 = 2",subtitle = "Simulación de 10,000 valores") +
+  labs(x="y",y="Densidad",title="Y \U0007E W(\U03B1,\U003C3), \U03B1 = 2") +
   theme(plot.title = element_text(face="bold",hjust=1,size=16),
         plot.subtitle = element_text(face="italic",hjust=1,size=14),
         panel.background = element_rect(fill = "gray90"),
@@ -50,7 +50,7 @@ density2 <- ggplot(dbf_b, aes(x=value,y=x1,fill=x1)) +
   scale_discrete_manual(aesthetics = "point_fill", values = c(21, 22, 23,24,25,26,27,28,29)) +
   theme_ridges(grid = FALSE, center_axis_labels = TRUE) +
   theme(axis.text.y = element_blank()) +
-  labs(x="y",y="Densidad" , title="Y \U0007E W(\U03B1,\U003C3), \U003C3 = 2",subtitle = "Simulación de 10,000 valores")+
+  labs(x="y",y="Densidad" , title="Y \U0007E W(\U03B1,\U003C3), \U003C3 = 2")+
   theme(plot.title = element_text(face="bold",hjust=1,size=16),
         plot.subtitle = element_text(face="italic",hjust=1,size=14),
         panel.background = element_rect(fill = "gray90"),
@@ -86,8 +86,8 @@ densityplot <- function(n,qt,tau,alpha,xlim1,xlim2){
     xlim(c(xlim1,xlim2))+
     labs(y="Densidad",
          x = "y", 
-         title = (paste("Y \U0007E W\U01D63(Qt = ",qt,", \U003B1 = ",alpha,"); \U003C4 =",tau,sep = "")),
-         subtitle = "Simulación de 10,000 valores")+
+         title = (paste("Y \U0007E W\U01D63(Qt = ",qt,", \U003B1 = ",alpha,"); \U003C4 =",tau,sep = ""))
+         )+
     theme(plot.title = element_text(face="bold",hjust=1,size=10),
           plot.subtitle = element_text(face="italic",hjust=1,size=8),
           panel.background = element_rect(fill = "gray90"),

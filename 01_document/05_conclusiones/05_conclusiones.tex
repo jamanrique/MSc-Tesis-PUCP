@@ -1,0 +1,14 @@
+\chapter{Conclusiones}
+\section{Conclusiones}
+
+Los datos con censura intervalar presentan retos en el proceso de modelamiento de datos, pues la no-observabilidad de los mismos requiere adaptar los procesos de inferencia clásica a esta estructura. Ante ello, la presente tesis estudió un modelo de regresión cuantílica para datos con censura intervalar, atendiendo los estudios realizados anteriormente por \cite{peto:p}, \cite{gentleman:lmk} y \cite{koenker:kk}. Dicho modelo de regresión es paramétrico, asumiendo que la variable latente sigue una distribución Weibull, la cual fue reparametrizada para estudiar los efectos de las covariables en distintos cuantiles de la variable respuesta.
+
+Para evaluar el modelo propuesto, se realizó un estudio de simulación para todos los cuantiles y distintos niveles de muestras. Se observó que el modelo propuesto captura apropiadamente los parámetros poblacionales, y que el sesgo y error cuadrático medio se redució en la medida que aumentó el número de observaciones. La cobertura de los parámetros fue apropiada en todos los niveles de muestra.
+
+Finalmente, se aplicó el modelo de regresión a datos de la Encuesta Nacional de Satisfacción de Usuarios en Salud (ENSUSALUD) 2015. En dicha encuesta, el sueldo de los profesionales de salud (médicos/as y enfermeros/as) se censuró desde el proceso de recolección de datos. Atendiendo al estudio realizado por \cite{salyrosas:bayes}, la presente tesis extiende el modelo de regresión de censura intervalar expuesto a un modelo de regresión cuantílica. El presente modelo permitió analizar los factores de las covariables en relación al sueldo de dichos profesionales, por cada uno de los cuantiles de la variable respuesta.
+
+\section{Sugerencias para investigaciones futuras}
+\begin{itemize}
+	\item Establecer un método de verosimilitud que tome en cuenta el diseño muestral de la encuesta realizada. Asimismo, proponer métodos de estimación de varianza atendiendo esta estructura.
+	\item Proponer un modelo de regresión cuantílica con censura intervalar bajo inferencia bayesiana, tomando en consideración los métodos de verosimilitud expuestos en la presente tesis.
+\end{itemize}

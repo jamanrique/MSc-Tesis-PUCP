@@ -107,33 +107,18 @@
 \normalsize{Lima, Diciembre 2020}
 \end{center}
 
-
-
-
-%-------------------------------------------
-% Dedicatoria
-\chapter*{Dedicatoria}
-Dedicatoria
-%-------------------------------------------
-
-
-
 % Agradecimentos
-\chapter*{Agradecimentos}
-A mi asesor Cristian Bayes y al profesor Giancarlo Sal y Rosas, quienes ofrecieron la 
+\chapter*{Agradecimientos}
+A lo largo de la escritura de esta tesis de maestría he recibido un inmejorable soporte y asistencia. En primer lugar, quisiera agradecer a mi asesor, el profesor Cristian Bayes, cuya supervisión y consejos han sido invaluables para la elaboración de este documento. La retroalimentación recibida mejoró la calidad de las ideas expuestas aquí. Asimismo, agradezco nuevamente al profesor Bayes y al profesor Giancarlo Sal y Rosas. Gracias a ambos, pude iniciar mi carrera académica en Estadística. Finalmente, agradezco a la plana docente de la maestría por su enseñanza y orientación durante los cursos llevados.
+
 
 % ---------------------------------------------------------------------------- %
 % Resumen
 \chapter*{Resumen}
 
-\noindent \textbf{Palabras clave:} censura intervalar, regresión con censura.
+La presente tesis propone un modelo de regresión cuantílica para datos positivos con censura intervalar, que permite modelar estructuras de datos en dónde la variable respuesta no es directamente observable, y la única información que se conoce sobre la misma es que se encuentra en un intervalo $[a_i,b_i]$. Para evaluar si el método propuesto captura adecuadamente los parámetros poblacionales desde el punto de vista de la inferencia clásica, se desarrolla un estudio de simulación. Se observa que el modelo propuesto sí captura estos parámetros establecidos. Finalmente, se aplica el modelo a los datos de la Encuesta Nacional de Satisfacción de Salud ejecutada el año 2015. La estructura del modelo permite evaluar los factores relacionados al sueldo de los profesionales en salud (el cual había sido censurado desde el proceso de recolección de datos). El presente modelo es una extensión al modelo de regresión de censura intervalar expuesto en \cite{salyrosas:bayes}, pues se evalúa los factores subyacentes a una variable respuesta a lo largo de sus cuantiles.
 
-% ---------------------------------------------------------------------------- %
-% Abstract
-\chapter*{Abstract}
-Abstract
-
-\noindent \textbf{Keywords:} keyword1, keyword2, keyword3.
+\noindent \textbf{Palabras clave:} censura intervalar, regresión con censura, inferencia clásica, regresión paramétrica.
 
 % ---------------------------------------------------------------------------- %
 % Indice
@@ -141,16 +126,12 @@ Abstract
 % ---------------------------------------------------------------------------- %
 
 
-\chapter{Lista de Abreviaturas}
-\begin{tabular}{ll}
- 		\textbf{f.d.a.}     & Función de distribución acumulada. \\
-		pBF 		& Pseudo factor de Bayes(\emph{Pseudo bayes factor}).\\
-
-\end{tabular}
-
 \chapter{Lista de Símbolos}
 \begin{tabular}{ll}
-		$\mu$    & Media.\\
+	$Y \sim W_r(q_{t},\alpha)$	& Variable $Y$ sigue una distribución Weibull reparametrizada. \\
+	$q_t$				& Parámetro de forma. \\
+	$\alpha$    			& Parámetro de escala.\\
+
 \end{tabular}
 
 \listoffigures               % lista de Figuras
@@ -165,9 +146,7 @@ Abstract
 \input{02_modelo/cap-modelo}
 \input{03_regresion/03_regresion}
 \input{04_real data/04_real data}
-
-\appendix
-\include{ape-1}      % associado ao arquivo: 'ape-1.tex'
+\input{05_conclusiones/05_conclusiones}
 
 % ---------------------------------------------------------------------------- %
 % Bibliografia
@@ -178,3 +157,4 @@ Abstract
 \bibliographystyle{dcu}
 
 \end{document}
+

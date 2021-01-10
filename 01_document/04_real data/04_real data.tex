@@ -1,6 +1,6 @@
 \chapter{Aplicación en datos reales}
 
-El presente capítulo presenta una aplicación del modelo de regresión cuantílica para datos intervalares en datos reales. Para tal fin, se utilizará la Encuesta Nacional de Satisfacción de Usuarios del Aseguramiento Universal en Salud (ENSUSALUD) la cual ha sido generada por el Instituto Nacional de Estadística e Informática del Perú (INEI). En dicha aplicación, se evaluará el efecto de cada covariable en la variable respuesta a lo largo de todos los cuantiles. Asimismo, ...
+El presente capítulo presenta una aplicación del modelo de regresión cuantílica para datos intervalares en datos reales. Para tal fin, se utilizará la Encuesta Nacional de Satisfacción de Usuarios del Aseguramiento Universal en Salud (ENSUSALUD) la cual ha sido generada por el Instituto Nacional de Estadística e Informática del Perú (INEI). En dicha aplicación, se evaluará el efecto de cada covariable en la variable respuesta a lo largo de todos los cuantiles. 
 
 \section{ENSUSALUD 2015}
 Conforme el Convenio de Cooperación Interinstitucional Nª 017-2013-INEI, el INEI y la Superintendencia Nacional de Aseguramiento en Salud (SUNASA) acordaron en implementar y ejecutar la encuesta de satisfacción en salud el año 2015. Dicha encuesta es una investigación estadística, cuyo objetivo es <<evaluar el grado de satisfacción de los usuarios internos y externos de los servicios de salud>> \cite{inei:ensusalud}. Al respecto, dicha encuesta comprende como unidad muestral a los usuarios de consulta externa, bóticas y farmacias, seguros, y profesionales de la salud. Los usuarios y profesionales han sido atendidos o forman parte del conjunto de establecimientos del Ministerio de Salud (MINSA), Seguro Social de Salud (EsSalud), Clínicas privadas y Establecimientos de Sanidad de las Fuerzas Armadas y Policiales.
@@ -19,26 +19,36 @@ En relación al diseño muestral de la encuesta, esta consiste en un muestreo prob
 	\item \textbf{Niveles de inferencia:} Nacional y dirigida a cada una de las unidades de análisis.
 \end{itemize}
 
-\section{Estudio sobre la disparidad de sueldos en profesionales de la salud}
-
 \section{Base de datos}
-Para propósitos de la aplicación, se utilizó la encuesta ejecutada a profesionales de la salud (enfermería y personal médico). Esta encuesta se realizó a 5,067 profesionales en el año 2015 \cite{inei:ensusalud}, y tiene como objetivo <<conocer características del personal relacionados a formación académica, actividad laboral, satisfacción con el trabajo, estrés laboral y conocimiento referido a la SUNASA>>. La base de datos presenta las siguientes características:
+Para propósitos de la aplicación, se utilizó la encuesta ejecutada a profesionales de la salud (enfermería y personal médico). Esta encuesta se realizó a 5,067 profesionales en el año 2015 \cite{inei:ensusalud}, y tiene como objetivo <<conocer características del personal relacionados a formación académica, actividad laboral, satisfacción con el trabajo, estrés laboral y conocimiento referido a la SUNASA>>. Considerando las respuestas válidas relacionadas al sueldo de los profesionales, tenemos 4,973 profesionales materia de análisis, entre médicos/as y enfermeros/as. El análisis final se realizará sobre los médicos/as (2,154 profesionales). Esta base de datos ha sido estudiada previamente por \cite{salyrosas:bayes}, quienes evaluaron la disparidad de sueldos entre profesionales varones y mujeres. Al respecto, dicho estudio estableció una regresión de censura intervalar, la cual ha sido extendida a una regresión cuantílica en la presente tesis.
 
 
 \section{Conjunto de Variables}
 
 De dicha base de datos, se utilizaron las siguientes variables:
-\begin{itemize}
-	\item Años de experiencia en el sector salud.
-	\item Horas de trabajo semanales.
-	\item Cantidad de personas que dependen económicamente del encuestado.
-	\item Sexo del encuestado
-	\item Límite inferior del sueldo percibido por el encuestado.
-	\item Límite superior del sueldo percibido por el encuestado.
-\end{itemize}
 
-El modelo propuesto en el capítulo 3 será utilizado en la presente base de datos, tomando en consideración que el sueldo constituye una variable censurada de forma intervalar. 
+\begin{itemize}
+	\itemsep0em
+	\item \textbf{Características del establecimiento de salud:} (i) Tipo de institución del establecimiento.
+	\item \textbf{Caracterización del profesional de salud:} (i) Profesión específica del personal de salud.
+	\item \textbf{Formación académica del profesional de salud:} (i) Si el profesional cuenta con especialidad o no.
+	\item \textbf{Actividad laboral del profesional de salud:} (i) Años de experiencia en el sector salud; (ii) Si el profesional realiza labor asistencial en otra institución; (iii) Si el profesional realiza labor docente remunerada; (iv) Cantidad de horas laboradas semanalmente por el profesional de salud; \textbf{(v) El ingreso mensual (censurado intervalarmente) del profesional de salud}
+\end{itemize}
 
 \section{Resultados}
 
-		Esta sección se entregará en posteriores entregas.
+Se ajustó el modelo de regresión cuantílica para datos con censura intervalar a dichos datos. Considerando la función de enlace logarítmica, se estimó los parámetros $\beta$ y $\alpha$. Los resultados de las regresiones, así como el intervalo de confianza asociado a cada parámetro, se encuentran en la figura \ref{med:efectos}.
+
+La categoría de referencia para el presente estudio es un médico hombre, que trabaja en el instituto MINSA-GR y cuenta con especialidad (C2P13), realiza labor asistencial en otra institución, y realiza labor docente remunerada (C2P26). Al respecto, se observa lo siguiente:
+\begin{itemize}
+	\item Para cada uno de los cuantiles de la variable respuesta, se observa que una médico mujer tendría un decremento entre $\beta = [-0.05, -0.11]; e^{\beta}-1 = [-0.11,-0.06]$ en relación a sus pares varones. El efecto se acentúa en mayor medida en el cuantil 0.9 de la variable respuesta.
+	\item Para ciertos cuantiles, y tomando en cuenta la categoría de referencia, cambiar de la institución MINSA-GR a las instituciones FF.AA. / PN o Clínicas Privadas tiene como consecuencia un decremento en el sueldo. No obstante, se observa que ello podría no tener efecto para estos cuantiles, pues los intervalos de confianza contienen el 0.
+	\item A lo largo de todos los cuantiles de la variable respuesta, existe un marcado efecto negativo en tanto el médico no realice labor asistencial en otra institución o no realice labor docente remunerada.
+\end{itemize}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{figuras/efectos_med.png}
+\caption{Efectos de las covariables sobre los cuantiles del sueldo de los médicos/as}
+\label{med:efectos}
+
+\end{figure}

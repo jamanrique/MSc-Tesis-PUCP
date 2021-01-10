@@ -1,5 +1,10 @@
 \begin{thebibliography}{xx}
 
+\harvarditem{Casella \harvardand\ Berger}{2002}{casella:berg}
+Casella, G. \harvardand\ Berger, R.~L.  \harvardyearleft 2002\harvardyearright
+  .
+\newblock {\em Statistical Inference}, Wadsworth.
+
 \harvarditem{Gentleman \harvardand\ Geyer}{1994}{gentleman:lmk}
 Gentleman, R. \harvardand\ Geyer, C.~J.  \harvardyearleft 1994\harvardyearright
   .
@@ -35,6 +40,13 @@ Munoz, l. \harvardand\ Xu, J.  \harvardyearleft 1996\harvardyearright .
 Peto, R.  \harvardyearleft 1973\harvardyearright .
 \newblock Experimental survival curves for interval-censored data, {\em Journal
   of the Royal Statistical Society} {\bf 22}(1).
+
+\harvarditem[Sal~y Rosas et~al.]{Sal~y Rosas, Moscoso-Porras, Ormeno, Artica,
+  Miranda \harvardand\ Bayes}{2019}{salyrosas:bayes}
+Sal~y Rosas, V., Moscoso-Porras, M., Ormeno, R., Artica, F., Miranda, J.
+  \harvardand\ Bayes, C.  \harvardyearleft 2019\harvardyearright .
+\newblock Gender income gap among physician and nurses in peru: a nationwide
+  assessment, {\em The Lancet} {\bf 7}(4).
 
 \harvarditem{Weibull}{1951}{weib:weib}
 Weibull, W.  \harvardyearleft 1951\harvardyearright .

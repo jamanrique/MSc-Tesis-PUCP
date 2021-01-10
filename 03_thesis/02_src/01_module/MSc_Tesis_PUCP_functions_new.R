@@ -6,6 +6,10 @@ library(tidyverse)
 library(BB)
 library(matrixStats)
 library(gridExtra)
+library(numDeriv)
+library(pracma)
+library(ucminf)
+library(nloptr)
 gen.cens(family="WEI3",type="interval")
 
 Ct = function(alpha, tau){
@@ -84,23 +88,28 @@ likelihood = function(param,betas,df,tau){
 reg_Wr = function(data,li,lf,tau,param){
   df = data_mgmt(data,li,lf)
   Bs = as.matrix(rep(0,ncol(df[['matriz.diseno']])))
-  fit_mv = optim(par = param,fn = likelihood,hessian = T,betas=Bs,df=df,tau=tau)
-  print(fit_mv$convergence)
+  fit_mv = nloptr(x0 = param,eval_f = likelihood, betas=Bs, df=df, tau=tau,opts = list("algorithm"=c("NLOPT_LN_NELDERMEAD"),maxeval = 300))
+  print(fit_mv$message)
+  fit_mv$hessian = pracma::hessian(x0 = fit_mv$solution,f = likelihood,betas=Bs,df=df,tau=tau)
   return(fit_mv)
 }
-lancet <- function(){
+
+lancet <- function(int){
   temp <- tempfile()
   download.file("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/447-Modulo552.zip", temp)
   salud <- read_sav(unz(temp, "447-Modulo552/04_C2_CAPITULOS.sav"))
   unlink(temp)
   
-  ## Eliminating missing values
+  ## Manteniendo respuestas válidas
   salud <- salud[salud$C2P28 != 7,]
-  ## DATA MANAGEMENT
-  myvarsalud <- c("C2P21", "C2P27", "C2P9", "REGION", "INSTITUCION", "C2P1", "C2P4","C2P7", "C2P11", "C2P13", "C2P23", "C2P24", "C2P25", "C2P26", "C2P28")
   
-  newsalud <- salud[myvarsalud]
-  newsalud <- data.frame(newsalud)
+  sawlud$C2P26
+  
+  ### Pre-procesamiento ###
+  variables <- c("INSTITUCION","C2P4","C2P13","C2P21","C2P24","C2P26","C2P28","C2P1","C2P27")
+  
+  newsalud <- salud[variables]
+  
   ## Disaggregating salary ordinal variable into its limits
   newsalud$li <- NULL
   newsalud$ls <- NULL
@@ -115,64 +124,32 @@ lancet <- function(){
                                       ifelse(newsalud$C2P28 == 4, 4000,
                                              ifelse(newsalud$C2P28 == 5, 5000, Inf)))))
   
-  ## Deleting "Other" in type of contract
-  newsalud <- newsalud[newsalud$C2P7 != 6,]
-  ## Deleting 8 NA's in dependents
-  newsalud <- newsalud[!is.na(newsalud$C2P9),]
-  ## Converting to factor and removing unused tag
-  newsalud$C2P28 <- factor(newsalud$C2P28,labels = names(attributes(newsalud$C2P28)$labels)[1:6])
-  newsalud$C2P7 <- factor(newsalud$C2P7,labels = names(attributes(newsalud$C2P7)$labels)[1:5])
+  newsalud <- newsalud %>% select(-C2P28)
   
-  ## Converting to factor the remaining categorical variables
-  for (j in 4:15) {
-    if (j != 8 & j != 15) {
-      newsalud[, j] <- factor(newsalud[, j],
-                              labels = names(attributes(newsalud[, j])$labels))}}
-  
-  ## REGION
-  levels(newsalud$REGION)[levels(newsalud$REGION) == "Sierra"] <- "Nuevo"
-  levels(newsalud$REGION)[levels(newsalud$REGION) == "Selva"] <- "Sierra"
-  levels(newsalud$REGION)[levels(newsalud$REGION) == "Nuevo"] <- "Selva"
-  
-  ## C2P7
-  levels(newsalud$C2P7)[levels(newsalud$C2P7) == "Locaci?n de servicios (Honorarios profesionales)" | levels(newsalud$C2P7) == "Contrato Administrativo de Servicios (CAS)"] <- "Plazo no fijo"
-  levels(newsalud$C2P7)[levels(newsalud$C2P7) == "Contrato a plazo fijo (sujeto a modalidad)"| levels(newsalud$C2P7) == "Nombrado, permanente" | levels(newsalud$C2P7) == "Plazo indeterminado o indefinido (D.S.728)"] <- "Plazo fijo"
-  
-  ## C2P23
-  levels(newsalud$C2P23)[levels(newsalud$C2P23) == "Permanente (Tiene trabajo durante todo el a?o de manera continua)?"] <- "Permanente"
-  levels(newsalud$C2P23)[levels(newsalud$C2P23) == "Temporal o estacional (No permanente)?"] <-"Temporal"
-  
-  ## Re-ordering levels
-  newsalud$C2P4 <- relevel(newsalud$C2P4, ref = "Mujer")
-  newsalud$C2P13 <- relevel(newsalud$C2P13, ref = "No")
-  newsalud$C2P23 <- relevel(newsalud$C2P23, ref = "Temporal")
-  newsalud$C2P24 <- relevel(newsalud$C2P24, ref = "No")
-  newsalud$C2P25 <- relevel(newsalud$C2P25, ref = "No")
-  newsalud$C2P26 <- relevel(newsalud$C2P26, ref = "No")
+  newsalud$INSTITUCION <- factor(newsalud$INSTITUCION,labels=names(attr(newsalud$INSTITUCION,"labels")))
+  newsalud$C2P4 <- factor(newsalud$C2P4,labels = names(attr(newsalud$C2P4,"labels")))
+  newsalud$C2P13 <- factor(newsalud$C2P13, labels=names(attr(newsalud$C2P13,"labels")))
+  newsalud$C2P21 <- as.integer(newsalud$C2P21)
+  newsalud$C2P24 <- factor(newsalud$C2P24, labels = names(attr(newsalud$C2P24,"labels")))
+  newsalud$C2P26 <- factor(newsalud$C2P26, labels = names(attr(newsalud$C2P26,"labels")))
+  newsalud$C2P1 <- factor(newsalud$C2P1, labels = names(attr(newsalud$C2P1,"labels")))
+  newsalud$C2P27 <- as.integer(newsalud$C2P27)
   
   ## Generating separated physicians and nurses data
   
-  newsalud <- subset(newsalud, select = -c(C2P28))
-  newsalud_med <- newsalud[newsalud$C2P1 == "M?dico",]
-  newsalud_med <- subset(newsalud_med, select = -C2P1)
-  newsalud_enf <- newsalud[newsalud$C2P1 != "M?dico",]
+  newsalud_enf <- newsalud[newsalud$C2P1 =="Enfermero/a" ,]
   newsalud_enf <- subset(newsalud_enf, select = -C2P1)
+  newsalud_enf <- as.data.frame(newsalud_enf)
   
-  ## Scaling
-  newsalud_med$li <- newsalud_med$li;
-  newsalud_med$lf <- newsalud_med$lf
-  
-  newsalud_enf$li <- newsalud_enf$li
-  newsalud_enf$lf <- newsalud_enf$lf
-  
-  newsalud_enf <- subset(newsalud_enf, (newsalud_enf$lf == Inf) == FALSE)
-  newsalud_enf <- dplyr::mutate(newsalud_enf, 
-                                sexo = if_else(newsalud_enf$C2P4 == "Mujer", 1, 0)
-  )
-  
-  newsalud_enf <- newsalud_enf %>% dplyr::select(C2P21,C2P27,C2P9,sexo, li,lf)
-  newsalud_enf$sexo <- as.factor(newsalud_enf$sexo)
-  return(newsalud_enf)
+  newsalud_med <- newsalud[newsalud$C2P1 == "Médico",]
+  newsalud_med <- subset(newsalud_med, select = -C2P1)
+  newsalud_med <- as.data.frame(newsalud_med)
+  if (int == 1) {
+    return(newsalud_enf)  
+  }
+  if (int ==2) {
+    return(newsalud_med)
+  }
 }
 
 #### Simulación ####
@@ -297,44 +274,89 @@ round(final_database,4)
 
 #### Datos reales ####
 
-real_data = lancet()
+real_data_enf = lancet(1)
+real_data_med = lancet(2)
 
-tau_seq_sim = seq(0.10,0.9,0.1)
-m1 = gamlss(Surv(li,lf,type="interval2")~.,family = WEI3ic,data = real_data)
-init_real = as.vector(c(coef(m1),m1$sigma.coefficients));init_real
+tau_seq_sim = seq(0.10,0.9,0.05)
+m1 = gamlss(Surv(li,lf,type="interval2")~.,family = WEI3ic,data = real_data_enf)
+m2 = gamlss(Surv(li,lf,type="interval2")~.,family = WEI3ic,data = real_data_med)
+init_real_enf = as.vector(c(coef(m1),m1$sigma.coefficients))
+init_real_med = as.vector(c(coef(m2),m2$sigma.coefficients))
 
-var = list()
+#### Regresión cuantílica para médicxs ####
+
+var_med = list()
 for (j in 1:length(tau_seq_sim)) {
-  var = append(var,list(reg_Wr(data = real_data,li = 5, lf= 6,tau_seq_sim[j],param = init_real)))
-}  
-
-val <- matrix(ncol=length(var[[1]]$par),nrow = 0)
-for (l in 1:length(tau_seq_sim)) {
-  pba <- var[[l]]
-  val <- rbind(val,pba$par)
+  var_med = append(var_med,list(reg_Wr(data = real_data_med,li = 8, lf = 9,tau_seq_sim[j],param = init_real_med)))
 }
-val
-pred <- as.data.frame(rbind(var[[1]]$par - qnorm(0.975) * sqrt(diag(solve(var[[1]]$hessian))),
-                            var[[1]]$par + qnorm(0.975) * sqrt(diag(solve(var[[1]]$hessian)))))
 
-val
+
+val_med <- matrix(ncol=length(var_med[[1]]$solution),nrow = 0)
+for (l in 1:length(tau_seq_sim)) {
+  pba <- var_med[[l]]
+  val_med <- rbind(val_med,pba$solution)
+}
+val_med
+var_med[[1]]$solution
+
+ggplot_res <- function(optimum_df,original_df,k){
+  col_df <- c(colnames(model.matrix( ~ . ,subset.data.frame(original_df,select = -c(8,9)))),"\U03B1")
+  p <- ggplot(data = as.data.frame(optimum_df), aes_string(x=tau_seq_sim,y = (optimum_df[,k])))+
+          geom_line(size = 1.25) +  scale_color_manual(values = c("#dc322f"),) +
+          scale_x_continuous(breaks = seq(0.1,0.9,0.1),minor_breaks = NULL) +
+          scale_y_continuous(minor_breaks = NULL) +
+          geom_ribbon(data = ar,
+                      aes_string(ymin=ar[,1],ymax=ar[,2]),
+                      alpha=0.5) +
+          labs(x="Cuantil",y=as.character(col_df[k])) +
+          theme(plot.title = element_text(face="bold",hjust=1,size=12),
+                plot.subtitle = element_text(face="italic",hjust=1,size=10),
+                panel.background = element_rect(fill = "#fdf6e3"),
+                panel.grid.major = element_line(color = "#657b83", size = .25),
+                panel.grid.minor = element_line(color = "#657b83", size = .25),
+                axis.title = element_text(size=8))
+  return(p)
+}
+
 ggplot_aa <- list()
-for (k in 1:6) {
+for (k in 1:dim(val_med)[2]) {
   ar <- matrix(nrow=0,ncol=2)
   for (t in 1:length(tau_seq_sim)) {
-   ar <- rbind(ar,cbind(var[[t]]$par[k]  + qnorm(0.975) * sqrt(diag(solve(var[[t]]$hessian))[k]),
-         var[[t]]$par[k]  - qnorm(0.975) * sqrt(diag(solve(var[[t]]$hessian))[k])
+   ar <- rbind(ar,cbind((var_med[[t]]$solution[k]  + qnorm(0.975) * sqrt(diag(solve(var_med[[t]]$hessian))[k])),
+          (var_med[[t]]$solution[k]  - qnorm(0.975) * sqrt(diag(solve(var_med[[t]]$hessian))[k]))
    ))}
   ar <- as.data.frame(ar)
-
-  p = ggplot(data=as.data.frame(val),
-              aes_string(x=tau_seq_sim,y=val[,k])) +
-              geom_point() +
-              geom_line() +
-              geom_ribbon(data = ar,
-                          aes_string(ymin=ar[,1],ymax=ar[,2]),
-                          alpha=0.4)
-  ggplot_aa[[k]] = p
+  ggplot_aa[[k]] = ggplot_res(optimum_df = val_med,original_df = real_data_med,k = k)
   }
 
 plot_grid_alpha <- do.call("grid.arrange",ggplot_aa)
+
+#### Regresión cuantílica para enfermerxs ####
+
+var_enf = list()
+for (j in 1:length(tau_seq_sim)) {
+  var_enf = append(var_enf,list(reg_Wr(data = real_data_med,li = 8, lf = 9,tau_seq_sim[j],param = init_real_enf)))
+}
+
+val_enf <- matrix(ncol=length(var_enf[[1]]$solution),nrow = 0)
+for (l in 1:length(tau_seq_sim)) {
+  pba <- var_enf[[l]]
+  val_enf <- rbind(val_enf,pba$solution)
+}
+exp(val_enf)
+
+ggplot_aa_enf <- list()
+for (k in 1:dim(val_enf)[2]) {
+  ar <- matrix(nrow=0,ncol=2)
+  for (t in 1:length(tau_seq_sim)) {
+   ar <- rbind(ar,cbind((var_enf[[t]]$solution[k]  + qnorm(0.975) * sqrt(diag(solve(var_enf[[t]]$hessian))[k])),
+          (var_enf[[t]]$solution[k]  - qnorm(0.975) * sqrt(diag(solve(var_enf[[t]]$hessian))[k]))
+   ))}
+  ar <- as.data.frame(ar)
+  ggplot_aa_enf[[k]] = ggplot_res(optimum_df = val_enf,original_df = real_data_enf,k = k)
+  
+  }
+
+plot_grid_alpha <- do.call("grid.arrange",ggplot_aa_enf)
+
+exp(val_med)
