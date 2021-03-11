@@ -1,3 +1,36 @@
-\chapter{Resultados teóricos}
-\label{ape:demostraciones}
+\chapter{Apéndice}
 
+\section{Pseudocódigo de la simulación}
+\label{seudo}
+
+\begin{lstlisting}
+Simulamos valores de las siguientes distribuciones:
+
+Definimos los siguientes valores:
+N = [100, 500, 1000]
+B = [7, 0.3, 0.84, 2.5] 
+Sigma = 2
+t=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+M = 5000
+
+Para cada cuantil en t:
+	Para cada n en N:
+		Para cada replica en M:
+		1 Simular n valores de las siguientes distribuciones:
+			X1 ~ Beta(2,3) 
+			X2 ~ Normal(2,0.5)
+			X3 ~ Gamma(2,25)
+		2 Generar la función de enlace:
+			Qt = exp(B[1] + B[2]*X1 + B[3]*X2 + B[4]*X3)
+		3 Para cada i en n:
+			Simular 1 valor de la siguiente distribucion:
+			Y[i] ~ W_r(Qt[i], Sigma, cuantil)
+		4 Censurar la variable Y de forma intervalar tal que
+			Z ~ Categorica
+		5 Obtener los limites inferiores y superiores de
+			cada categoria de Z
+		6 Crear la base de datos simulada
+			df <- [L_inf, L_sup, X1, X2, X3]
+		7 Ejecutar la regresion de censura intervalar
+		8 Guardar los resultados
+\end{lstlisting}

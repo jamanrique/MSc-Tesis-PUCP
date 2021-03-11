@@ -11,17 +11,20 @@
 \contentsline {chapter}{\numberline {3}Modelo de regresi\'on cuant\IeC {\'\i }lica para datos positivos}{10}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Datos positivos con censura intervalar}{10}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Funci\'on de verosimilitud para datos positivos con censura intervalar}{11}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Modelo de regresi\'on para datos positivos con censura intervalar}{11}{section.3.3}%
+\contentsline {section}{\numberline {3.3}Modelo de regresi\'on para datos positivos con censura intervalar}{12}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Funci\'on de verosimilitud}{12}{subsection.3.3.1}%
 \contentsline {section}{\numberline {3.4}Simulaci\'on de datos}{13}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Implementaci\'on del modelo}{14}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Resultados}{15}{subsection.3.4.2}%
-\contentsline {chapter}{\numberline {4}Aplicaci\'on en datos reales}{17}{chapter.4}%
-\contentsline {section}{\numberline {4.1}ENSUSALUD 2015}{17}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Base de datos}{18}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Conjunto de Variables}{18}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Resultados}{18}{section.4.4}%
-\contentsline {chapter}{\numberline {5}Conclusiones}{20}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Conclusiones}{20}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Sugerencias para investigaciones futuras}{20}{section.5.2}%
-\contentsline {chapter}{Bibliograf\'{\i }a}{21}{chapter*.11}%
+\contentsline {subsection}{\numberline {3.4.1}Metodolog\IeC {\'\i }a para la simulaci\'on de datos}{13}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Implementaci\'on del modelo}{14}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Resultados}{15}{subsection.3.4.3}%
+\contentsline {chapter}{\numberline {4}Aplicaci\'on en datos reales}{19}{chapter.4}%
+\contentsline {section}{\numberline {4.1}ENSUSALUD 2015}{19}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Base de datos}{20}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Conjunto de Variables}{20}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Resultados}{20}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Conclusiones}{22}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Conclusiones}{22}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Sugerencias para investigaciones futuras}{22}{section.5.2}%
+\contentsline {chapter}{\numberline {6}Ap\'endice}{23}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Pseudoc\'odigo de la simulaci\'on}{23}{section.6.1}%
+\contentsline {chapter}{Bibliograf\'{\i }a}{24}{chapter*.14}%

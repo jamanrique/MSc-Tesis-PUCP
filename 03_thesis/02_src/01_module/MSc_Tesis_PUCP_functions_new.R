@@ -210,6 +210,30 @@ for (j in 1:length(n)) {
 
 final_database
 
+X = c(100,500,1000)
+par(mfrow=c(5,9))
+par(mar=c(2.5,2.5,2.5,2.5))
+
+for (i in 1:length(t_sim)) {
+  for (j in 1) {
+    Y = rbind(final_database[i,j],final_database[i+9,j],final_database[i+18,j])
+    plot(y= Y, x = X, pch=16,xlab = "Tamaño de muestra",ylab = "Cobertura",xaxt='n',cex.lab=1)
+    lines(y=Y,x=X,type="b", col="firebrick", lty=2)
+    axis(4, at=Y,labels=round(Y,digits=3), col.axis="firebrick", cex.axis=1, tck=.01)
+    axis(1,at=c(100,500,1000))
+    title(paste("Cuantil \U003C4", tau_sim[i]))
+  }
+}
+
+
+
+
+
+plot
+
+
+plot(n,final_database[,1])
+
 ecm_calc <- function(lista) {
   ic_contain <- matrix(nrow=0,ncol=5)
   for (k in 1:length(lista)) {

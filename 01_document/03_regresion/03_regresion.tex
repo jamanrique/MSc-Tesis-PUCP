@@ -2,8 +2,9 @@
 	El presente capítulo tiene como objetivo especificar el modelo de regresión cuantílica para datos positivos con censura intervalar. Asimismo, detallamos la estimación de los parámetros desde la perspectiva de inferencia clásica.
 
 	\section{Datos positivos con censura intervalar}
+	\label{metodo:reg}
 
-	Siguiendo la definición expuesta en \cite{peto:p}, definimos a $Y$ como una variable aleatoria con una \textbf{f.d.a.} $F(Y)$. Dicha variable se entiende como \textit{censurada} si la única información que tenemos sobre $Y$ es que $Y$ yace en un intervalo $I$. Bajo este contexto, podemos definir una variable aleatoria $Z$ como una variable indicadora que precisa el $j$-ésimo intervalo $[a_i,b_i]$ en el que se encuentra la variable $Y$. Por lo tanto, durante el proceso de recolección de datos, observamos directamente la variable $Z$, mientras que la variable $Y$ es una variable latente. Para ilustrar este proceso, imaginemos un proceso de administración de encuestas, en dónde el encuestador consulta a la persona en qué intervalo se encuentra su sueldo mensual. Esto requiere que la variable $Z$ sea una variable categórica, pues la persona solo indica una opción. Entonces, podemos definir dicha variable mediante la siguiente expresión:
+	Siguiendo la definición expuesta en \cite{peto:p}, definimos a $Y$ como una variable aleatoria con una \textbf{f.d.a.} $F_{y}(Y)$. Dicha variable se entiende como \textit{censurada} si la única información que tenemos sobre $Y$ es que $Y$ yace en un intervalo $I$. Bajo este contexto, podemos definir una variable aleatoria $Z$ como una variable indicadora que precisa el $j$-ésimo intervalo $[a_j,a_{j+1}], \text{con } j = 1, \dots, k$  en el que se encuentra la variable $Y$. Por lo tanto, durante el proceso de recolección de datos, observamos directamente la variable $Z$, mientras que la variable $Y$ es una variable latente. Para ilustrar este proceso, imaginemos un proceso de administración de encuestas, en dónde el encuestador consulta a la persona en qué intervalo se encuentra su sueldo mensual. Esto requiere que la variable $Z$ sea una variable categórica, pues la persona solo indica una opción. Entonces, podemos definir dicha variable mediante la siguiente expresión:
 
 	\begin{equation}
 	Z = 
@@ -18,42 +19,45 @@
 
 	\noindent en dónde $a_1 < a_2 < \cdots <a_{k+1}$. Esto corresponde a los límites del intervalo $I$, con $a_{1}=0$ y $a_{K+1}=\infty$. La \textbf{f.d.p} de la variable observable $Z$ está definida de la siguiente forma:
 	\begin{equation} \label{eq:2}
-	P\left( Z=j \right)=P\left(a_{j} \leq Y < a_{j+1} \right) = F_Y(a_j) - F_Y(a_{j+1})
+	P\left( Z=j \right)=P\left(a_{j} \leq Y < a_{j+1} \right) = F_Y(a_j+1) - F_Y(a_{j})
 	\end{equation}
 
-	\noindent en dónde $F_Y(\cdot)$ es la función de distribución acumulada de Y. La variable $Z$ que sigue la distribución anteriormente mencionada está denotada por 
-\[Z \sim \text{Categórica}(\pi)\]
+	\noindent en dónde $F_Y(\cdot)$ es la función de distribución acumulada de Y. La variable $Z$ que sigue la distribución anteriormente mencionada $Y$ está denotada por 
+\[Z \sim \text{Categórica}(\boldsymbol{\pi})\]
 
-\noindent dónde $\pi=\left( \pi_{1},\dots,\pi_{k}\right)$y $\pi_{j}=P(Z=j)$.
+\noindent dónde $\boldsymbol{\pi}=\left( \pi_{1},\dots,\pi_{k}\right)^{T}$y $\pi_{j}=P(Z=j)$.
 
 \section{Función de verosimilitud para datos positivos con censura intervalar}
 
-El mecanismo de censura de datos es el proceso que no nos permite observar directamente la variable $Y$, y solo nos da como resultado la variable categórica $Z$. Este mecanismo, dependiendo de la casuística, puede aportar información adicional a la regular. Es decir, el mecanismo de censura puede indicarnos cosas adicionales a que únicamente $y$ se encuentre en el intervalo $[a_i,a_{i+1}]$. Si ello sucediese, el investigador tendría que tomar en cuenta estas características adicionales en el proceso de estimación de parámetros de la función de densidad de $F'(Y)$. La presente tesis asumirá que el proceso de censura no es informativo, considerando únicamente las ideas plasmadas por \cite{gentleman:lmk}. De acuerdo a \cite{calle:oller}, un proceso de censura no informativo considera los intervalos observados fijos e ignora su aleatoreidad. Formalmente, \cite{calle:oller} indica que la condición para que el proceso de censura se considere no informativo es que la distribución condicional de $a_{i}$ y $a_{i+1}$ dado $Y$ satisface lo siguiente:
+El mecanismo de censura de datos es el proceso que solo nos permite observar la variable categórica $Z$, pues a través de cierto instrumento oculta la información de la variable $Y$. Dicho proceso, de acuerdo a \cite{calle:oller} puede ser informativo, puesto que conociendo el proceso de censura es posible intuir cuál es el verdadero valor $y$ de $Y$. Es decir, conociendo 
+
+
+Elmecanismo de censura de datos es el proceso que no nos permite observar directamente la variable $Y$, y solo nos da como resultado la variable categórica $Z$. Este mecanismo, dependiendo de la casuística, puede aportar información adicional a la regular. Es decir, el mecanismo de censura puede indicarnos cosas adicionales a que únicamente $y$ se encuentre en el intervalo $[a_j,a_{j+1}]$. Si ello sucediese, el investigador tendría que tomar en cuenta estas características adicionales en el proceso de estimación de parámetros de la función de densidad de $F'(Y)$. La presente tesis asumirá que el proceso de censura no es informativo, considerando únicamente las ideas plasmadas por \cite{gentleman:lmk}. De acuerdo a \cite{calle:oller}, un proceso de censura no informativo considera los intervalos observados fijos e ignora su aleatoreidad. Formalmente, \cite{calle:oller} indica que la condición para que el proceso de censura se considere no informativo es que la distribución condicional de $a_{j}$ y $a_{j+1}$ dado $Y$ satisface lo siguiente:
 \begin{equation*}
-f_{Z|Y}(a_{i},a_{i+1}|y_{j}) = f_{Z|Y} (a_{i},a_{i+1}|y_{k}); \{(a_{i},a_{i+1}): y_{j} \in [a_{i},a_{i+1}],y_{k} \in [a_{i},a_{i+1}]\}
+f_{Z|Y}(a_{j},a_{j+1}|y_{w}) = f_{Z|Y} (a_{j},a_{j+1}|y_{w}); \{(a_{j},a_{j+1}): y_{w} \in [a_{j},a_{j+1}],y_{k} \in [a_{j},a_{j+1}]\}
 \end{equation*}
 \noindent Esto quiere decir que dos valores específicos de $Y$, que se encuentren dentro del intervalo $[a_{i},a_{i+1}]$, contienen la misma información en $Z$. Bajo este contexto, y considerando las ideas plasmadas por \cite{gentleman:lmk}, el proceso de censura que deviene en la generación de la variable $Z$ es independiente del proceso generador de datos de $Y$. Por lo tanto, nuestros parámetros de interés, $q_t$ y $\alpha$ no son afectados por otro proceso. Bajo esta suposición, consideramos la verosímilitud de los datos con censura intervalar (es decir, los datos directamente observables) de la forma:
 
 \begin{equation}
-	L(\theta) = \prod_{i=1}^{n} \prod_{j=1}^{k} \pi_{ij}^{\mathbb{I}(Z_{i}=j)}
+	L(\boldsymbol{\theta}) = \prod_{j=1}^{n} \prod_{i=1}^{k} \pi_{ij}^{\mathbb{I}(Z_{i}=j)}
 \end{equation}
 
-Considerando los resultados identificados en la ecuación \ref{eq:2}, la verosímilitud de la estructura latente de los datos es de la forma:
+Considerando los resultados identificados en la ecuación \ref{eq:2}, la verosímilitud de la estructura observada de los datos es de la forma:
 
 \begin{equation}
-	L(\theta) = \prod_{i=1}^{n}(F_Y(a_{j+1}) - F_Y(a_{j})) 
+	L(\boldsymbol{\theta}) = \prod_{j=1}^{n}(F_Y(a_{j+1}) - F_Y(a_{j})) 
 \end{equation}
 
 Bajo este criterio, la verosímilitud solo depende de los valores extremos del intervalo $[a_j,a_{j+1}]$ y de la \textbf{f.d.a.} de la variable latente $Y$. Para hallar los puntos óptimos de la verosímilitud, utilizaremos el método de optimización de Nelder-Mead, implementado en la rutina \textit{optim} del lenguaje de programación R. En la siguiente sección, adaptaremos el 
 
 \section{Modelo de regresión para datos positivos con censura intervalar}
 
-Considerando la reparametrización expuesta en la sección 2, el modelo de regresión cuantílica está dado por la siguiente expresión:
+Considerando la reparametrización expuesta en la sección 2, el modelo de regresión cuantílica, basado en la distribución Weibull, está dado por la siguiente expresión:
 
 \[Y_{i} \sim W_{r}\left( q_{t_{i}},\alpha,t \right).\]
-\[g\left( q_{t_{i}} \right) = x_{i}^{T}\beta.\]
+\[g\left( q_{t_{i}} \right) = x_{i}^{T}\boldsymbol{\beta}.\]
 
-\noindent en dónde $\beta=\left[ \beta_0,\beta_{1},\dots,\beta_{p} \right]^{T}$ y $x_{i}^{T} =\left[ 1,x_{i1},x_{i2},\dots,x_{ip}, \right]^{T}$. La función $g(\cdot)$ es una función de enlace estrictamente monótona y doblemente diferenciable. En el presente modelo, se utilizará la función de enlace logarítmica. El parámetro $\alpha$, el parámetro $q_{t_{i}}$ y $t$ está definido conforme la sección 2.2. La estimación de los parámetros $\beta$ y $\alpha$ se realizará mediante el método de máxima verosimilitud.
+\noindent en dónde $\boldsymbol{\beta}=\left[ \beta_0,\beta_{1},\dots,\beta_{p} \right]^{T}$ y $x_{i}^{T} =\left[ 1,x_{i1},x_{i2},\dots,x_{ip}, \right]^{T}$. La función $g(\cdot)$ es una función de enlace estrictamente monótona y doblemente diferenciable. En el presente modelo, se utilizará la función de enlace logarítmica. El parámetro $\alpha$, el parámetro $q_{t_{i}}$ y $t$ está definido conforme la sección 2.2. La estimación de los parámetros $\boldsymbol{\beta}$ y $\alpha$ se realizará mediante el método de máxima verosimilitud.
 
 \subsection{Función de verosimilitud}
 Consideramos que solo conocemos que $Y_{i}$ se encuentra en un intervalo de $K$ posibles intervalos de la forma $[a_{j},a_{j+1}]$ con $a_1 < a_2 < \dots < a_{k+1}$ y que $Z_{i}=j$ denota que $Y_{i} \in [a_{j},a_{j+1}]$. Por lo tanto, considerando los resultados de la sección 3.1, tenemos que
@@ -65,99 +69,71 @@ Consideramos que solo conocemos que $Y_{i}$ se encuentra en un intervalo de $K$ 
 
 Entonces la función de verosimilitud de las variables observadas $Z_{1},Z_{2},\dots,Z_{n}$ es dada por lo siguiente:
 
-\[L(\theta)=\prod_{i=1}^{n}\prod_{j=1}^{k} \pi_{ij}^{1\left( Z_{i}=j \right)}.\]
+\[L(\boldsymbol{\theta})=\prod_{i=1}^{n}\prod_{j=1}^{k} \pi_{ij}^{1\left( Z_{i}=j \right)}.\]
 
 Luego, considerando  [$a_{i_{j}},a_{i_{j+1}}$] como el intervalo dónde $Y_{i}$ fue observado, podemos escribir la función de verosimilitud como:
 
-\[L\left( \theta\right)=\prod_{i=1}^{n}\left( F(a_{i_{j+1}}|q_{t_{i}},\alpha,t) - F(a_{i_{j}}|q_{t_{i}},\alpha,t) \right) \]
+\[L\left( \boldsymbol{\theta}\right)=\prod_{i=1}^{n}\left( F(a_{i_{j+1}}|q_{t_{i}},\alpha,t) - F(a_{i_{j}}|q_{t_{i}},\alpha,t) \right) \]
 
-\[L(\theta)=\sum_{i=1}^{n} \log \left( F(a_{i_{j+1}}|q_{t_{i}},\alpha,t) - F\left( a_{i_{j}}|q_{t_{i}},\alpha,t \right) \right)\]
+\[L(\boldsymbol{\theta})=\sum_{i=1}^{n} \log \left( F(a_{i_{j+1}}|q_{t_{i}},\alpha,t) - F\left( a_{i_{j}}|q_{t_{i}},\alpha,t \right) \right)\]
 
-\[L(\theta)=\sum_{i}^{n} \log \left( \exp\left( -c(t)\left( \frac{a_{i_{j}}}{e^{x_{i}^{T}\beta}} \right)^{\alpha} - \exp\left( -c(t)\left( \frac{a_{i_{j+1}}}{e^{x_{i}^{T}\beta}} \right)^{\alpha} \right) \right) \right)\]
+\[L(\boldsymbol{\theta})=\sum_{i}^{n} \log \left( \exp\left( -c(t)\left( \frac{a_{i_{j}}}{e^{x_{i}^{T}\boldsymbol{\beta}}} \right)^{\alpha} - \exp\left( -c(t)\left( \frac{a_{i_{j+1}}}{e^{x_{i}^{T}\boldsymbol{\beta}}} \right)^{\alpha} \right) \right) \right)\]
 \noindent en dónde $c(t)=(-log(1-t))^{\frac{1}{\alpha}}$.
 
-Los estimadores de máxima verosimilitud para los parámetros $\alpha$ y $\beta$ se encuentran maximizando la función anteriormente expuesta. Para ello, obtenemos las gradientes de $\alpha$ y $\beta$, se exponen a continuación (asumiendo que $g(\cdot)$ es la función logaritmo):
+Los estimadores de máxima verosimilitud para los parámetros $\alpha$ y $\boldsymbol{\beta}$ se encuentran maximizando la función anteriormente expuesta. Para ello, obtenemos las gradientes de $\alpha$ y $\boldsymbol{\beta}$, se exponen a continuación (asumiendo que $g(\cdot)$ es la función logaritmo):
 
 \[\frac{\partial L}{\partial \alpha}=\sum_{i=1}^{n} \frac{c(t)}{(\gamma_{i})^{\alpha}(\lambda_{i_{2}}-\lambda_{i_{1}})}\left( (a_{i_{j+1}})^{\alpha} \log\left( \frac{a_{i_{j+1}}}{\gamma_{i}} \right) \lambda_{i_{2}} - (a_{i_{j}})^{\alpha} \log\left( \frac{a_{i_{j+1}}}{\gamma_{i}} \right) \lambda_{i_{1}}\right)\]
 
-\[\frac{\partial L}{\partial \beta_{j}}=\sum_{i=1}^{n} \left(\frac{\alpha c(t) x_{ij}}{(\gamma_{i})^{\alpha}(\lambda_{i_{1}}-\lambda_{i_{2}})}\right) \left( (a_{i_{j}})^{\alpha}\lambda_{i_{1}} - (a_{i_{j+1}})^{\alpha} \lambda_{i_{2}} \right)\]
+\[\frac{\partial L}{\partial \boldsymbol{\beta}_{j}}=\sum_{i=1}^{n} \left(\frac{\alpha c(t) x_{ij}}{(\gamma_{i})^{\alpha}(\lambda_{i_{1}}-\lambda_{i_{2}})}\right) \left( (a_{i_{j}})^{\alpha}\lambda_{i_{1}} - (a_{i_{j+1}})^{\alpha} \lambda_{i_{2}} \right)\]
 \noindent en dónde:
 \[ \gamma_{i} = \exp(\eta_{i})\]
-\[ \eta_{i} = x_{i}^{T}\beta\]
+\[ \eta_{i} = x_{i}^{T}\boldsymbol{\beta}\]
 \[ \lambda_{i_{1}} = \exp\left( -c(t) \left(\frac{a_{i_{j}}}{\gamma_{i}}\right)^{\alpha} \right)\]
 \[ \lambda_{i_{2}} = \exp\left( -c(t) \left(\frac{a_{i_{j+1}}}{\gamma_{i}}\right)^{\alpha} \right)\]
 
 Dichos estimadores de máxima verosimilitud, bajo ciertas condiciones de regularidad, son consistentes (es decir, que $\hat{\theta} \rightarrow \theta$ cuando $n \rightarrow \infty$) y asíntoticamente normales con distribución:
 
-\[\hat{\theta} \sim \mathcal{N}\left(\theta,\frac{1}{\mathcal{I}(\theta)}\right).\]
+\[\hat{\theta} \sim \mathcal{N}\left(\theta,\mathcal{I}(\hat{\theta})^{-1}\right).\]
 
-\noindent cuando $n \rightarrow \infty$. $\mathcal{I}(\theta)$ es la matriz de información de Fisher, la cual en nuestro modelo tiene la estructura:
+\noindent cuando $n \rightarrow \infty$. $\mathcal{I}(\hat{\theta})$ es la matriz de información de Fisher observada, la cual en nuestro modelo tiene la estructura:
 
 \[
 \begin{bmatrix}
 
-\frac{\partial L(\theta)}{\partial ^{2} \alpha} & \frac{\partial L(\theta)}{\partial \alpha \partial \beta_{j}}\\
+\frac{\partial L(\boldsymbol{\theta})}{\partial \alpha \partial \alpha ^{T}} & \frac{\partial L(\boldsymbol{\theta})}{\partial \alpha \partial \boldsymbol{\boldsymbol{\beta}}^{T}}\\
 
-\frac{\partial L(\theta)}{\partial \alpha \partial \beta_{j}} & \frac{\partial L(\theta)}{\partial^{2}\beta_{j}}
+\frac{\partial L(\boldsymbo{\theta})}{\partial \alpha \partial \boldsymbol{\beta}^{T}} & \frac{\partial L(\boldsymbol{\theta})}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta} ^{T}}
 
 \end{bmatrix}\]
 
-Los errores estándares de cada coeficiente se estiman a través de la matriz de información de Fisher observada, $\mathcal{I}(\hat{\theta})$, la cual es la matriz evaluada en los estimadores de máxima verosimilitud \cite{casella:berg}. Los errores estándares corresponden a la raíz cuadrada de cada elemento de la diagonal. Finalmente, en el marco de la inferencia clásica, los intervalos de confianza para cada parámetro está definido de la forma:
+Los errores estándares de cada coeficiente se estiman a través de dicha matriz de información, denotada por $\mathcal{I}(\hat{\theta})$. Los errores estándares corresponden a la raíz cuadrada de cada elemento de la diagonal. Finalmente, en el marco de la inferencia clásica, los intervalos de confianza para cada parámetro está definido de la forma:
 
-\[\hat{\theta} \pm \frac{z_{1-\frac{\alpha}{2}}}{\sqrt{\mathcal{I}(\hat{\theta)}}}.\]
+\[\hat{\boldsymbo{\theta}_j} \pm z_{1-\frac{\alpha}{2}} C_{jj}.\]
 
-\noindent en dónde $\mathcal{I}(\hat{\theta})$ corresponde a la matriz de información de Fisher observada.
+\noindent dónde $C_{jj}$ es la raíz del j-ésimo elemento diagonal de $I(\hat{\boldsymbol{\theta}})$
 
 \section{Simulación de datos}
 
+En esta sección se presenta un estudio de simulación para evaluar si el método descrito en el apartado \ref{metodo:reg} permite recuperar los parámetros propuestos del modelo de censura intervalar para datos positivos. Para ello, se evaluará el desempeño de la simulación mediante tres criterios: el sesgo relativo, el error cuadrático medio y el ratio de cobertura.
+
+\subsection{Metodología para la simulación de datos}
+
 La presente sección tiene como objetivo realizar un estudio de simulación en el que se evalúe el adecuado la adecuada estimación del modelo propuesto. Esto comprende generar una base de datos en dónde se tenga una variable aleatoria $Y_i \sim W_r(q_t, \alpha,t)$, la cual está subyace la variable censurada $Z$ que sigue lo denotado en la sección 3.1. Asimismo, dicha base de datos contiene otras variables simuladas, las cuales actuarán como variables independientes en un contexto de regresión. El objetivo principal del estudio de simulación evaluar si el método de estimación planteado, permite recuperar adecuadamente los parámetros de regresión establecidos anteriormente. Los criterios sobre los cuales se analizará la estimación del modelo son: sesgo relativo, error cuadrático medio y cobertura.
 
-El proceso de simulación consiste en generar $5.000$ réplicas considerando tamaños de muestra de $n=\{100, 500, 1.000\}$. Simularemos la variable respuesta $Y_{i} \sim W_r(Q_{t_{i}},\alpha,t)$ considerando 3 covariables $X_{1i},X_{2i},X_{3i}$ que serán simuladas como:
+El proceso de simulación consiste en generar $5.000$ réplicas para cada tamaño de muestra de $n=\{100, 500, 1.000\}$. Simularemos la variable respuesta $Y_{i} \sim W_r(Q_{t_{i}},\alpha,t)$ considerando 3 covariables $X_{1i},X_{2i},X_{3i}$ que serán simuladas como:
 \[X_{1i} \sim N(2,0.25)\]
 \[X_{2i} \sim Beta(2,3)\]
 \[X_{3i} \sim Gamma(2,20)\]
 
-Conforme lo mencionado en la sección 3.2.1, $q_{t_{i}} =  \exp(x_i^T \beta)$, en dónde $\beta =[7, 0.3, 0.84, 2.5]^T$ y $x_{i}=(1,X_{1i},X_{2i},X_{3i})^{T}$. Por otro lado, el parámetro de dispersión tomará el valor $\alpha = 2$. Finalmente, se realizará la evaluación por los cuantiles $t = [0.1, 0.2, \dots, 0.9]$.
+Conforme lo mencionado en la sección 3.2.1, $q_{t_{i}} =  \exp(x_i^T \boldsymbol{\beta})$, en dónde $\boldsymbol{\beta} =[7, 0.3, 0.84, 2.5]^T$ y $x_{i}=(1,X_{1i},X_{2i},X_{3i})^{T}$. Por otro lado, el parámetro de dispersión tomará el valor $\alpha = 2$. Finalmente, se realizará la evaluación por los cuantiles $t = [0.1, 0.2, \dots, 0.9]$.
 
-Se asume que $Y_i \sim W_r(q_{ti}, \alpha,t)$ se observa con censura intervalar. En este estudio asumiremos que solo observamos una variable $Z$ que particiona la variable $Y_i$ en intervalos de igual amplitud, con la excepción del último intervalo, el cual tiene la estructura $[L_{inf}, \infty]$. Una vez generada dicha variable, se realiza el modelamiento de la variable con censura intervalar sobre las variables independientes creadas previamente. El objetivo final es, a través del modelo, estimar los coeficientes $\beta$ definidos previamente.
+Se asume que $Y_i \sim W_r(q_{ti}, \alpha,t)$ se observa con censura intervalar. En este estudio asumiremos que solo observamos una variable $Z$ que particiona la variable $Y_i$ en intervalos de igual amplitud, con la excepción del último intervalo, el cual tiene la estructura $[a_{j}, \infty]$. Una vez generada dicha variable, se realiza el modelamiento de la variable con censura intervalar sobre las variables independientes creadas previamente. El objetivo final es, a través del modelo, estimar los coeficientes $\boldsymbol{\beta}$ definidos previamente.
 
 \subsection{Implementación del modelo}
 
-La implementación del modelo se realizó a través del lenguaje de programación R, tomando en consideración las definiciones presentadas en el capítulo 3 de la presente tesis. El seudocódigo de la implementación es el siguiente:
+La implementación del modelo se realizó a través del lenguaje de programación R, tomando en consideración las definiciones presentadas en el capítulo 3 de la presente tesis. El seudocódigo de la implementación se encuentra en el Apéndice.
 
-\begin{lstlisting}
-Simulamos valores de las siguientes distribuciones:
-
-Definimos los siguientes valores:
-N = [100, 500, 1000]
-B = [7, 0.3, 0.84, 2.5] 
-Sigma = 2
-t=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
-M = 5000
-
-Para cada cuantil en t:
-	Para cada n en N:
-		Para cada replica en M:
-		1 Simular n valores de las siguientes distribuciones:
-			X1 ~ Beta(2,3) 
-			X2 ~ Normal(2,0.5)
-			X3 ~ Gamma(2,25)
-		2 Generar la función de enlace:
-			Qt = exp(B[1] + B[2]*X1 + B[3]*X2 + B[4]*X3)
-		3 Para cada i en n:
-			Simular 1 valor de la siguiente distribucion:
-			Y[i] ~ W_r(Qt[i], Sigma, cuantil)
-		4 Censurar la variable Y de forma intervalar tal que
-			Z ~ Categorica
-		5 Obtener los limites inferiores y superiores de
-			cada categoria de Z
-		6 Crear la base de datos simulada
-			df <- [L_inf, L_sup, X1, X2, X3]
-		7 Ejecutar la regresion de censura intervalar
-		8 Guardar los resultados
-\end{lstlisting}
-
-Una vez generadas las simulaciones, se evaluó para cada escenario (cuantil y tamaño de muestra) lo siguiente:
+Una vez generadas las simulaciones, se evaluó para cada escenario (cuantil y tamaño de muestra) los siguientes indicadores:
 \[ \hat{\text{Sesgo relativo:}} \frac{1}{M}(\hat{\theta_j} - \theta)\]
 \[ \hat{\text{ECM:} \frac{1}{M}} \sum_1^M (\hat{\theta_j} - \theta)^2 \]
 \[ \hat{\text{Cobertura:} \frac{1}{M}} \sum_1^M (\hat{\theta_j} - \theta)^2 \]
@@ -166,516 +142,43 @@ Una vez generadas las simulaciones, se evaluó para cada escenario (cuantil y tam
 
 \subsection{Resultados}
 
-En la tabla 3.4.1 se muestra la evaluación del rendimiento del modelo de regresión cuantílica con censura intervalar, de acuerdo a los criterios expuestos anteriormente. Al respecto, la evaluación se realizó sobre las 5,000 réplicas por cada cuantil y tamaño de muestra. El método de estimación de los parámetros se realizó mediante la maximización de la función de log-verosimilitud. 
-En relación al sesgo relativo, se observa que este disminuye a lo largo de todos los parámetros en la medida que aumenta el tamaño de la muestra. Cabe resaltar que para tamaños de muestra pequeños, el parámetro $\alpha$ tiende a sobre-estimarse, no obstante esto disminuye considerablemente en la medida que el tamaño de muestra aumente.
+En las figuras posteriores se muestran la evaluación del rendimiento del modelo de regresión cuantílica con censura intervalar, de acuerdo a los criterios expuestos anteriormente. Observamos lo siguiente:
 
-En relación a la cobertura, se observa que, para todos los tamaños de muestra, los parámetros establecidos en la sección precedente se encuentran aproximadamente el 95\% de las veces dentro del intervalo de confianza generado.
+\begin{itemize}
 
-En relación al error cuadrático medio, se observa que, para un tamaño de muestra pequeño, el error es considerable para todos los parámetros. No obstante, esto disminuye drásticamente en la medida que el tamaño de muestra aumenta.
 
-Conforme lo mencionado anteriormente, podemos concluir que el algoritmo propuesto captura adecuadamente los parámetros del modelo de regresión cuantílica con censura intervalar descrito en las secciones anteriores.
+	\item En relación al sesgo relativo, se observa que este disminuye a lo largo de todos los parámetros en la medida que aumenta el tamaño de la muestra. Cabe resaltar que para tamaños de muestra pequeños, el parámetro $\alpha$ tiende a sobre-estimarse, no obstante esto disminuye considerablemente en la medida que el tamaño de muestra aumente.
 
-\begingroup % localize the following settings                                                                    
-\setlength\tabcolsep{2pt}
-\setlength\LTcapwidth{\linewidth}
-\setlength\LTleft{0pt}            % default: \fill
-\setlength\LTright{0pt}           % default: \fill      
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
-% \usepackage[table,xcdraw]{xcolor}
-% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
-% \usepackage{lscape}
-% \usepackage{longtable}
-% Note: It may be necessary to compile the document several times to get a multi-page table to line up properly
+	\item En relación a la cobertura, se observa que, para todos los tamaños de muestra, los parámetros establecidos en la sección precedente se encuentran aproximadamente el 95\% de las veces dentro del intervalo de confianza generado.
+
+	\item En relación al error cuadrático medio, se observa que, para un tamaño de muestra pequeño, el error es considerable para todos los parámetros. No obstante, esto disminuye drásticamente en la medida que el tamaño de muestra aumenta.
+
+\end{itemize}
+
+
 \begin{landscape}
-\footnotesize
-\begin{longtable}[c]{cc|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c}
-\cline{3-17}
-\multicolumn{1}{l}{} &
-  \multicolumn{1}{l|}{} &
-  \multicolumn{5}{c|}{\cellcolor[HTML]{9B9B9B}\textbf{Cobertura del Intervalo de confianza}} &
-  \multicolumn{5}{c|}{\cellcolor[HTML]{9B9B9B}\textbf{Error Cuadrático Medio}} &
-  \multicolumn{5}{c|}{\cellcolor[HTML]{9B9B9B}\textbf{Sesgo}} \\ \cline{3-17} 
-\endfirsthead
-%
-\endhead
-%
-\multicolumn{1}{l}{} &
-  \multicolumn{1}{l|}{} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\beta_0$} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\beta_1$} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\beta_2$} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\beta_3$} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\alpha$} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\beta_0$} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\beta_1$} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\beta_2$} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\beta_3$} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\alpha$} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\beta_0$} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\beta_1$} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\beta_2$} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\beta_3$} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\alpha$} \\ \hline
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.1$} &
-  93.90\% &
-  94.14\% &
-  94.04\% &
-  94.56\% &
-  94.90\% &
-  0.3005 &
-  0.0595 &
-  0.0982 &
-  0.9626 &
-  0.0561 &
-  0.0319 &
-  0.0034 &
-  -0.0007 &
-  0.0332 &
-  \multicolumn{1}{c|}{0.1016} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.2$} &
-  93.62\% &
-  93.96\% &
-  94.22\% &
-  93.92\% &
-  94.82\% &
-  0.2843 &
-  0.0591 &
-  0.1004 &
-  0.9800 &
-  0.0570 &
-  0.0261 &
-  0.0000 &
-  0.0020 &
-  0.0071 &
-  \multicolumn{1}{c|}{0.1009} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.3$} &
-  93.88\% &
-  93.84\% &
-  94.36\% &
-  93.36\% &
-  94.66\% &
-  0.2763 &
-  0.0595 &
-  0.0989 &
-  1.0171 &
-  0.0531 &
-  0.0134 &
-  0.0008 &
-  0.0045 &
-  -0.0033 &
-  \multicolumn{1}{c|}{0.0921} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.4$} &
-  94.22\% &
-  94.42\% &
-  94.48\% &
-  93.88\% &
-  94.54\% &
-  0.2643 &
-  0.0577 &
-  0.0952 &
-  0.9685 &
-  0.0582 &
-  0.0116 &
-  0.0023 &
-  -0.0102 &
-  -0.0112 &
-  \multicolumn{1}{c|}{0.1060} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.5$} &
-  93.78\% &
-  94.24\% &
-  93.98\% &
-  93.86\% &
-  94.18\% &
-  0.2711 &
-  0.0587 &
-  0.0986 &
-  0.9897 &
-  0.0597 &
-  -0.0017 &
-  0.0029 &
-  -0.0013 &
-  0.0050 &
-  \multicolumn{1}{c|}{0.1082} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.6$} &
-  94.62\% &
-  94.92\% &
-  94.20\% &
-  93.62\% &
-  94.18\% &
-  0.2577 &
-  0.0575 &
-  0.0992 &
-  1.0313 &
-  0.0578 &
-  -0.0027 &
-  -0.0007 &
-  0.0008 &
-  0.0497 &
-  \multicolumn{1}{c|}{0.1024} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.7$} &
-  93.68\% &
-  93.34\% &
-  93.98\% &
-  94.48\% &
-  94.92\% &
-  0.2752 &
-  0.0623 &
-  0.0987 &
-  0.9527 &
-  0.0566 &
-  -0.0091 &
-  0.0031 &
-  -0.0044 &
-  -0.0034 &
-  \multicolumn{1}{c|}{0.1039} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.8$} &
-  94.44\% &
-  93.82\% &
-  94.46\% &
-  94.00\% &
-  94.78\% &
-  0.2687 &
-  0.0610 &
-  0.0959 &
-  0.9666 &
-  0.0572 &
-  -0.0170 &
-  0.0020 &
-  -0.0026 &
-  0.0112 &
-  \multicolumn{1}{c|}{0.1044} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\multirow{-9}{*}{\cellcolor[HTML]{9B9B9B}\textbf{$ n = 100$}}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.9$} &
-  93.66\% &
-  93.00\% &
-  94.50\% &
-  93.94\% &
-  94.50\% &
-  0.2726 &
-  0.0622 &
-  0.0970 &
-  0.9568 &
-  0.0585 &
-  -0.0277 &
-  0.0047 &
-  0.0013 &
-  -0.0150 &
-  \multicolumn{1}{c|}{0.1081} \\ \hline
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.1$} &
-  94.28\% &
-  94.54\% &
-  94.76\% &
-  94.34\% &
-  95.22\% &
-  0.0580 &
-  0.0113 &
-  0.0195 &
-  0.1928 &
-  0.0091 &
-  0.0163 &
-  -0.0026 &
-  -0.0018 &
-  0.0157 &
-  \multicolumn{1}{c|}{0.0266} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.2$} &
-  95.00\% &
-  95.36\% &
-  94.42\% &
-  94.40\% &
-  94.88\% &
-  0.0514 &
-  0.0107 &
-  0.0193 &
-  0.1850 &
-  0.0094 &
-  0.0127 &
-  -0.0021 &
-  -0.0016 &
-  -0.0129 &
-  \multicolumn{1}{c|}{0.0251} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.3$} &
-  94.66\% &
-  94.52\% &
-  94.56\% &
-  93.82\% &
-  93.98\% &
-  0.0515 &
-  0.0112 &
-  0.0190 &
-  0.1989 &
-  0.0098 &
-  0.0015 &
-  0.0035 &
-  -0.0015 &
-  -0.0264 &
-  \multicolumn{1}{c|}{0.0257} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.4$} &
-  95.18\% &
-  94.82\% &
-  94.82\% &
-  94.54\% &
-  94.22\% &
-  0.0492 &
-  0.0111 &
-  0.0185 &
-  0.1876 &
-  0.0095 &
-  -0.0016 &
-  0.0028 &
-  -0.0008 &
-  -0.0051 &
-  \multicolumn{1}{c|}{0.0262} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.5$} &
-  94.44\% &
-  94.44\% &
-  95.20\% &
-  94.96\% &
-  94.56\% &
-  0.0524 &
-  0.0115 &
-  0.0187 &
-  0.1783 &
-  0.0094 &
-  0.0019 &
-  0.0003 &
-  -0.0017 &
-  -0.0019 &
-  \multicolumn{1}{c|}{0.0252} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.6$} &
-  94.22\% &
-  94.50\% &
-  94.98\% &
-  94.70\% &
-  94.62\% &
-  0.0519 &
-  0.0114 &
-  0.0186 &
-  0.1813 &
-  0.0096 &
-  -0.0013 &
-  0.0016 &
-  -0.0011 &
-  -0.0055 &
-  \multicolumn{1}{c|}{0.0257} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.7$} &
-  94.40\% &
-  95.12\% &
-  94.40\% &
-  94.54\% &
-  94.50\% &
-  0.0503 &
-  0.0111 &
-  0.0193 &
-  0.1871 &
-  0.0095 &
-  0.0015 &
-  -0.0007 &
-  -0.0022 &
-  -0.0048 &
-  \multicolumn{1}{c|}{0.0245} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.8$} &
-  94.20\% &
-  94.40\% &
-  94.68\% &
-  93.70\% &
-  94.70\% &
-  0.0516 &
-  0.0114 &
-  0.0190 &
-  0.1964 &
-  0.0096 &
-  -0.0022 &
-  0.0009 &
-  -0.0011 &
-  -0.0271 &
-  \multicolumn{1}{c|}{0.0258} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\multirow{-9}{*}{\cellcolor[HTML]{9B9B9B}\textbf{$ n = 500$}}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.9$} &
-  94.60\% &
-  95.00\% &
-  94.70\% &
-  94.12\% &
-  94.82\% &
-  0.0489 &
-  0.0109 &
-  0.0191 &
-  0.1867 &
-  0.0093 &
-  -0.0063 &
-  0.0004 &
-  0.0036 &
-  -0.0033 &
-  \multicolumn{1}{c|}{0.0245} \\ \hline
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.1$} &
-  94.66\% &
-  94.42\% &
-  94.10\% &
-  94.42\% &
-  95.08\% &
-  0.0287 &
-  0.0056 &
-  0.0099 &
-  0.0956 &
-  0.0044 &
-  0.0100 &
-  -0.0016 &
-  -0.0017 &
-  0.0078 &
-  \multicolumn{1}{c|}{0.0146} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.2$} &
-  94.74\% &
-  95.44\% &
-  94.60\% &
-  93.94\% &
-  94.94\% &
-  0.0262 &
-  0.0054 &
-  0.0097 &
-  0.0974 &
-  0.0044 &
-  0.0016 &
-  0.0026 &
-  -0.0025 &
-  -0.0181 &
-  \multicolumn{1}{c|}{0.0129} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.3$} &
-  95.12\% &
-  94.96\% &
-  94.40\% &
-  92.60\% &
-  94.66\% &
-  0.0261 &
-  0.0055 &
-  0.0096 &
-  0.1042 &
-  0.0047 &
-  0.0025 &
-  0.0008 &
-  -0.0008 &
-  -0.0188 &
-  \multicolumn{1}{c|}{0.0110} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.4$} &
-  94.92\% &
-  94.62\% &
-  94.44\% &
-  94.64\% &
-  95.52\% &
-  0.0253 &
-  0.0055 &
-  0.0097 &
-  0.0930 &
-  0.0044 &
-  0.0029 &
-  -0.0008 &
-  0.0007 &
-  0.0014 &
-  \multicolumn{1}{c|}{0.0130} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.5$} &
-  95.34\% &
-  94.74\% &
-  94.26\% &
-  94.88\% &
-  95.32\% &
-  0.0251 &
-  0.0055 &
-  0.0094 &
-  0.0897 &
-  0.0045 &
-  0.0028 &
-  -0.0008 &
-  -0.0008 &
-  -0.0076 &
-  \multicolumn{1}{c|}{0.0133} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.6$} &
-  94.98\% &
-  94.86\% &
-  94.48\% &
-  94.90\% &
-  94.98\% &
-  0.0245 &
-  0.0054 &
-  0.0095 &
-  0.0889 &
-  0.0045 &
-  -0.0026 &
-  0.0022 &
-  -0.0027 &
-  -0.0044 &
-  \multicolumn{1}{c|}{0.0143} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.7$} &
-  94.48\% &
-  94.82\% &
-  94.22\% &
-  94.08\% &
-  94.92\% &
-  0.0252 &
-  0.0056 &
-  0.0097 &
-  0.0963 &
-  0.0046 &
-  -0.0016 &
-  0.0003 &
-  0.0020 &
-  -0.0058 &
-  \multicolumn{1}{c|}{0.0122} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{9B9B9B}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.8$} &
-  94.56\% &
-  94.54\% &
-  94.66\% &
-  93.46\% &
-  94.58\% &
-  0.0256 &
-  0.0058 &
-  0.0094 &
-  0.0997 &
-  0.0046 &
-  -0.0055 &
-  0.0028 &
-  -0.0018 &
-  -0.0086 &
-  \multicolumn{1}{c|}{0.0119} \\ \cline{2-17} 
-\multicolumn{1}{|c|}{\multirow{-9}{*}{\cellcolor[HTML]{9B9B9B}\textbf{$ n = 1000$}}} &
-  \cellcolor[HTML]{C0C0C0}\textbf{$\tau = 0.9$} &
-  95.06\% &
-  94.66\% &
-  94.84\% &
-  95.16\% &
-  94.24\% &
-  0.0244 &
-  0.0055 &
-  0.0094 &
-  0.0894 &
-  0.0047 &
-  -0.0022 &
-  0.0000 &
-  -0.0014 &
-  -0.0022 &
-  \multicolumn{1}{c|}{0.0143} \\ \hline
-\caption{Evaluación del estudio de simulación}
-\end{longtable}
+\begin{figure}
+\centering
+	\includegraphics[width=1.5\textheight]{Sesgo}
+	\caption{Estudio de Simulación: Análisis del sesgo}
+	\label{fig:ses}
+\end{figure}
+\end{landscape}
+
+\begin{landscape}
+\begin{figure}
+\centering
+	\includegraphics[width=1.5\textheight]{ECM}
+	\caption{Estudio de Simulación: Análisis del error cuadrático medio}
+	\label{fig:ecm}
+\end{figure}
+\end{landscape}
+
+\begin{landscape}
+\begin{figure}
+\centering
+	\includegraphics[width=1.5\textheight]{Cobertura}
+	\caption{Estudio de Simulación: Análisis de la Cobertura}
+	\label{fig:cob}
+\end{figure}
 \end{landscape}

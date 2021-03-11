@@ -4,13 +4,13 @@ El presente capítulo tiene como objetivo principal proponer una reparametrizació
 
 \section{Distribución Weibull}
 
-La distribución Weibull fue presentada por \cite{weib:weib}. En dicho artículo de investigación, Weibull menciona las características de una función de densidad suficientemente flexible para ser adaptada a diversas investigaciones, desde la rama de resistencia de materiales hasta el análisis de altura de hombres adultos radicados en las Islas Británicas. Una variable aleatoria continua $Y$, con soporte $Y \in [0,\infty]$, sigue una distribución Weibull si su función de densidad es dada por la siguiente expresión:
+La distribución Weibull fue presentada por \cite{weib:weib}. En dicho artículo de investigación, Weibull menciona las características de una función de densidad suficientemente flexible para ser adaptada a diversas investigaciones, desde la rama de resistencia de materiales hasta el análisis de altura de hombres adultos radicados en las Islas Británicas. Una variable aleatoria continua $Y$, con soporte $Y \in (0,\infty)$, sigue una distribución Weibull si su función de densidad es dada por la siguiente expresión:
 
 \begin{equation}
 f{(y)}= \frac{\alpha}{\sigma}\left(\frac{y}{\sigma}\right)^{\alpha-1} \exp{\left(-\frac{y}{\sigma}\right)^{\alpha}}
 \end{equation}
 
-\noindent en dónde $\alpha$ corresponde al parámetro de forma, con $\alpha > 0$, y $\sigma$ corresponde al parámetro de escala, con $\sigma > 0$. La notación de una variable aleatoria $Y$ que sigue esta distribución se indica como $Y \sim W(\alpha,\sigma)$. La función de densidad acumulada de $Y$ tiene la siguiente expresión:
+\noindent en dónde $\alpha$ corresponde al parámetro de forma, con $\alpha > 0$, y $\sigma$ corresponde al parámetro de escala, con $\sigma > 0$. La notación de una variable aleatoria $Y$ que sigue esta distribución se indica como $Y \sim W(\alpha,\sigma)$. La función de distribución acumulada de $Y$ tiene la siguiente expresión:
 
 \[F{(y)}=1-\exp^{-{(\frac{y}{\sigma})}^{\alpha}}.\]
 
@@ -28,7 +28,7 @@ La flexibilidad denotada por Weibull puede observarse a través de la Figura \ref
 	\label{weib:original}
 \end{figure}
 
-Para una variable $Y \sim W(\alpha, \sigma)$, la media y varianza se define de la siguiente forma:
+Para una variable $Y \sim W(\alpha, \sigma)$, la media y varianza se definen de la siguiente forma:
 
 \[E(Y)=\sigma \Gamma\left( 1+\frac{1}{\alpha} \right).\]
 \[V(Y)=\sigma^{2}\left[ \Gamma\left( 1+\frac{2}{\alpha} \right)-\left( \Gamma\left( 1+\frac{1}{\alpha} \right) \right)^{2} \right].\]
