@@ -322,6 +322,7 @@ INPUT tesis-ejemplo.toc
 INPUT tesis-ejemplo.toc
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\cm\cmbx8.tfm
 OUTPUT tesis-ejemplo.toc
+INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\cm\cmsl10.tfm
 INPUT tesis-ejemplo.lof
 INPUT tesis-ejemplo.lof
 OUTPUT tesis-ejemplo.lof
@@ -331,7 +332,6 @@ OUTPUT tesis-ejemplo.lot
 INPUT 01_introduccion\cap-introduccion.tex
 INPUT 01_introduccion\cap-introduccion.tex
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\cm\cmti10.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\cm\cmsl10.tfm
 INPUT 02_modelo\cap-modelo.tex
 INPUT 02_modelo\cap-modelo.tex
 INPUT figuras\weib_distrib.png

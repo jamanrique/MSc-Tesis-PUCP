@@ -1,7 +1,7 @@
 \babel@toc {spanish}{}
-\contentsline {chapter}{Lista de S\IeC {\'\i }mbolos}{\es@scroman {v}}{chapter*.4}%
-\contentsline {chapter}{\'{I}ndice de figuras}{\es@scroman {vi}}{chapter*.5}%
-\contentsline {chapter}{\'{I}ndice de cuadros}{\es@scroman {vii}}{chapter*.6}%
+\contentsline {chapter}{Lista de S\IeC {\'\i }mbolos}{\es@scroman {vi}}{chapter*.4}%
+\contentsline {chapter}{\'{I}ndice de figuras}{\es@scroman {vii}}{chapter*.5}%
+\contentsline {chapter}{\'{I}ndice de cuadros}{\es@scroman {viii}}{chapter*.6}%
 \contentsline {chapter}{\numberline {1}Introducci\'on}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Objetivos}{2}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Organizaci\'on del Trabajo}{2}{section.1.2}%

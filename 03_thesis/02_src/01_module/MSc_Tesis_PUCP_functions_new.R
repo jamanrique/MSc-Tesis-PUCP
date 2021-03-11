@@ -212,27 +212,22 @@ final_database
 
 X = c(100,500,1000)
 par(mfrow=c(5,9))
-par(mar=c(2.5,2.5,2.5,2.5))
+par(mar=c(3,3,3,3))
+title = c("\U003B2_0","\U003B2_1","\U003B2_2","\U003B2_3","\U003B1")
+t_sim = tau_sim 
 
 for (i in 1:length(t_sim)) {
-  for (j in 1) {
+  for (j in 5) {
     Y = rbind(final_database[i,j],final_database[i+9,j],final_database[i+18,j])
-    plot(y= Y, x = X, pch=16,xlab = "Tamaño de muestra",ylab = "Cobertura",xaxt='n',cex.lab=1)
+    plot(y= Y, x = X, pch=16,xlab = "Tamaño de muestra",ylab = "Cobertura",xaxt='n',cex.lab=1,ylim = c(0.90,1))
     lines(y=Y,x=X,type="b", col="firebrick", lty=2)
-    axis(4, at=Y,labels=round(Y,digits=3), col.axis="firebrick", cex.axis=1, tck=.01)
+    axis(4, at=Y,labels=round(Y,digits=3), col.axis="firebrick", cex.axis=0.9, tck=.01)
     axis(1,at=c(100,500,1000))
-    title(paste("Cuantil \U003C4", tau_sim[i]))
+    title(paste(title[j],", \U003C4 =", tau_sim[i]))
   }
 }
 
-
-
-
-
 plot
-
-
-plot(n,final_database[,1])
 
 ecm_calc <- function(lista) {
   ic_contain <- matrix(nrow=0,ncol=5)
@@ -265,6 +260,25 @@ for (j in 1:length(n)) {
 }
 round(final_database,4)
 
+X = c(100,500,1000)
+par(mfrow=c(5,9))
+par(mar=c(3,3,3,3))
+title = c("\U003B2_0","\U003B2_1","\U003B2_2","\U003B2_3","\U003B1")
+
+for (i in 1:length(t_sim)) {
+  for (j in 5) {
+    Y = rbind(final_database[i,j],final_database[i+9,j],final_database[i+18,j])
+    plot(y= Y, x = X, pch=16,xlab = "Tamaño de muestra",ylab = "Cobertura",xaxt='n',cex.lab=1,ylim=c(0,1))
+    lines(y=Y,x=X,type="b", col="firebrick", lty=2)
+    axis(4, at=Y,labels=round(Y,digits=3), col.axis="firebrick", cex.axis=0.9, tck=.01)
+    axis(1,at=c(100,500,1000))
+    title(paste(title[j],", \U003C4 =", tau_sim[i]))
+  }
+}
+
+plot
+
+
 ses_calc <- function(lista) {
   ic_contain <- matrix(nrow=0,ncol=5)
   for (k in 1:length(lista)) {
@@ -295,6 +309,25 @@ for (j in 1:length(n)) {
   }
 }
 round(final_database,4)
+
+X = c(100,500,1000)
+par(mfrow=c(5,9))
+par(mar=c(3,3,3,3))
+title = c("\U003B2_0","\U003B2_1","\U003B2_2","\U003B2_3","\U003B1")
+
+for (i in 1:length(t_sim)) {
+  for (j in 5) {
+    Y = rbind(final_database[i,j],final_database[i+9,j],final_database[i+18,j])
+    plot(y= Y, x = X, pch=16,xlab = "Tamaño de muestra",ylab = "Cobertura",xaxt='n',cex.lab=1,ylim=c(-0.1,0.1))
+    lines(y=Y,x=X,type="b", col="firebrick", lty=2)
+    axis(4, at=Y,labels=round(Y,digits=3), col.axis="firebrick", cex.axis=0.9, tck=.01)
+    axis(1,at=c(100,500,1000))
+    title(paste(title[j],", \U003C4 =", tau_sim[i]))
+  }
+}
+
+plot
+
 
 #### Datos reales ####
 
