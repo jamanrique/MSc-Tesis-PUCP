@@ -19,30 +19,33 @@
 
 	\noindent en dónde $a_1 < a_2 < \cdots <a_{k+1}$. Esto corresponde a los límites del intervalo $I$, con $a_{1}=0$ y $a_{K+1}=\infty$. La \textbf{f.d.p} de la variable observable $Z$ está definida de la siguiente forma:
 	\begin{equation} \label{eq:2}
-	P\left( Z=j \right)=P\left(a_{j} \leq Y < a_{j+1} \right) = F_Y(a_j+1) - F_Y(a_{j})
+		P\left( Z=j \right)=P\left(a_{j} \leq Y < a_{j+1} \right) = F_Y(a_{j+1}) - F_Y(a_{j})
 	\end{equation}
 
 	\noindent en dónde $F_Y(\cdot)$ es la función de distribución acumulada de Y. La variable $Z$ que sigue la distribución anteriormente mencionada $Y$ está denotada por 
 \[Z \sim \text{Categórica}(\boldsymbol{\pi})\]
 
-\noindent dónde $\boldsymbol{\pi}=\left( \pi_{1},\dots,\pi_{k}\right)^{T}$y $\pi_{j}=P(Z=j)$.
+\noindent donde $\boldsymbol{\pi}=\left( \pi_{1},\dots,\pi_{k}\right)^{T}$y $\pi_{j}=P(Z=j)$.
+
+
+Para efectos de la presente tesis, asumiremos que el proceso de censura de datos es independiente a la variable $Y$. \cite{calle:oller} denomina esto como un proceso no informativo, pues ello indica que el conocimiento de que una observación se encuentra en el intervalo $[a_j,a_{j+1}]$ no precisa información adicional sobre la variable $Y$: solo indica que dicha variable está contenida entre esos límites. Conforme \cite{self:grossman}, esta suposición puede expresarse bajo los siguientes términos:
+
+\begin{equation*}
+f_{Z|Y}(a_{j},a_{j+1}|y_{w}) = f_{Z|Y} (a_{j},a_{j+1}|y_{k}); \{(a_{j},a_{j+1}): y_{w} \in [a_{j},a_{j+1}],y_{k} \in [a_{j},a_{j+1}]\}
+\end{equation*}
+
+Esto quiere decir que dos valores específicos de $Y$, $y_w$ y $y_k$, que se encuentren dentro del intervalo $[a_j,a_{j+1}]$ tienen la misma probabilidad de estar en dicho intervalo.
 
 \section{Función de verosimilitud para datos positivos con censura intervalar}
 
-El mecanismo de censura de datos es el proceso que solo nos permite observar la variable categórica $Z$, pues a través de cierto instrumento oculta la información de la variable $Y$. Dicho proceso, de acuerdo a \cite{calle:oller} puede ser informativo, puesto que conociendo el proceso de censura es posible intuir cuál es el verdadero valor $y$ de $Y$. Es decir, conociendo 
 
-
-Elmecanismo de censura de datos es el proceso que no nos permite observar directamente la variable $Y$, y solo nos da como resultado la variable categórica $Z$. Este mecanismo, dependiendo de la casuística, puede aportar información adicional a la regular. Es decir, el mecanismo de censura puede indicarnos cosas adicionales a que únicamente $y$ se encuentre en el intervalo $[a_j,a_{j+1}]$. Si ello sucediese, el investigador tendría que tomar en cuenta estas características adicionales en el proceso de estimación de parámetros de la función de densidad de $F'(Y)$. La presente tesis asumirá que el proceso de censura no es informativo, considerando únicamente las ideas plasmadas por \cite{gentleman:lmk}. De acuerdo a \cite{calle:oller}, un proceso de censura no informativo considera los intervalos observados fijos e ignora su aleatoreidad. Formalmente, \cite{calle:oller} indica que la condición para que el proceso de censura se considere no informativo es que la distribución condicional de $a_{j}$ y $a_{j+1}$ dado $Y$ satisface lo siguiente:
-\begin{equation*}
-f_{Z|Y}(a_{j},a_{j+1}|y_{w}) = f_{Z|Y} (a_{j},a_{j+1}|y_{w}); \{(a_{j},a_{j+1}): y_{w} \in [a_{j},a_{j+1}],y_{k} \in [a_{j},a_{j+1}]\}
-\end{equation*}
-\noindent Esto quiere decir que dos valores específicos de $Y$, que se encuentren dentro del intervalo $[a_{i},a_{i+1}]$, contienen la misma información en $Z$. Bajo este contexto, y considerando las ideas plasmadas por \cite{gentleman:lmk}, el proceso de censura que deviene en la generación de la variable $Z$ es independiente del proceso generador de datos de $Y$. Por lo tanto, nuestros parámetros de interés, $q_t$ y $\alpha$ no son afectados por otro proceso. Bajo esta suposición, consideramos la verosímilitud de los datos con censura intervalar (es decir, los datos directamente observables) de la forma:
+Bajo el contexto presentado anteriormente, y considerando las ideas plasmadas por \cite{gentleman:lmk}, el proceso de censura que deviene en la generación de la variable $Z$ es independiente del proceso generador de datos de $Y$. Por lo tanto, nuestros parámetros de interés, $q_t$ y $\alpha$ no son afectados por otro proceso. Bajo esta suposición, consideramos la verosímilitud de los datos con censura intervalar (es decir, los datos directamente observables) de la forma:
 
 \begin{equation}
 	L(\boldsymbol{\theta}) = \prod_{j=1}^{n} \prod_{i=1}^{k} \pi_{ij}^{\mathbb{I}(Z_{i}=j)}
 \end{equation}
 
-Considerando los resultados identificados en la ecuación \ref{eq:2}, la verosímilitud de la estructura observada de los datos es de la forma:
+\noindent en dónde $\boldsymbol{\theta} = [q_t, \alpha]^{T}$. Considerando los resultados identificados en la ecuación \ref{eq:2}, la verosímilitud de la estructura observada de los datos es de la forma:
 
 \begin{equation}
 	L(\boldsymbol{\theta}) = \prod_{j=1}^{n}(F_Y(a_{j+1}) - F_Y(a_{j})) 
@@ -102,13 +105,13 @@ Dichos estimadores de máxima verosimilitud, bajo ciertas condiciones de regulari
 
 \frac{\partial L(\boldsymbol{\theta})}{\partial \alpha \partial \alpha ^{T}} & \frac{\partial L(\boldsymbol{\theta})}{\partial \alpha \partial \boldsymbol{\boldsymbol{\beta}}^{T}}\\
 
-\frac{\partial L(\boldsymbo{\theta})}{\partial \alpha \partial \boldsymbol{\beta}^{T}} & \frac{\partial L(\boldsymbol{\theta})}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta} ^{T}}
+\frac{\partial L(\boldsymbol{\theta})}{\partial \alpha \partial \boldsymbol{\beta}^{T}} & \frac{\partial L(\boldsymbol{\theta})}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta} ^{T}}
 
 \end{bmatrix}\]
 
 Los errores estándares de cada coeficiente se estiman a través de dicha matriz de información, denotada por $\mathcal{I}(\hat{\theta})$. Los errores estándares corresponden a la raíz cuadrada de cada elemento de la diagonal. Finalmente, en el marco de la inferencia clásica, los intervalos de confianza para cada parámetro está definido de la forma:
 
-\[\hat{\boldsymbo{\theta}_j} \pm z_{1-\frac{\alpha}{2}} C_{jj}.\]
+\[\hat{\boldsymbol{\theta}_j} \pm z_{1-\frac{\alpha}{2}} C_{jj}.\]
 
 \noindent dónde $C_{jj}$ es la raíz del j-ésimo elemento diagonal de $I(\hat{\boldsymbol{\theta}})$
 
@@ -127,7 +130,7 @@ El proceso de simulación consiste en generar $5.000$ réplicas para cada tamaño d
 
 Conforme lo mencionado en la sección 3.2.1, $q_{t_{i}} =  \exp(x_i^T \boldsymbol{\beta})$, en dónde $\boldsymbol{\beta} =[7, 0.3, 0.84, 2.5]^T$ y $x_{i}=(1,X_{1i},X_{2i},X_{3i})^{T}$. Por otro lado, el parámetro de dispersión tomará el valor $\alpha = 2$. Finalmente, se realizará la evaluación por los cuantiles $t = [0.1, 0.2, \dots, 0.9]$.
 
-Se asume que $Y_i \sim W_r(q_{ti}, \alpha,t)$ se observa con censura intervalar. En este estudio asumiremos que solo observamos una variable $Z$ que particiona la variable $Y_i$ en intervalos de igual amplitud, con la excepción del último intervalo, el cual tiene la estructura $[a_{j}, \infty]$. Una vez generada dicha variable, se realiza el modelamiento de la variable con censura intervalar sobre las variables independientes creadas previamente. El objetivo final es, a través del modelo, estimar los coeficientes $\boldsymbol{\beta}$ definidos previamente.
+Se asume que $Y_i \sim W_r(q_{ti}, \alpha,t)$ se observa con censura intervalar. En este estudio asumiremos que solo observamos una variable $Z$ que particiona la variable $Y_i$ en intervalos de igual amplitud, con la excepción del último intervalo, el cual tiene la estructura $[a_{j}, \infty)$. Una vez generada dicha variable, se realiza el modelamiento de la variable con censura intervalar sobre las variables independientes creadas previamente. El objetivo final es, a través del modelo, estimar los coeficientes $\boldsymbol{\beta}$ definidos previamente.
 
 \subsection{Implementación del modelo}
 

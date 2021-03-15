@@ -1,21 +1,21 @@
 # Fdb version 3
-["bibtex tesis-ejemplo"] 1615431257 "tesis-ejemplo.aux" "tesis-ejemplo.bbl" "tesis-ejemplo" 1615432653
+["bibtex tesis-ejemplo"] 1615783369 "tesis-ejemplo.aux" "tesis-ejemplo.bbl" "tesis-ejemplo" 1615784618
   "C:/Users/jaman/AppData/Roaming/MiKTeX/2.9/bibtex/bst/harvard/dcu.bst" 1233280140 25669 0768d98a028900c057124e4d82e12771 ""
-  "bibliografia.bib" 1609437805 3899 499ba7944938b8e7c7056f04ddf50348 ""
-  "tesis-ejemplo.aux" 1615432520 8835 1e811f220b5846acfec394c5d28278e5 "pdflatex"
+  "bibliografia.bib" 1615783026 4261 cc3fd23f2f07d65176bca76689032255 ""
+  "tesis-ejemplo.aux" 1615784617 8849 aadc04558c15ec430053246220921853 "pdflatex"
   (generated)
-  "tesis-ejemplo.blg"
   "tesis-ejemplo.bbl"
-["makeindex tesis-ejemplo.idx"] 1607916655 "tesis-ejemplo.idx" "tesis-ejemplo.ind" "tesis-ejemplo" 1615432653
-  "tesis-ejemplo.idx" 1615432519 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "tesis-ejemplo.blg"
+["makeindex tesis-ejemplo.idx"] 1607916655 "tesis-ejemplo.idx" "tesis-ejemplo.ind" "tesis-ejemplo" 1615784618
+  "tesis-ejemplo.idx" 1615784616 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
   "tesis-ejemplo.ind"
   "tesis-ejemplo.ilg"
-["pdflatex"] 1615432654 "tesis-ejemplo.tex" "tesis-ejemplo.pdf" "tesis-ejemplo" 1615432653
+["pdflatex"] 1615784614 "tesis-ejemplo.tex" "tesis-ejemplo.pdf" "tesis-ejemplo" 1615784618
   "01_introduccion/cap-introduccion.tex" 1614559274 6106 36c6992bfae2c684207c8dc9caf9f6c4 ""
   "02_modelo/cap-modelo.tex" 1614560272 7776 b99f3b2b6b689ae58e1382b7f5ae81da ""
-  "03_regresion/03_regresion.tex" 1615432006 15474 de8b4a286e768dd2e9c7c610fc9c8b78 ""
-  "04_real data/04_real data.tex" 1615423761 6015 a8f9635a9a3247e6dfb4e928f207e264 ""
+  "03_regresion/03_regresion.tex" 1615784570 14663 11fae1a4daa6ccd97085326c1833beb6 ""
+  "04_real data/04_real data.tex" 1615784613 6028 d3e9128bed2714680f94ddf601dbd70a ""
   "05_conclusiones/05_conclusiones.tex" 1609701261 2188 dc88a31373b55da95e7c769316fb122c ""
   "C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/symbol/psyr.tfm" 1136790254 1408 5937f58aa508ea2cea4901c07d10f5fe ""
   "C:/Program Files/MiKTeX 2.9/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136790254 1528 7e12f4c0fcf5a072cebdcfbfc610f54c ""
@@ -242,20 +242,20 @@
   "figuras/logoPUCP.jpg" 1606360307 35245 2af3177f22abc6f315f7d33fed0fd764 ""
   "figuras/rep_weibull_qt.png" 1609606545 52169 959d64bd199163b25b0e4af33b8fdf83 ""
   "figuras/weib_distrib.png" 1609562588 9992 0f53ca1a4cd1379b58e6fc176925236c ""
-  "tesis-ejemplo.aux" 1615432520 8835 1e811f220b5846acfec394c5d28278e5 "pdflatex"
-  "tesis-ejemplo.bbl" 1615431258 2644 017ed0c444b0348874c809d6e4f43c99 "bibtex tesis-ejemplo"
+  "tesis-ejemplo.aux" 1615784617 8849 aadc04558c15ec430053246220921853 "pdflatex"
+  "tesis-ejemplo.bbl" 1615783369 2969 e3a908325fffb027c90f1ec4f50fae10 "bibtex tesis-ejemplo"
   "tesis-ejemplo.ind" 1607916655 0 d41d8cd98f00b204e9800998ecf8427e "makeindex tesis-ejemplo.idx"
-  "tesis-ejemplo.lof" 1615432520 1203 9701c74c439779fd7340e65ed6a9faff "pdflatex"
-  "tesis-ejemplo.lot" 1615432520 163 e8926a9982b97314e23a3c235a259da7 "pdflatex"
-  "tesis-ejemplo.out" 1615432520 2080 953e430160b03946a39687569f147069 "pdflatex"
-  "tesis-ejemplo.tex" 1613627232 6199 063a8319e772ef52db735b9f6845ce26 ""
-  "tesis-ejemplo.toc" 1615432520 2591 b87320e2feba6f9f353ec06e29ccfe8a "pdflatex"
+  "tesis-ejemplo.lof" 1615784617 1203 9701c74c439779fd7340e65ed6a9faff "pdflatex"
+  "tesis-ejemplo.lot" 1615784617 163 e8926a9982b97314e23a3c235a259da7 "pdflatex"
+  "tesis-ejemplo.out" 1615784617 2080 953e430160b03946a39687569f147069 "pdflatex"
+  "tesis-ejemplo.tex" 1615434262 6199 063a8319e772ef52db735b9f6845ce26 ""
+  "tesis-ejemplo.toc" 1615784617 2591 a87f8e50f7fadfccec7e33ea6bf1796a "pdflatex"
   (generated)
-  "tesis-ejemplo.log"
+  "tesis-ejemplo.lot"
   "tesis-ejemplo.aux"
-  "tesis-ejemplo.lof"
+  "tesis-ejemplo.out"
+  "tesis-ejemplo.pdf"
   "tesis-ejemplo.idx"
   "tesis-ejemplo.toc"
-  "tesis-ejemplo.pdf"
-  "tesis-ejemplo.out"
-  "tesis-ejemplo.lot"
+  "tesis-ejemplo.lof"
+  "tesis-ejemplo.log"
