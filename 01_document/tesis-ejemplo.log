@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7440 64-bit) (preloaded format=pdflatex 2020.6.29)  15 MAR 2021 00:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7440 64-bit) (preloaded format=pdflatex 2020.6.29)  15 MAY 2021 18:47
 entering extended mode
 **./tesis-ejemplo.tex
 (tesis-ejemplo.tex
@@ -1077,21 +1077,27 @@ Cap\'{\i }tulo 3.
 [10
 
 ]
-Overfull \hbox (1.2671pt too wide) in paragraph at lines 42--43
+Overfull \hbox (1.2671pt too wide) in paragraph at lines 35--36
 []\OT1/cmr/m/n/10.95 Bajo el con-tex-to pre-sen-ta-do an-te-rior-men-te, y con-
 si-de-ran-do las ideas plas-ma-das por [][]Gentle-
  []
 
-LaTeX Info: Redefining \. on input line 64.
-LaTeX Info: Redefining \% on input line 64.
+
+LaTeX Warning: Reference `verofunc' on page 11 undefined on input line 61.
+
+LaTeX Info: Redefining \. on input line 63.
+LaTeX Info: Redefining \% on input line 63.
 [11]
-LaTeX Info: Redefining \. on input line 93.
-LaTeX Info: Redefining \% on input line 93.
+LaTeX Info: Redefining \. on input line 95.
+LaTeX Info: Redefining \% on input line 95.
  [12]
-LaTeX Info: Redefining \. on input line 127.
-LaTeX Info: Redefining \% on input line 127.
- [13]
-Overfull \hbox (8.63019pt too wide) in paragraph at lines 131--132
+
+LaTeX Warning: Reference `verofunc' on page 13 undefined on input line 121.
+
+LaTeX Info: Redefining \. on input line 129.
+LaTeX Info: Redefining \% on input line 129.
+[13]
+Overfull \hbox (8.63019pt too wide) in paragraph at lines 132--133
 []\OT1/cmr/m/n/10.95 Conforme lo men-cio-na-do en la sec-cion 3.2.1, $\OML/cmm
 /m/it/10.95 q[] \OT1/cmr/m/n/10.95 = [](\OML/cmm/m/it/10.95 x[][]\OT1/cmr/m/n/1
 0.95 )$, en donde $[] = [7\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0[]3\OML/cm
@@ -1099,35 +1105,35 @@ m/m/it/10.95 ; \OT1/cmr/m/n/10.95 0[]84\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95
  2[]5][]$
  []
 
-LaTeX Info: Redefining \. on input line 156.
-LaTeX Info: Redefining \% on input line 156.
+LaTeX Info: Redefining \. on input line 158.
+LaTeX Info: Redefining \% on input line 158.
 [14]
-LaTeX Info: Redefining \. on input line 162.
-LaTeX Info: Redefining \% on input line 162.
+LaTeX Info: Redefining \. on input line 163.
+LaTeX Info: Redefining \% on input line 163.
  [15]
-<./figuras/Sesgo.png, id=343, 1391.1975pt x 813.0375pt>
+<./figuras/Sesgo.png, id=342, 1221.06187pt x 723.45282pt>
 File: ./figuras/Sesgo.png Graphic file (type png)
 <use ./figuras/Sesgo.png>
-Package pdftex.def Info: ./figuras/Sesgo.png  used on input line 165.
-(pdftex.def)             Requested size: 659.8197pt x 385.60135pt.
-LaTeX Info: Redefining \. on input line 169.
-LaTeX Info: Redefining \% on input line 169.
+Package pdftex.def Info: ./figuras/Sesgo.png  used on input line 166.
+(pdftex.def)             Requested size: 659.8197pt x 390.94572pt.
+LaTeX Info: Redefining \. on input line 170.
+LaTeX Info: Redefining \% on input line 170.
  [16 <./figuras/Sesgo.png>]
-<./figuras/ECM.png, id=349, 1391.1975pt x 813.0375pt>
+<./figuras/ECM.png, id=348, 1221.06187pt x 723.45282pt>
 File: ./figuras/ECM.png Graphic file (type png)
 <use ./figuras/ECM.png>
-Package pdftex.def Info: ./figuras/ECM.png  used on input line 174.
-(pdftex.def)             Requested size: 659.8197pt x 385.60135pt.
-LaTeX Info: Redefining \. on input line 178.
-LaTeX Info: Redefining \% on input line 178.
+Package pdftex.def Info: ./figuras/ECM.png  used on input line 175.
+(pdftex.def)             Requested size: 659.8197pt x 390.94572pt.
+LaTeX Info: Redefining \. on input line 179.
+LaTeX Info: Redefining \% on input line 179.
  [17 <./figuras/ECM.png>]
-<./figuras/Cobertura.png, id=356, 1545.52406pt x 883.80188pt>
+<./figuras/Cobertura.png, id=355, 1221.06187pt x 723.45282pt>
 File: ./figuras/Cobertura.png Graphic file (type png)
 <use ./figuras/Cobertura.png>
-Package pdftex.def Info: ./figuras/Cobertura.png  used on input line 183.
-(pdftex.def)             Requested size: 659.8197pt x 377.31677pt.
-LaTeX Info: Redefining \. on input line 187.
-LaTeX Info: Redefining \% on input line 187.
+Package pdftex.def Info: ./figuras/Cobertura.png  used on input line 184.
+(pdftex.def)             Requested size: 659.8197pt x 390.94572pt.
+LaTeX Info: Redefining \. on input line 188.
+LaTeX Info: Redefining \% on input line 188.
  [18 <./figuras/Cobertura.png>]) ("04_real data/04_real data.tex"
 Cap\'{\i }tulo 4.
 LaTeX Font Info:    Trying to load font information for U+lasy on input line 6.
@@ -1146,7 +1152,7 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 LaTeX Info: Redefining \. on input line 46.
 LaTeX Info: Redefining \% on input line 46.
  [20]
-<figuras/efectos_med.png, id=379, 752.8125pt x 481.8pt>
+<figuras/efectos_med.png, id=378, 752.8125pt x 481.8pt>
 File: figuras/efectos_med.png Graphic file (type png)
 <use figuras/efectos_med.png>
 Package pdftex.def Info: figuras/efectos_med.png  used on input line 50.
@@ -1346,15 +1352,18 @@ Package rerunfilecheck Info: File `tesis-ejemplo.out' has not changed.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: There were undefined references.
+
  ) 
 Here is how much of TeX's memory you used:
- 23311 strings out of 480797
- 412302 string characters out of 2905361
- 693174 words of memory out of 3000000
- 38659 multiletter control sequences out of 15000+200000
+ 23312 strings out of 480797
+ 412312 string characters out of 2905361
+ 693177 words of memory out of 3000000
+ 38660 multiletter control sequences out of 15000+200000
  544513 words of font info for 69 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 59i,17n,75p,1163b,1231s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 59i,13n,75p,1163b,1231s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\jaman\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\
 tcrm1095.pk><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.
 pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/
@@ -1374,9 +1383,9 @@ onts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
 1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
 /amsfonts/latxfont/lasy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
 msfonts/symbols/msbm10.pfb>
-Output written on tesis-ejemplo.pdf (32 pages, 592849 bytes).
+Output written on tesis-ejemplo.pdf (32 pages, 583899 bytes).
 PDF statistics:
- 530 PDF objects out of 1000 (max. 8388607)
+ 529 PDF objects out of 1000 (max. 8388607)
  123 named destinations out of 1000 (max. 500000)
  285 words of extra memory for PDF output out of 10000 (max. 10000000)
 

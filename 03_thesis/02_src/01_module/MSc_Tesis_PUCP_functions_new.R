@@ -1,4 +1,3 @@
-rm(list=ls())
 library(gamlss)
 library(gamlss.cens)
 library(haven)
@@ -208,26 +207,64 @@ for (j in 1:length(n)) {
   }
 }
 
-final_database
+final_database <- as.data.frame(final_database)
 
-X = c(100,500,1000)
-par(mfrow=c(5,9))
-par(mar=c(3,3,3,3))
-title = c("\U003B2_0","\U003B2_1","\U003B2_2","\U003B2_3","\U003B1")
-t_sim = tau_sim 
+final_database_vf <- cbind(
+  Cuantil = rep(c('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9'),3),
+  B1 = c(rep(100,9),rep(500,9),rep(1000,9)), 
+  final_database)
 
-for (i in 1:length(t_sim)) {
-  for (j in 5) {
-    Y = rbind(final_database[i,j],final_database[i+9,j],final_database[i+18,j])
-    plot(y= Y, x = X, pch=16,xlab = "Tamaño de muestra",ylab = "Cobertura",xaxt='n',cex.lab=1,ylim = c(0.90,1))
-    lines(y=Y,x=X,type="b", col="firebrick", lty=2)
-    axis(4, at=Y,labels=round(Y,digits=3), col.axis="firebrick", cex.axis=0.9, tck=.01)
-    axis(1,at=c(100,500,1000))
-    title(paste(title[j],", \U003C4 =", tau_sim[i]))
-  }
-}
+v1 <- ggplot(data = final_database_vf) +
+  geom_point(aes(x=B1,y=V1,color=Cuantil,group=Cuantil),size=2) +
+  scale_color_brewer(palette = "YlOrRd") + 
+  labs(x="Tamaño de Muestra", y="Cobertura",title = "Cobertura para \U003B2_0") +
+  scale_y_continuous(limits=c(0.93,0.96)) + 
+  scale_x_continuous(breaks=c(100,500,1000)) + 
+  geom_hline(yintercept=0.95,linetype="dashed",color="red")+
+  theme_minimal() +
+  theme(legend.position="bottom")
 
-plot
+v2 <- ggplot(data = final_database_vf) +
+  geom_point(aes(x=B1,y=V2,color=Cuantil,group=Cuantil),size=2) +
+  scale_color_brewer(palette = "YlOrRd") + 
+  labs(x="Tamaño de Muestra", y="Cobertura",title = "Cobertura para \U003B2_1") +
+  scale_y_continuous(limits=c(0.93,0.96)) + 
+  scale_x_continuous(breaks=c(100,500,1000)) + 
+  geom_hline(yintercept=0.95,linetype="dashed",color="red")+
+  theme_minimal() +
+  theme(legend.position="bottom")
+
+v3 <- ggplot(data = final_database_vf) +
+  geom_point(aes(x=B1,y=V3,color=Cuantil,group=Cuantil),size=2) +
+  scale_color_brewer(palette = "YlOrRd") + 
+  labs(x="Tamaño de Muestra", y="Cobertura",title = "Cobertura para \U003B2_2") +
+  scale_y_continuous(limits=c(0.93,0.96)) + 
+  scale_x_continuous(breaks=c(100,500,1000)) + 
+  geom_hline(yintercept=0.95,linetype="dashed",color="red")+
+  theme_minimal() +
+  theme(legend.position="bottom")
+
+v4 <- ggplot(data = final_database_vf) +
+  geom_point(aes(x=B1,y=V4,color=Cuantil,group=Cuantil),size=2) +
+  scale_color_brewer(palette = "YlOrRd") + 
+  labs(x="Tamaño de Muestra", y="Cobertura",title = "Cobertura para \U003B2_3") +
+  scale_y_continuous(limits=c(0.93,0.96)) + 
+  scale_x_continuous(breaks=c(100,500,1000)) + 
+  geom_hline(yintercept=0.95,linetype="dashed",color="red")+
+  theme_minimal() +
+  theme(legend.position="bottom")
+
+v5 <- ggplot(data = final_database_vf) +
+  geom_point(aes(x=B1,y=V5,color=Cuantil,group=Cuantil),size=2) +
+  scale_color_brewer(palette = "YlOrRd") + 
+  labs(x="Tamaño de Muestra", y="Cobertura",title = "Cobertura para \U003B1") +
+  scale_y_continuous(limits=c(0.93,0.96)) + 
+  scale_x_continuous(breaks=c(100,500,1000)) + 
+  geom_hline(yintercept=0.95,linetype="dashed",color="red")+
+  theme_minimal() +
+  theme(legend.position="bottom")
+
+ggpubr::ggarrange(v1,v2,v3,v4,v5)
 
 ecm_calc <- function(lista) {
   ic_contain <- matrix(nrow=0,ncol=5)
@@ -260,24 +297,55 @@ for (j in 1:length(n)) {
 }
 round(final_database,4)
 
-X = c(100,500,1000)
-par(mfrow=c(5,9))
-par(mar=c(3,3,3,3))
-title = c("\U003B2_0","\U003B2_1","\U003B2_2","\U003B2_3","\U003B1")
+final_database <- as.data.frame(final_database)
 
-for (i in 1:length(t_sim)) {
-  for (j in 5) {
-    Y = rbind(final_database[i,j],final_database[i+9,j],final_database[i+18,j])
-    plot(y= Y, x = X, pch=16,xlab = "Tamaño de muestra",ylab = "Cobertura",xaxt='n',cex.lab=1,ylim=c(0,1))
-    lines(y=Y,x=X,type="b", col="firebrick", lty=2)
-    axis(4, at=Y,labels=round(Y,digits=3), col.axis="firebrick", cex.axis=0.9, tck=.01)
-    axis(1,at=c(100,500,1000))
-    title(paste(title[j],", \U003C4 =", tau_sim[i]))
-  }
-}
+final_database_vf <- cbind(
+  Cuantil = rep(c('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9'),3),
+  B1 = c(rep(100,9),rep(500,9),rep(1000,9)), 
+  final_database)
 
-plot
+v1 <- ggplot(data = final_database_vf) +
+  geom_line(aes(x=B1,y=V1,color=Cuantil,group=Cuantil),size=1.2) +
+  scale_color_brewer(palette = "YlOrRd") + 
+  labs(x="Tamaño de Muestra", y="ECM",title = "ECM para \U003B2_0") +
+  scale_x_continuous(breaks=c(100,500,1000)) +
+  theme_minimal() +
+  theme(legend.position="bottom")
 
+
+v2 <- ggplot(data = final_database_vf) +
+  geom_line(aes(x=B1,y=V2,color=Cuantil,group=Cuantil),size=1.2) +
+  scale_color_brewer(palette = "YlOrRd") + 
+  labs(x="Tamaño de Muestra", y="ECM",title = "ECM para \U003B2_1") +
+  scale_x_continuous(breaks=c(100,500,1000)) + 
+  theme_minimal() +
+  theme(legend.position="bottom")
+
+v3 <- ggplot(data = final_database_vf) +
+  geom_line(aes(x=B1,y=V3,color=Cuantil,group=Cuantil),size=1.2) +
+  scale_color_brewer(palette = "YlOrRd") + 
+  labs(x="Tamaño de Muestra", y="ECM",title = "ECM para \U003B2_2") +
+  scale_x_continuous(breaks=c(100,500,1000)) + 
+  theme_minimal() +
+  theme(legend.position="bottom")
+
+v4 <- ggplot(data = final_database_vf) +
+  geom_line(aes(x=B1,y=V4,color=Cuantil,group=Cuantil),size=1.2) +
+  scale_color_brewer(palette = "YlOrRd") + 
+  labs(x="Tamaño de Muestra", y="ECM",title = "ECM para \U003B2_3") +
+  scale_x_continuous(breaks=c(100,500,1000)) + 
+  theme_minimal() +
+  theme(legend.position="bottom")
+
+v5 <- ggplot(data = final_database_vf) +
+  geom_line(aes(x=B1,y=V5,color=Cuantil,group=Cuantil),size=1.2) +
+  scale_color_brewer(palette = "YlOrRd") + 
+  labs(x="Tamaño de Muestra", y="ECM",title = "ECM para \U003B1") +
+  scale_x_continuous(breaks=c(100,500,1000)) + 
+  theme_minimal() +
+  theme(legend.position="bottom")
+
+ggpubr::ggarrange(v1,v2,v3,v4,v5)
 
 ses_calc <- function(lista) {
   ic_contain <- matrix(nrow=0,ncol=5)
@@ -308,26 +376,64 @@ for (j in 1:length(n)) {
     final_database <- rbind(final_database,vf_df)
   }
 }
-round(final_database,4)
 
-X = c(100,500,1000)
-par(mfrow=c(5,9))
-par(mar=c(3,3,3,3))
-title = c("\U003B2_0","\U003B2_1","\U003B2_2","\U003B2_3","\U003B1")
+final_database <- as.data.frame(final_database)
 
-for (i in 1:length(t_sim)) {
-  for (j in 5) {
-    Y = rbind(final_database[i,j],final_database[i+9,j],final_database[i+18,j])
-    plot(y= Y, x = X, pch=16,xlab = "Tamaño de muestra",ylab = "Cobertura",xaxt='n',cex.lab=1,ylim=c(-0.1,0.1))
-    lines(y=Y,x=X,type="b", col="firebrick", lty=2)
-    axis(4, at=Y,labels=round(Y,digits=3), col.axis="firebrick", cex.axis=0.9, tck=.01)
-    axis(1,at=c(100,500,1000))
-    title(paste(title[j],", \U003C4 =", tau_sim[i]))
-  }
-}
+final_database_vf <- cbind(
+  Cuantil = rep(c('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9'),3),
+  B1 = c(rep(100,9),rep(500,9),rep(1000,9)), 
+  final_database)
 
-plot
+v1 <- ggplot(data = final_database_vf) +
+  geom_line(aes(x=B1,y=V1,color=Cuantil,group=Cuantil),size=1) +
+  scale_color_brewer(palette = "YlOrRd") + 
+  labs(x="Tamaño de Muestra", y="Sesgo",title = "Sesgo para \U003B2_0") +
+  geom_hline(yintercept=0.0,linetype="dashed",color="black") +
+  scale_x_continuous(breaks=c(100,500,1000)) +
+  scale_y_continuous(limits=c(-0.025,0.025)) +
+  theme_minimal() +
+  theme(legend.position="bottom")
 
+v2 <- ggplot(data = final_database_vf) +
+  geom_line(aes(x=B1,y=V2,color=Cuantil,group=Cuantil),size=1) +
+  scale_color_brewer(palette = "YlOrRd") + 
+  labs(x="Tamaño de Muestra", y="Sesgo",title = "Sesgo para \U003B2_1") +
+  geom_hline(yintercept=0.0,linetype="dashed",color="black") +
+  scale_x_continuous(breaks=c(100,500,1000)) +
+  scale_y_continuous(limits=c(-0.025,0.025)) +
+  theme_minimal() +
+  theme(legend.position="bottom")
+
+v3 <- ggplot(data = final_database_vf) +
+  geom_line(aes(x=B1,y=V3,color=Cuantil,group=Cuantil),size=1) +
+  scale_color_brewer(palette = "YlOrRd") + 
+  labs(x="Tamaño de Muestra", y="Sesgo",title = "Sesgo para \U003B2_2") +
+  geom_hline(yintercept=0.0,linetype="dashed",color="black") +
+  scale_x_continuous(breaks=c(100,500,1000)) +
+  scale_y_continuous(limits=c(-0.025,0.025)) +
+  theme_minimal() +
+  theme(legend.position="bottom")
+
+v4 <- ggplot(data = final_database_vf) +
+  geom_line(aes(x=B1,y=V4,color=Cuantil,group=Cuantil),size=1) +
+  scale_color_brewer(palette = "YlOrRd") + 
+  labs(x="Tamaño de Muestra", y="Sesgo",title = "Sesgo para \U003B2_3") +
+  geom_hline(yintercept=0.0,linetype="dashed",color="black") +
+  scale_x_continuous(breaks=c(100,500,1000)) +
+  scale_y_continuous(limits=c(-0.025,0.025)) +
+  theme_minimal() +
+  theme(legend.position="bottom")
+
+v5 <- ggplot(data = final_database_vf) +
+  geom_line(aes(x=B1,y=V5,color=Cuantil,group=Cuantil),size=1) +
+  scale_color_brewer(palette = "YlOrRd") + 
+  labs(x="Tamaño de Muestra", y="Sesgo",title = "Sesgo para \U003B1") +
+  geom_hline(yintercept=0.0,linetype="dashed",color="black") +
+  scale_x_continuous(breaks=c(100,500,1000)) +
+  theme_minimal() +
+  theme(legend.position="bottom")
+
+ggpubr::ggarrange(v1,v2,v3,v4,v5)
 
 #### Datos reales ####
 
