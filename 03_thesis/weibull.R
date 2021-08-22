@@ -86,8 +86,12 @@ densityplot <- function(n,qt,tau,alpha,xlim1,xlim2){
     xlim(c(xlim1,xlim2))+
     labs(y="Densidad",
          x = "y", 
-         title = (paste("Y \U0007E W\U01D63(Qt = ",qt,", \U003B1 = ",alpha,"); \U003C4 =",tau,sep = ""))
-         )+
+
+         title = (
+           expression(paste("Y ~ W"[r],"(q"[t]," = ",qsst ,",",alpha, " = 0 );", "t = 0.1"))
+           # bquote(paste("Y ~ W"['r']*"(q"['t']*"="))
+           #paste("Y \U0007E W\U01D63(",bquote("q"['t']),qt,", \U003B1 = ",alpha,"); t =",tau,sep = ""))
+         ))+
     theme(plot.title = element_text(face="bold",hjust=1,size=10),
           plot.subtitle = element_text(face="italic",hjust=1,size=8),
           panel.background = element_rect(fill = "gray90"),

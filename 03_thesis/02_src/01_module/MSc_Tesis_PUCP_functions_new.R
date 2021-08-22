@@ -9,6 +9,8 @@ library(numDeriv)
 library(pracma)
 library(ucminf)
 library(nloptr)
+library(ggthemes)
+
 gen.cens(family="WEI3",type="interval")
 
 Ct = function(alpha, tau){
@@ -87,7 +89,7 @@ likelihood = function(param,betas,df,tau){
 reg_Wr = function(data,li,lf,tau,param){
   df = data_mgmt(data,li,lf)
   Bs = as.matrix(rep(0,ncol(df[['matriz.diseno']])))
-  fit_mv = nloptr(x0 = param,eval_f = likelihood, betas=Bs, df=df, tau=tau,opts = list("algorithm"=c("NLOPT_LN_NELDERMEAD"),maxeval = 300))
+  fit_mv = nloptr(x0 = param,eval_f = likelihood, betas=Bs, df=df, tau=tau,opts = list("algorithm"=c("NLOPT_LN_SBPLX"),maxeval = 400),lb = c(-Inf,-Inf,-Inf,-Inf,-Inf,-Inf,-Inf,-Inf,-Inf,-Inf,-Inf),ub=c(Inf,Inf,Inf,Inf,Inf,Inf,Inf,Inf,Inf,Inf,Inf))
   print(fit_mv$message)
   fit_mv$hessian = pracma::hessian(x0 = fit_mv$solution,f = likelihood,betas=Bs,df=df,tau=tau)
   return(fit_mv)
@@ -102,7 +104,7 @@ lancet <- function(int){
   ## Manteniendo respuestas válidas
   salud <- salud[salud$C2P28 != 7,]
   
-  sawlud$C2P26
+  salud$C2P26
   
   ### Pre-procesamiento ###
   variables <- c("INSTITUCION","C2P4","C2P13","C2P21","C2P24","C2P26","C2P28","C2P1","C2P27")
@@ -148,6 +150,10 @@ lancet <- function(int){
   }
   if (int ==2) {
     return(newsalud_med)
+  }
+  if (int ==3) {
+    newsalud_total <- as.data.frame(subset(newsalud,select = -C2P1))
+    return(newsalud_total)
   }
 }
 
@@ -215,51 +221,56 @@ final_database_vf <- cbind(
   final_database)
 
 v1 <- ggplot(data = final_database_vf) +
-  geom_point(aes(x=B1,y=V1,color=Cuantil,group=Cuantil),size=2) +
+  aes(x = "", y = V1) +
+  geom_boxplot(shape = "circle", fill = "#B22222") +
+  facet_wrap(vars(B1)) +
   scale_color_brewer(palette = "YlOrRd") + 
   labs(x="Tamaño de Muestra", y="Cobertura",title = "Cobertura para \U003B2_0") +
   scale_y_continuous(limits=c(0.93,0.96)) + 
-  scale_x_continuous(breaks=c(100,500,1000)) + 
   geom_hline(yintercept=0.95,linetype="dashed",color="red")+
   theme_minimal() +
   theme(legend.position="bottom")
 
 v2 <- ggplot(data = final_database_vf) +
-  geom_point(aes(x=B1,y=V2,color=Cuantil,group=Cuantil),size=2) +
+  aes(x = "", y = V2) +
+  geom_boxplot(shape = "circle", fill = "#B22222") +
+  facet_wrap(vars(B1)) +
   scale_color_brewer(palette = "YlOrRd") + 
   labs(x="Tamaño de Muestra", y="Cobertura",title = "Cobertura para \U003B2_1") +
   scale_y_continuous(limits=c(0.93,0.96)) + 
-  scale_x_continuous(breaks=c(100,500,1000)) + 
   geom_hline(yintercept=0.95,linetype="dashed",color="red")+
   theme_minimal() +
   theme(legend.position="bottom")
 
 v3 <- ggplot(data = final_database_vf) +
-  geom_point(aes(x=B1,y=V3,color=Cuantil,group=Cuantil),size=2) +
+  aes(x = "", y = V3) +
+  geom_boxplot(shape = "circle", fill = "#B22222") +
+  facet_wrap(vars(B1)) +
   scale_color_brewer(palette = "YlOrRd") + 
   labs(x="Tamaño de Muestra", y="Cobertura",title = "Cobertura para \U003B2_2") +
   scale_y_continuous(limits=c(0.93,0.96)) + 
-  scale_x_continuous(breaks=c(100,500,1000)) + 
   geom_hline(yintercept=0.95,linetype="dashed",color="red")+
   theme_minimal() +
   theme(legend.position="bottom")
 
 v4 <- ggplot(data = final_database_vf) +
-  geom_point(aes(x=B1,y=V4,color=Cuantil,group=Cuantil),size=2) +
+  aes(x = "", y = V4) +
+  geom_boxplot(shape = "circle", fill = "#B22222") +
+  facet_wrap(vars(B1)) +
   scale_color_brewer(palette = "YlOrRd") + 
   labs(x="Tamaño de Muestra", y="Cobertura",title = "Cobertura para \U003B2_3") +
   scale_y_continuous(limits=c(0.93,0.96)) + 
-  scale_x_continuous(breaks=c(100,500,1000)) + 
   geom_hline(yintercept=0.95,linetype="dashed",color="red")+
   theme_minimal() +
   theme(legend.position="bottom")
 
 v5 <- ggplot(data = final_database_vf) +
-  geom_point(aes(x=B1,y=V5,color=Cuantil,group=Cuantil),size=2) +
+  aes(x = "", y = V5) +
+  geom_boxplot(shape = "circle", fill = "#B22222") +
+  facet_wrap(vars(B1)) +
   scale_color_brewer(palette = "YlOrRd") + 
   labs(x="Tamaño de Muestra", y="Cobertura",title = "Cobertura para \U003B1") +
   scale_y_continuous(limits=c(0.93,0.96)) + 
-  scale_x_continuous(breaks=c(100,500,1000)) + 
   geom_hline(yintercept=0.95,linetype="dashed",color="red")+
   theme_minimal() +
   theme(legend.position="bottom")
@@ -385,51 +396,56 @@ final_database_vf <- cbind(
   final_database)
 
 v1 <- ggplot(data = final_database_vf) +
-  geom_line(aes(x=B1,y=V1,color=Cuantil,group=Cuantil),size=1) +
+  aes(x = "", y = V1) +
+  geom_boxplot(shape = "circle", fill = "#EF562D") +
+  facet_grid(vars(), vars(B1)) +
   scale_color_brewer(palette = "YlOrRd") + 
-  labs(x="Tamaño de Muestra", y="Sesgo",title = "Sesgo para \U003B2_0") +
+  labs(x="Tamaño de Muestra", y="Sesgo Relativo",title = "Sesgo Relativo para \U003B2_0") +
   geom_hline(yintercept=0.0,linetype="dashed",color="black") +
-  scale_x_continuous(breaks=c(100,500,1000)) +
   scale_y_continuous(limits=c(-0.025,0.025)) +
   theme_minimal() +
   theme(legend.position="bottom")
 
 v2 <- ggplot(data = final_database_vf) +
-  geom_line(aes(x=B1,y=V2,color=Cuantil,group=Cuantil),size=1) +
+  aes(x = "", y = V1) +
+  geom_boxplot(shape = "circle", fill = "#EF562D") +
+  facet_grid(vars(), vars(B1)) +
   scale_color_brewer(palette = "YlOrRd") + 
-  labs(x="Tamaño de Muestra", y="Sesgo",title = "Sesgo para \U003B2_1") +
+  labs(x="Tamaño de Muestra", y="Sesgo Relativo",title = "Sesgo Relativo para \U003B2_1") +
   geom_hline(yintercept=0.0,linetype="dashed",color="black") +
-  scale_x_continuous(breaks=c(100,500,1000)) +
   scale_y_continuous(limits=c(-0.025,0.025)) +
   theme_minimal() +
   theme(legend.position="bottom")
 
 v3 <- ggplot(data = final_database_vf) +
-  geom_line(aes(x=B1,y=V3,color=Cuantil,group=Cuantil),size=1) +
+  aes(x = "", y = V1) +
+  geom_boxplot(shape = "circle", fill = "#EF562D") +
+  facet_grid(vars(), vars(B1)) +
   scale_color_brewer(palette = "YlOrRd") + 
-  labs(x="Tamaño de Muestra", y="Sesgo",title = "Sesgo para \U003B2_2") +
+  labs(x="Tamaño de Muestra", y="Sesgo Relativo",title = "Sesgo Relativo para \U003B2_2") +
   geom_hline(yintercept=0.0,linetype="dashed",color="black") +
-  scale_x_continuous(breaks=c(100,500,1000)) +
   scale_y_continuous(limits=c(-0.025,0.025)) +
   theme_minimal() +
   theme(legend.position="bottom")
 
 v4 <- ggplot(data = final_database_vf) +
-  geom_line(aes(x=B1,y=V4,color=Cuantil,group=Cuantil),size=1) +
+  aes(x = "", y = V1) +
+  geom_boxplot(shape = "circle", fill = "#EF562D") +
+  facet_grid(vars(), vars(B1)) +
   scale_color_brewer(palette = "YlOrRd") + 
-  labs(x="Tamaño de Muestra", y="Sesgo",title = "Sesgo para \U003B2_3") +
+  labs(x="Tamaño de Muestra", y="Sesgo Relativo",title = "Sesgo Relativo para \U003B2_3") +
   geom_hline(yintercept=0.0,linetype="dashed",color="black") +
-  scale_x_continuous(breaks=c(100,500,1000)) +
   scale_y_continuous(limits=c(-0.025,0.025)) +
   theme_minimal() +
   theme(legend.position="bottom")
 
 v5 <- ggplot(data = final_database_vf) +
-  geom_line(aes(x=B1,y=V5,color=Cuantil,group=Cuantil),size=1) +
+  aes(x = "", y = V1) +
+  geom_boxplot(shape = "circle", fill = "#EF562D") +
+  facet_grid(vars(), vars(B1)) +
   scale_color_brewer(palette = "YlOrRd") + 
-  labs(x="Tamaño de Muestra", y="Sesgo",title = "Sesgo para \U003B1") +
+  labs(x="Tamaño de Muestra", y="Sesgo Relativo",title = "Sesgo Relativo para \U003B1") +
   geom_hline(yintercept=0.0,linetype="dashed",color="black") +
-  scale_x_continuous(breaks=c(100,500,1000)) +
   theme_minimal() +
   theme(legend.position="bottom")
 
@@ -437,15 +453,26 @@ ggpubr::ggarrange(v1,v2,v3,v4,v5)
 
 #### Datos reales ####
 
-real_data_enf = lancet(1)
-real_data_med = lancet(2)
+real_data_enf = lancet(3)
+real_data_med = real_data_enf
 
-tau_seq_sim = seq(0.10,0.9,0.05)
-m1 = gamlss(Surv(li,lf,type="interval2")~.,family = WEI3ic,data = real_data_enf)
+library(skimr)
+
+enf <- real_data_med %>% mutate(factor = case_when(lf == 999 ~ 1, lf == 2000 ~ 2, lf == 3000 ~ 3, lf == 4000 ~ 4,lf == 5000 ~ 5, lf == Inf ~ 6))
+enf$factor <- factor(x = enf$factor,labels = c("[850-999]","[1000-2000]","[2001-3000]","[3001-4000]","[4001-5000]","[5001-Inf.]"))
+
+ib <- enf %>% group_by(factor) %>% skim()
+
+enf %>% group_by(factor,INSTITUCION) %>% summarise( n())
+
+
+
+tau_seq_sim = seq(0.1,0.90,0.1)
+#m1 = gamlss(Surv(li,lf,type="interval2")~.,family = WEI3ic,data = real_data_enf)
 m2 = gamlss(Surv(li,lf,type="interval2")~.,family = WEI3ic,data = real_data_med)
-init_real_enf = as.vector(c(coef(m1),m1$sigma.coefficients))
-init_real_med = as.vector(c(coef(m2),m2$sigma.coefficients))
-
+# init_real_enf = as.vector(c(coef(m1),m1$sigma.coefficients))
+init_real_med = as.vector(c(coef(m2),exp(m2$sigma.coefficients)))
+abc <- confint(m2)
 #### Regresión cuantílica para médicxs ####
 
 var_med = list()
@@ -453,73 +480,37 @@ for (j in 1:length(tau_seq_sim)) {
   var_med = append(var_med,list(reg_Wr(data = real_data_med,li = 8, lf = 9,tau_seq_sim[j],param = init_real_med)))
 }
 
+col_df <- c(colnames(model.matrix( ~ . ,subset.data.frame(real_data_med,select = -c(8,9)))),"\U03B1")
+val_med <- matrix(ncol=8,nrow = 0)
 
-val_med <- matrix(ncol=length(var_med[[1]]$solution),nrow = 0)
 for (l in 1:length(tau_seq_sim)) {
   pba <- var_med[[l]]
-  val_med <- rbind(val_med,pba$solution)
+  val_med <- rbind(val_med,
+                   cbind(pba$solution,
+                         col_df,
+                         tau_seq_sim[l],
+                         init_real_med,
+                         pba$solution + qnorm(0.975) * sqrt(diag(solve(pba$hessian))),
+                         pba$solution - qnorm(0.975) * sqrt(diag(solve(pba$hessian))),
+                         c(abc[,1],exp(m2$sigma.coefficients)),
+                         c(abc[,2],exp(m2$sigma.coefficients))
+                         ))
 }
-val_med
-var_med[[1]]$solution
+val_med <- as.data.frame(val_med)
+val_med$V1 <- exp(as.numeric(val_med$V1))
+val_med$V3 <- as.numeric(val_med$V3)
+val_med$V5 <- exp(as.numeric(val_med$V5))
+val_med$V6 <- exp(as.numeric(val_med$V6))
+val_med$V7 <- exp(as.numeric(val_med$V7))
+val_med$V8 <- exp(as.numeric(val_med$V8))
+val_med$init_real_med <- as.numeric(val_med$init_real_med)
 
-ggplot_res <- function(optimum_df,original_df,k){
-  col_df <- c(colnames(model.matrix( ~ . ,subset.data.frame(original_df,select = -c(8,9)))),"\U03B1")
-  p <- ggplot(data = as.data.frame(optimum_df), aes_string(x=tau_seq_sim,y = (optimum_df[,k])))+
-          geom_line(size = 1.25) +  scale_color_manual(values = c("#dc322f"),) +
-          scale_x_continuous(breaks = seq(0.1,0.9,0.1),minor_breaks = NULL) +
-          scale_y_continuous(minor_breaks = NULL) +
-          geom_ribbon(data = ar,
-                      aes_string(ymin=ar[,1],ymax=ar[,2]),
-                      alpha=0.5) +
-          labs(x="Cuantil",y=as.character(col_df[k])) +
-          theme(plot.title = element_text(face="bold",hjust=1,size=12),
-                plot.subtitle = element_text(face="italic",hjust=1,size=10),
-                panel.background = element_rect(fill = "#fdf6e3"),
-                panel.grid.major = element_line(color = "#657b83", size = .25),
-                panel.grid.minor = element_line(color = "#657b83", size = .25),
-                axis.title = element_text(size=8))
-  return(p)
-}
 
-ggplot_aa <- list()
-for (k in 1:dim(val_med)[2]) {
-  ar <- matrix(nrow=0,ncol=2)
-  for (t in 1:length(tau_seq_sim)) {
-   ar <- rbind(ar,cbind((var_med[[t]]$solution[k]  + qnorm(0.975) * sqrt(diag(solve(var_med[[t]]$hessian))[k])),
-          (var_med[[t]]$solution[k]  - qnorm(0.975) * sqrt(diag(solve(var_med[[t]]$hessian))[k]))
-   ))}
-  ar <- as.data.frame(ar)
-  ggplot_aa[[k]] = ggplot_res(optimum_df = val_med,original_df = real_data_med,k = k)
-  }
-
-plot_grid_alpha <- do.call("grid.arrange",ggplot_aa)
-
-#### Regresión cuantílica para enfermerxs ####
-
-var_enf = list()
-for (j in 1:length(tau_seq_sim)) {
-  var_enf = append(var_enf,list(reg_Wr(data = real_data_med,li = 8, lf = 9,tau_seq_sim[j],param = init_real_enf)))
-}
-
-val_enf <- matrix(ncol=length(var_enf[[1]]$solution),nrow = 0)
-for (l in 1:length(tau_seq_sim)) {
-  pba <- var_enf[[l]]
-  val_enf <- rbind(val_enf,pba$solution)
-}
-exp(val_enf)
-
-ggplot_aa_enf <- list()
-for (k in 1:dim(val_enf)[2]) {
-  ar <- matrix(nrow=0,ncol=2)
-  for (t in 1:length(tau_seq_sim)) {
-   ar <- rbind(ar,cbind((var_enf[[t]]$solution[k]  + qnorm(0.975) * sqrt(diag(solve(var_enf[[t]]$hessian))[k])),
-          (var_enf[[t]]$solution[k]  - qnorm(0.975) * sqrt(diag(solve(var_enf[[t]]$hessian))[k]))
-   ))}
-  ar <- as.data.frame(ar)
-  ggplot_aa_enf[[k]] = ggplot_res(optimum_df = val_enf,original_df = real_data_enf,k = k)
-  
-  }
-
-plot_grid_alpha <- do.call("grid.arrange",ggplot_aa_enf)
-
-exp(val_med)
+ggplot(val_med) +
+  aes(x = V3, y = V1) +
+  geom_ribbon(mapping = aes(ymin = V6,ymax = V5),fill = "#B2B9FF") +
+  geom_line(size = 0.5, colour = "#1B00FF") +
+  geom_ribbon(mapping = aes(ymin = V7,ymax = V8),fill = "#cccccc",alpha=0.5) +
+  geom_line(mapping = aes(y=exp(init_real_med)),size=0.5) + 
+  ggthemes::theme_pander() +
+  facet_wrap(vars(col_df), scales = "free")

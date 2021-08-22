@@ -1,54 +1,87 @@
 \chapter{Aplicación en datos reales}
 
-El presente capítulo aplica el modelo de censura intervalar para datos positivos a datos provistos por el Instituto Nacional de Estadística e Informática (INEI) del Perú. El análisis está basado en la encuesta de satisfacción de usuarios del aseguramiento universal en salud (ENSUSALUD) del año 2015, y busca estimar el efecto del sexo en los sueldos reportados por los profesionales del sector salud a lo largo de todos los cuantiles. De la misma forma que \ref{salyrosas:bayes}, en análisis es efectuado tanto por médicos y enfermeros, y no se consideran aquellos encuestados que no reportaron su sueldo. 
+El presente capítulo aplica el modelo propuesto en el capítulo 3 a una encuesta de satisfacción de profesionales peruanos del sector salud. Se busca estimar los efectos de cada uno de los atributos en relación al sueldo reportado de dichos profesionales, con especial énfasis en el sexo de los mismos. Este énfasis está sustentado en estudios previos de instituciones del Gobierno del Perú y académicos. Al respecto, recientes investigaciones del INEI \footnote{Instituto Nacional de Estadística e Informática del Perú.} identifican una brecha promedio de 29\% entre los sueldos de mujeres y hombres, siendo estos últimos quienes ganan más. Bajo dicha premisa, \cite{salyrosas:bayes} también efectuaron el análisis a encuestas de profesionales de salud, identificando también dicha brecha. La presente aplicación tiene el objetivo de brindar una figura más completa de los efectos de las covariables por cada uno de los cuantiles del sueldo reportado, ampliando el análisis expuesto en \cite{salyrosas:bayes}.
 
-\section{ENSUSALUD 2015}
-Conforme el Convenio de Cooperación Interinstitucional Nª 017-2013-INEI, el INEI y la Superintendencia Nacional de Aseguramiento en Salud (SUNASA) acordaron en implementar y ejecutar la encuesta de satisfacción en salud el año 2015. Dicha encuesta es una investigación estadística, cuyo objetivo es <<evaluar el grado de satisfacción de los usuarios internos y externos de los servicios de salud>> \cite{inei:ensusalud}. Al respecto, dicha encuesta comprende como unidad muestral a los usuarios de consulta externa, bóticas y farmacias, seguros, y profesionales de la salud. Los usuarios y profesionales han sido atendidos o forman parte del conjunto de establecimientos del Ministerio de Salud (MINSA), Seguro Social de Salud (EsSalud), Clínicas privadas y Establecimientos de Sanidad de las Fuerzas Armadas y Policiales.
+\section{Sobre los datos utilizados}
+Durante los años 2013 al 2015, instituciones gubernamentales del Perú, el INEI y la SUNASA \footnote{Superintendencia Nacional de Aseguramiento en Salud.} acordaron implementar y ejecutar encuestas nacionales de satisfacción en el sector salud. Ello comprende todas las ramas involucradas de dicho sector: los usuarios del servicio (de consulta externa, de boticas y farmacias, y de unidades de seguros) así como profesionales de la salud (médicos y enfermeros), por cada una de los conjuntos de establecimientos que existen. Estos comprenden establecimientos del Ministerio de Salud, Seguro Social de Salud, clínicas privadas, y establecimientos de Sanidad de las Fuerzas Armadas y Policiales. El objetivo final de la encuesta fue <<evaluar el grado de satisfacción de los usuarios internos y externos de los servicios de salud>> \cite{inei:ensusalud}. 
 
-En relación al diseño muestral de la encuesta, esta consiste en un muestreo probabilístico polietápico, cuya unidad primaria de muestreo (UPM) está constituida cada establecimiento de salud de las redes hospitalarias del MINSA, EsSalud, clínicas privadas y Establecimientos de las Fuerzas Armadas y Policiales. La unidad secundaria de muestreo (USM) consiste en los usuarios elegibles y profesionales de la salud. En resumen, la investigación estadística tiene el siguiente alcance:
+Dicha encuesta formó parte de las investigaciones estadísticas realizadas por el INEI, cuyo diseño muestral fue probabilístico y polietápico. La primera unidad de muestreo constituyó el establecimiento de salud por cada uno de los conjuntos anteriormente expuestos, y la segunda unidad de muestreo constitió en los usuarios elegibles y profesionales de la salud. La encuesta tuvo alcance nacional, por los 24 departamentos del Perú. El nivel de inferencia indicado por el INEI es nacional y dirigida a cada una de las unidades de análisis.
 
-\begin{itemize}
-	\item \textbf{Cobertura geográfica:} Los 24 departamentos del Perú y 181 establecimientos de salud del MINSA, EsSalud, Sanidades y establecimientos privados.
-	\item \textbf{Unidad de análisis:} La unidad muestral comprende a los siguientes:
-		\begin{itemize}
-			\item Usuarios de Consulta Externa.
-			\item Usuarios en Boticas y Farmacias.
-			\item Usuarios en Unidades de Seguros.
-			\item Profesionales de la Salud.
-		\end{itemize}
-	\item \textbf{Niveles de inferencia:} Nacional y dirigida a cada una de las unidades de análisis.
-\end{itemize}
+Para própositos de la aplicación, se utilizó la encuesta ejecutada a profesionales de la salud. En esta, los datos obtenidos están relacionados con la formación académica, actividad laboral, satisfacción en el trabajo, estrés laboral y conocimiendo de la SUNASA \cite{inei:ensusalud}. 
 
-\section{Base de datos}
-Para propósitos de la aplicación, se utilizó la encuesta ejecutada a profesionales de la salud (enfermería y personal médico). Esta encuesta se realizó a 5,067 profesionales en el año 2015 \cite{inei:ensusalud}, y tiene como objetivo <<conocer características del personal relacionados a formación académica, actividad laboral, satisfacción con el trabajo, estrés laboral y conocimiento referido a la SUNASA>>. Considerando las respuestas válidas relacionadas al sueldo de los profesionales, tenemos 4,973 profesionales materia de análisis, entre médicos/as y enfermeros/as. El análisis final se realizará sobre los médicos/as (2,154 profesionales). Esta base de datos ha sido estudiada previamente por \cite{salyrosas:bayes}, quienes evaluaron la disparidad de sueldos entre profesionales varones y mujeres. Al respecto, dicho estudio estableció una regresión de censura intervalar, la cual ha sido extendida a una regresión cuantílica en la presente tesis.
+De dicha encuesta, se utilizaron las siguientes variables:
 
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+% \usepackage{graphicx}
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+\begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|c|l|l|}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+\textbf{Grupo de Variable} &
+  \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}\textbf{Descripción de la variable}} &
+  \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}\textbf{Código}} \\ \hline
+Establecimiento de Salud &
+  Tipo de institución del establecimiento &
+  INSTITUCION \\ \hline
+\begin{tabular}[c]{@{}c@{}}Formación del Profesional \\ de Salud\end{tabular} &
+  ¿El profesional cuenta con especialidad? &
+  C2P13 \\ \hline
+ &
+  \begin{tabular}[c]{@{}l@{}}Años de experiencia en el sector\\ salud\end{tabular} &
+  C2P21 \\ \cline{2-3} 
+ &
+  \begin{tabular}[c]{@{}l@{}}¿El profesional realiza labor asistencial\\ en otra institución?\end{tabular} &
+  C2P24 \\ \cline{2-3} 
+ &
+  \begin{tabular}[c]{@{}l@{}}¿El profesional realiza labor docente\\ remunerada?\end{tabular} &
+  C2P26 \\ \cline{2-3} 
+\multirow{-4}{*}{\begin{tabular}[c]{@{}c@{}}Actividad Laboral del Profesional\\ de salud\end{tabular}} &
+  \begin{tabular}[c]{@{}l@{}}Cantidad de horas laboradas semanalmente\\ por el profesional de salud\end{tabular} &
+  C2P27 \\ \hline
+ &
+  Sexo del profesional de salud &
+  C2P4 \\ \cline{2-3} 
+\multirow{-2}{*}{Atributos del Profesional de Salud} &
+  Rango Salarial &
+  {[}li, lf{]} \\ \hline
+\end{tabular}%
+}
+\caption{Descripción de las variables dentro de la base de datos}
+\label{tab:tablitadescripcion}
+\end{table}
 
-\section{Conjunto de Variables}
+\subsection{Análisis descriptivo de los datos}
 
-De dicha base de datos, se utilizaron las siguientes variables:
+En la figura \ref{fig:sueldos} se puede observar que existe una mayor proporción de profesionales médicos varones en los intervalos salariales superiores que profesionales mujeres por cada una de las instituciones de la encuesta. Cabe resaltar que se observa una mayor proporción de encuestados en los establecimientos del Ministerio de Salud y ESSALUD, no obstante la proporción de varones en la banda salarial más alta se mantiene a lo largo de todos los establecimientos. Asimismo, en la figura \ref{fig:anos} se puede observar que para las bandas salariales más bajas, las mujeres tienen más años de experiencia que los hombres (observando la mediana); no obstante se mantienen en la misma banda salarial. Lo anteriormente precisado sugiere que las mujeres tienen una menor probabilidad de pertenecer a las bandas salariales superiores. No obstante, esto se verificará a través de la aplicación del modelo de censura intervalar.
 
-\begin{itemize}
-	\itemsep0em
-	\item \textbf{Características del establecimiento de salud:} (i) Tipo de institución del establecimiento.
-	\item \textbf{Caracterización del profesional de salud:} (i) Profesión específica del personal de salud.
-	\item \textbf{Formación académica del profesional de salud:} (i) Si el profesional cuenta con especialidad o no.
-	\item \textbf{Actividad laboral del profesional de salud:} (i) Años de experiencia en el sector salud; (ii) Si el profesional realiza labor asistencial en otra institución; (iii) Si el profesional realiza labor docente remunerada; (iv) Cantidad de horas laboradas semanalmente por el profesional de salud; \textbf{(v) El ingreso mensual (censurado intervalarmente) del profesional de salud}
-\end{itemize}
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{figuras/distribsueldos.jpeg}
+	\caption{Distribución de sueldos por sexo e institución}
+\label{fig:sueldos}
+\end{figure}
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{figuras/distribanos.jpeg}
+	\caption{Años de experiencia por sexo y banda salarial}
+	\label{fig:anos}
+\end{figure}
 
 \section{Resultados}
 
-Se ajustó el modelo de regresión cuantílica para datos con censura intervalar a dichos datos. Considerando la función de enlace logarítmica, se estimó los parámetros $\beta$ y $\alpha$. Los resultados de las regresiones, así como el intervalo de confianza asociado a cada parámetro, se encuentran en la figura \ref{med:efectos}.
+Tomando como variable respuesta la banda salarial, se ajustó el modelo de regresión cuantílica para datos intervalares a los datos. Dado que existen variables categóricas en la base de datos, las categorías de referencia para el presente estudio es un médico hombre, con labor docente remunerada,tiene estudios de especialización, que trabaja en un establecimiento del MINSA, y adicionalmente realizaría labor asistencial en otra institución. En ese sentido, el intervalo puede ser interpretado como una estimación del sueldo de dicha categoría de referencia a lo largo de los cuantiles de la variable respuesta. Para el ajuste del modelo, se consideró una función de enlace logarítmica para los parámetros $\boldsymbol{\beta}$ y $\alpha$. 
 
-La categoría de referencia para el presente estudio es un médico hombre, que trabaja en el instituto MINSA-GR y cuenta con especialidad (C2P13), realiza labor asistencial en otra institución, y realiza labor docente remunerada (C2P26). Al respecto, se observa lo siguiente:
-\begin{itemize}
-	\item Para cada uno de los cuantiles de la variable respuesta, se observa que una médico mujer tendría un decremento entre 11\% a 6\% ($\beta = [-0.05, -0.11]; e^{\beta}-1 = [-0.11,-0.06]$) en relación a sus pares varones. El efecto se acentúa en mayor medida en el cuantil 0.9 de la variable respuesta.
-	\item Para ciertos cuantiles, y tomando en cuenta la categoría de referencia, cambiar de la institución MINSA-GR a las instituciones FF.AA. / PN o Clínicas Privadas tiene como consecuencia un decremento en el sueldo. No obstante, se observa que ello podría no tener efecto para estos cuantiles, pues los intervalos de confianza contienen el 0.
-	\item A lo largo de todos los cuantiles de la variable respuesta, existe un marcado efecto negativo en tanto el médico no realice labor asistencial en otra institución o no realice labor docente remunerada.
-\end{itemize}
+La figura \ref{med:efectos} presenta un resumen de los resultados de la aplicación del modelo. Cada uno de los gráficos presentados tiene como eje horizontal el nivel del cuantil $\tau$, y como eje vertical el efecto marginal de la covariable. En dicho gráfico, se tiene tanto la estimación por el modelo de regresión cuantílica para datos con censura intervalar y un modelo de regresión censurada. En azul, se tienen los efectos estimados de cada covariable por el modelo propuesto en el capítulo 3, así como sus intervalos de confianza al 95\%. En negro y gris, se tiene la estimación mediante un modelo de regresión de Weibull que estima la media.
 
-\begin{figure}
-\includegraphics[width=\textwidth]{figuras/efectos_med.png}
-\caption{Efectos de las covariables sobre los cuantiles del sueldo de los médicos/as}
+En relación al efecto medio, se observa que un profesional de salud mujer tendría un decremento salarial en relación a la categoría de referencia. No obstante, el análisis se enriquece cuando tomamos en consideración el modelo de regresión cuantílica para datos intervalares, pues se observa que para los cuantiles inferiores existe un considerable efecto negativo para dicha variable. Esta disparidad entre el efecto medio y los efectos por cada cuantil se pueden apreciar adicionalmente en la cantidad de horas trabajadas (C2P27), pues se observa que el efecto positivo de las horas trabajadas es mayor en la medida que se analiza los cuantiles superiores. Por otro lado, el efecto negativo de no contar con una especialización (C2P13) es cada vez menor en la medida que se evalúan los cuantiles superiores.
+
+\begin{figure}[H]
+\includegraphics[width=\textwidth]{figuras/regresion_2.jpeg}
+\caption{Efectos de las covariables (eje vertical) sobre los cuantiles (eje horizontal) del sueldo de los profesionales de la salud.}
 \label{med:efectos}
 
 \end{figure}
