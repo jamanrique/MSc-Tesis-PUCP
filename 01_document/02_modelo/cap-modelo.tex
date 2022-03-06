@@ -10,7 +10,7 @@ La distribución de Weibull fue introducida por \cite{weib:weib}. En dicho artícu
 f{(y)}= \frac{\alpha}{\sigma}\left(\frac{y}{\sigma}\right)^{\alpha-1} \exp{\left(-\frac{y}{\sigma}\right)^{\alpha}}
 \end{equation}
 
-\noindent en dónde $\alpha$ corresponde al parámetro de forma, con $\alpha > 0$, y $\sigma$ corresponde al parámetro de escala, con $\sigma > 0$. La notación de una variable aleatoria $Y$ que sigue esta distribución se indica como $Y \sim W(\alpha,\sigma)$. La función de distribución acumulada de $Y$ tiene la siguiente expresión:
+\noindent en donde $\alpha > 0$ corresponde al parámetro de forma, y $\sigma > 0$ corresponde al parámetro de escala. La notación de una variable aleatoria $Y$ que sigue esta distribución se indica como $Y \sim W(\alpha,\sigma)$. La función de distribución acumulada de $Y$ tiene la siguiente expresión:
 
 \[F{(y)}=1-\exp^{-{(\frac{y}{\sigma})}^{\alpha}}.\]
 
@@ -20,7 +20,7 @@ f{(y)}= \frac{\alpha}{\sigma}\left(\frac{y}{\sigma}\right)^{\alpha-1} \exp{\left
 
 \noindent para $0 < t < 1$.
 
-La flexibilidad referida por Weibull puede observarse a través de la figura \ref{weib:original}. En dicha figura, observamos que una modificación del parámetro de escala $\sigma$ modifica la tendencia central de la distribución; es decir, se observa que la distribución se mueve en la dirección que el parámetro $\sigma$ se mueve. Cabe resaltar que, con un $\alpha$ fijo, la distribución tiende a ser más dispersa. Por otro lado, se observa que el aumento del parámetro de forma $\alpha$ contrae la distribución hacia el valor central de la misma. Esto es más pronunciado en la medida que dicho parámetro aumenta, manteniendo el parámetro $\sigma$ constante. No obstante, cabe resaltar que la distribución se torna asimétrica en tanto los valores de $\alpha$ son pequeños.
+La flexibilidad referida por la distribución de Weibull puede observarse a través de la figura \ref{weib:original}. En dicha figura, observamos que una modificación del parámetro de escala $\sigma$ modifica la tendencia central de la distribución; es decir, se observa que la distribución se mueve en la dirección que el parámetro $\sigma$ se mueve. Cabe resaltar que, con un $\alpha$ fijo, la distribución tiende a ser más dispersa. Por otro lado, se observa que el aumento del parámetro de forma $\alpha$ contrae la distribución hacia el valor central de la misma. Esto es más pronunciado en la medida que dicho parámetro aumenta, manteniendo el parámetro $\sigma$ constante. No obstante, cabe resaltar que la distribución se torna asimétrica en tanto los valores de $\alpha$ son pequeños.
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{weib_distrib}
@@ -33,6 +33,7 @@ Para una variable $Y \sim W(\alpha, \sigma)$, la media y varianza se definen de 
 \[E(Y)=\sigma \Gamma\left( 1+\frac{1}{\alpha} \right).\]
 \[V(Y)=\sigma^{2}\left[ \Gamma\left( 1+\frac{2}{\alpha} \right)-\left( \Gamma\left( 1+\frac{1}{\alpha} \right) \right)^{2} \right].\]
 
+\noindent donde $\Gamma(\cdot)$ es la función Gamma.
 \section{Hacia una nueva estructura de la distribución de Weibull}
 \label{sec2.2}
 
@@ -40,19 +41,19 @@ En esta sección consideramos una reparametrización del parámetro de forma $\sigm
 
 \[\sigma = \frac{q_t}{(-\log(1-t))^{\frac{1}{\alpha}}} \]
 
-\noindent en dónde $t$ será un valor conocido que se encuentra en el intervalo $[0,1]$. En esta nueva estructura, $q_{t}$ y $\alpha$ tienen espacios paramétricos independientes tal que $(q_{t},\alpha) \in (0,\infty) \times (0,\infty)$. Una variable aleatoria $Y$ que sigue una distribución Weibull bajo esta parametrización se denota como $Y \sim W_{r}(q_{t},\alpha,t)$ y posee la siguiente función de densidad:
+\noindent en donde $t$ será un valor conocido que se encuentra en el intervalo $[0,1]$. Bajo esta nueva estructura, $q_{t}$ y $\alpha$ tienen espacios paramétricos independientes tal que $(q_{t},\alpha) \in (0,\infty) \times (0,\infty)$. Una variable aleatoria $Y$ que sigue una distribución Weibull bajo esta parametrización se denota como $Y \sim W_{r}(q_{t},\alpha,t)$ y posee la siguiente función de densidad:
 
 \begin{equation}
-f_{Y}(y| q_{t},\alpha)=\frac{\alpha c(t)}{q_{t}}\left( \frac{y}{q_{t}} \right)^{\alpha-1}\exp\left( -c(t)\left( \frac{y}{q_{t}} \right)^{\alpha} \right)
+f_{Y}(y| q_{t},\alpha,t)=\frac{\alpha c(t)}{q_{t}}\left( \frac{y}{q_{t}} \right)^{\alpha-1}\exp\left( -c(t)\left( \frac{y}{q_{t}} \right)^{\alpha} \right)
 \end{equation}
 \\
-\noindent dónde $c(t)= \left( -\log(1-t) \right)$. 
+\noindent donde $c(t)= \left( -\log(1-t) \right)$. 
 
 Los parámetros $q_{t}$ y $\alpha$, así como el nivel del cuantil $t$ (el cual es conocido), caracterizan la función de densidad conforme se observa en la Figura \ref{fig:newdens}. En dicha figura, se observa el efecto del nuevo parámetro $q_t$ y el nivel $t$. Podemos observar lo siguiente: 
 
 \begin{itemize}
-	\item Se observa que, para un mismo cuantil $q_t$, el nuevo parámetro $q_t$ tiende a mover la tendencia central de la distribución en la misma dirección, manteniendo el parámetro de escala $\alpha$ constante. Asimismo, dicho aumento del parámetro genera valores extremos: la distribución se torna asimétrica, con valores extremos generados cada vez con mayor frecuencia.
-	\item Se observa que, para un mismo parámetro $q_t$, la distribución se expande en la medida que se observe los cuantiles inferiores. Asimismo, en determinados casos pronuncia la asimetría identificada anteriormente.
+	\item Se observa que una variación del parámetro $q_t$ conlleva a un aumento en la tendencia central de la distribución hacia la misma dirección (en la medida que el parámetro de escala $\alpha$ es constante). Asimismo, para valores bajos de $q_t$, la distribución es leptocúrtica concolas pronunciadas a la derecha. Asimismo, dicho aumento del parámetro genera valores extremos: la distribución se torna asimétrica, con valores extremos generados cada vez con mayor frecuencia.
+	\item Se observa que, para un mismo parámetro $q_t$, la distribución es platicúrtica en la medida que se observe los cuantiles inferiores. Asimismo, en determinados casos pronuncia la asimetría identificada anteriormente.
 \end{itemize}
 
 \begin{landscape}
@@ -64,13 +65,22 @@ Los parámetros $q_{t}$ y $\alpha$, así como el nivel del cuantil $t$ (el cual es
 \end{figure}
 \end{landscape}
 
+\begin{landscape}
+	\begin{figure}
+		\centering
+		\includegraphics[width=1.5\textheight]{rep_weibull_qt_2}
+		\caption{Densidades de la distribución de Weibull bajo la nueva parametrización}
+		\label{fig:newdens2}
+	\end{figure}
+\end{landscape}
+
 En base a la reparametrización propuesta, la función de distribución acumulada de $Y \sim W_r(q_t,\alpha,t)$ es de la forma:
 
 \begin{equation} \label{eq:1}
 	F_{Y}\left(y| q_{t},\alpha,t \right)=1-\exp\left( -log(1-t)\left( \frac{y}{q_{t}} \right)^{\alpha} \right).
 \end{equation}
 
-\noindent Recordemos que $e^{a*log(z)} = z^a$, en dónde $a = -\left(\frac{y}{q_{t}} \right)^{\alpha}$ y $z = (1-t)$. Por lo tanto tenemos:
+\noindent Recordemos que $e^{a log(z)} = z^a$, en dónde $a = -\left(\frac{y}{q_{t}} \right)^{\alpha}$ y $z = (1-t)$. Por lo tanto tenemos:
 
 \begin{equation} \label{eq:2}
 F_{Y}\left(y| q_{t},\alpha,t \right)=1-(1-t)^{-\left(\frac{y}{q_{t}} \right)^{\alpha}}.
@@ -104,6 +114,6 @@ Evaluamos las propiedades de la distribución por cada valor de los parámetros, c
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{esperado}
-	\caption{Valor esperado de una distribución Weibull bajo la parametrización propuesta.}
+	\caption{Valor esperado y varianza de una distribución Weibull bajo la parametrización propuesta.}
 	\label{espvar}
 \end{figure}

@@ -17,9 +17,9 @@
 		\end{cases}
 	\end{equation}
 
-	\noindent en dónde $a_1 < a_2 < \cdots <a_{k+1}$. Estos corresponden a los límites del intervalo $I$, con $a_{1}=0$ y $a_{K+1}=\infty$. La función de probabilidad de la variable observable $Z$ está definida de la siguiente forma:
+	\noindent en dónde $a_1 < a_2 < \cdots <a_{k+1}$. Estos corresponden a los límites del intervalo $I$, con $a_{1}=0$ y $a_{k+1}=\infty$. La función de probabilidad de la variable observable $Z$ está definida de la siguiente forma:
 	\begin{equation} \label{eq:2}
-		P\left( Z=j \right)=P\left(a_{j} \leq Y < a_{j+1} \right) = F_Y(a_{j+1}) - F_Y(a_{j})| j=1,\dotsc,k
+		P\left( Z=j \right)=P\left(a_{j} \leq Y < a_{j+1} \right) = F_Y(a_{j+1}) - F_Y(a_{j}), j=1,\dotsc,k
 	\end{equation}
 
 	\noindent en dónde $F_Y(\cdot)$ es la función de distribución acumulada de Y. La variable $Z$ que sigue la distribución anteriormente mencionada está denotada por 
@@ -28,17 +28,17 @@
 \noindent donde $\boldsymbol{\pi}=\left( \pi_{1},\dots,\pi_{k}\right)^{T}$y $\pi_{j}=P(Z=j)$.
 
 
-Para efectos de la presente tesis, asumiremos que el proceso de censura de datos es independiente a la variable $Y$. \cite{calle:oller} denomina esto como un proceso no informativo, pues ello indica que el conocimiento de que una observación se encuentra en el intervalo $[a_j,a_{j+1}[$ no precisa información adicional sobre la variable $Y$: solo indica que dicha variable está contenida entre esos límites. Conforme a \cite{self:grossman}, esta suposición indica que dos valores específicos de $Y$, $y_w$ y $y_k$, que se encuentren dentro del intervalo $[a_j,a_{j+1}]$, tienen la certeza de encontrarse en dicho intervalo.
+Para efectos de la presente tesis, asumiremos que el proceso de censura de datos es independiente a la variable $Y$. \cite{calle:oller} denomina esto como un proceso no informativo, pues ello indica que el conocimiento de que una observación se encuentra en el intervalo $[a_j,a_{j+1}[$ no precisa información adicional sobre la variable $Y$: solo indica que dicha variable está contenida entre esos límites. Asimismo, el proceso de censura no afecta la inclusión de $Y$ en el intervalo correspondiente. Es decir, no existen errores u otros métodos por los cuales $Y$ pueda pertenecer a otro intervalo que no le corresponde.
 
 \section{Función de verosimilitud para datos positivos con censura intervalar}
 
-Bajo el contexto presentado anteriormente, y considerando las ideas plasmadas por \cite{gentleman:lmk}, el proceso de censura que deviene en la generación de la variable $Z$ es independiente del proceso generador de datos de $Y$. Por lo tanto, la estimación de los parámetros que definen la distribución de $Y$, denotados por $\boldsymbol{\theta} = [q_t, \alpha]^{t}$ , no es afectado por el proceso de censura. Bajo esta suposición, la verosímilitud de datos censurados intervalarmente (es decir, con  los datos directamente observables) es de la forma:
+Bajo el contexto presentado anteriormente, y considerando las ideas plasmadas por \cite{gentleman:lmk}, el proceso de censura que deviene en la generación de la variable $Z$ es independiente del proceso generador de datos de $Y$. Por lo tanto, la estimación del vector de parámetros que definen la distribución de $Y$, denotados por $\boldsymbol{\theta} = [q_t, \alpha]^{T}$ , no es afectado por el proceso de censura. Bajo esta suposición, la verosímilitud de datos censurados intervalarmente (es decir, con  los datos directamente observables) es de la forma:
 
 \begin{equation}
 	L(\boldsymbol{\theta}) = \prod_{i=1}^{n} \prod_{j=1}^{k} \pi_{j}^{\mathbb{I}(Z_{i}=j)}
 \end{equation}
 
-\noindent Considerando los resultados identificados en la ecuación \ref{eq:2}, la verosímilitud de la estructura observada de los datos es de la forma:
+\noindent Considerando los resultados identificados en la ecuación (\ref{eq:2}), la verosímilitud de la estructura observada de los datos es de la forma:
 
 \begin{equation}
 	L(\boldsymbol{\theta}) = \prod_{i=1}^{n}(F_Y(l_{i}) - F_Y(u_{i})) 
@@ -53,14 +53,14 @@ Bajo este criterio, la verosímilitud solo depende de los valores extremos del in
 Considerando la reparametrización expuesta en la sección 2, el modelo de regresión cuantílica, basado en la distribución de Weibull, está dado por la siguiente expresión:
 
 \[Y_{i} \sim W_{r}\left( q_{t_{i}},\alpha,t \right).\]
-\[g\left( q_{t_{i}} \right) = x_{i}^{T}\boldsymbol{\beta}.\]
+\[g\left( q_{t_{i}} \right) = \boldsymbol{x}_{i}^{T}\boldsymbol{\beta}.\]
 
-\noindent en dónde $\boldsymbol{\beta}=\left[ \beta_0,\beta_{1},\dots,\beta_{p} \right]^{T}$ y $x_{i}^{T} =\left[ 1,x_{i1},x_{i2},\dots,x_{ip} \right]^{T}$, lo cual corresponde a los coeficientes y covariables respectivamente. La función $g(\cdot)$ es una función de enlace estrictamente monótona y doblemente diferenciable. En el presente modelo, se utilizará la función de enlace logarítmica. El parámetro $\alpha$, el parámetro $q_{t_{i}}$ y $t$ están definidos conforme a lo visto en la sección \ref{sec2.2}. La estimación de los parámetros $\boldsymbol{\beta}$ y $\alpha$ se realizará mediante el método de máxima verosimilitud.
+\noindent en dónde $\boldsymbol{\beta}=\left[ \beta_0,\beta_{1},\dots,\beta_{p} \right]^{T}$ y $\boldsymbol{x}_{i}^{T} =\left[ 1,x_{i1},x_{i2},\dots,x_{ip} \right]^{T}$, lo cual corresponde a los coeficientes y covariables respectivamente. La función $g(\cdot)$ es una función de enlace estrictamente monótona y doblemente diferenciable. En el presente modelo, se utilizará la función de enlace logarítmica. El parámetro $\alpha$, el parámetro $q_{t_{i}}$ y $t$ están definidos conforme a lo visto en la sección \ref{sec2.2}. La estimación de los parámetros $\boldsymbol{\beta}$ y $\alpha$ se realizará mediante el método de máxima verosimilitud.
 
 \subsection{Función de verosimilitud}
 \label{verofunc}
 
-Consideramos que solo conocemos que $Y_{i}$ se encuentra en un intervalo de $K$ posibles intervalos de la forma $[a_{j},a_{j+1}]$ con $a_1 < a_2 < \dots < a_{k+1}$ y que $Z_{i}=j$ denota que $Y_{i} \in [a_{j},a_{j+1}]$. Por lo tanto, considerando los resultados de la sección \ref{metodo:reg}, tenemos que
+Consideramos que solo conocemos que $Y_{i}$ se encuentra en un intervalo de $K$ posibles intervalos de la forma $[a_{j},a_{j+1}[$ con $a_1 < a_2 < \dots < a_{k+1}$ y que $Z_{i}=j$ denota que $Y_{i} \in [a_{j},a_{j+1}]$. Por lo tanto, considerando los resultados de la sección \ref{metodo:reg}, tenemos que
 
 
 \[Z_{i} \sim \text{Categórica}(\boldsymbol{\pi}_{i}).\]
@@ -68,57 +68,58 @@ Consideramos que solo conocemos que $Y_{i}$ se encuentra en un intervalo de $K$ 
 \noindent con $\boldsymbol{\pi}_{i}=\left( \pi_{i1},\dots, \pi_{ik} \right)$ tal que
 
 \begin{equation}
-\pi_{ij} = F_{Y}(a_{j+1}|q_{t_{i}},\alpha,x) - F_{Y}\left(a_{j}|q_{t_{i}},\alpha,x \right)
+	\pi_{ij} = F_{Y}(a_{j+1}|q_{t_{i}},\alpha, t) - F_{Y}\left(a_{j}|q_{t_{i}},\alpha, t \right)
 \end{equation}
 
-\noindent dónde $F_Y(\cdot|\cdot,\cdot,\cdot)$ es la función de distribución acumulada de la distribución Weibull reparametrizada dada en \ref{sec2.2}.Entonces la función de verosimilitud de las variables observadas $Z_{1},Z_{2},\dots,Z_{n}$ es dada por lo siguiente:
+\noindent dónde $F_Y(\cdot|\cdot,\cdot)$ es la función de distribución acumulada de la distribución Weibull reparametrizada dada en la sección \ref{sec2.2}. Entonces la función de verosimilitud de las variables observadas $Z_{1},Z_{2},\dots,Z_{n}$ es dada por lo siguiente:
 
-\[L(\boldsymbol{\theta})=\prod_{i=1}^{n}\prod_{j=1}^{k} \pi_{j}^{1\left( Z_{i}=j \right)}.\]
+\[L(\boldsymbol{\theta})=\prod_{i=1}^{n}\prod_{j=1}^{k} \pi_{j}^{1\left( Z_{i}=j \right)}, \boldsymbol{\theta} = [\beta^{T},\alpha]^{T}.\]
 
-Luego, considerando  [$l_{i},u_{i}$] como el intervalo dónde $Y_{i}$ fue observado, podemos escribir la función de verosimilitud como:
+\noindent Luego, considerando  [$l_{i},u_{i}$] como el intervalo dónde $Y_{i}$ fue observado, podemos escribir la función de verosimilitud como:
 
 \[L\left( \boldsymbol{\theta}\right)=\prod_{i=1}^{n}\left( F(u_{i}|q_{t_{i}},\alpha,t) - F(l_{i}|q_{t_{i}},\alpha,t) \right) \]
 
-Luego, la función de log-verosímilitud es dada por:
+Así, la función de log-verosímilitud es dada por:
 
 \[l(\boldsymbol{\theta})=\sum_{i=1}^{n} \log \left( F(u_{i}|q_{t_{i}},\alpha,t) - F\left( l_{i}|q_{t_{i}},\alpha,t \right) \right)\]
 
-\[ l(\boldsymbol{\theta})= \sum_{i=1}^{n} log\left( \left( 1-t \right)^{(\frac{u_i}{\exp(x_{i}^{T}\beta)})^{\alpha}}} - \left( 1-t \right)^{(\frac{l_{i}}{\exp(x_{i}^{T}\beta)})^{\alpha}} \right) \]
+\[ l(\boldsymbol{\theta})= \sum_{i=1}^{n} log\left( \left( 1-t \right)^{\left(\frac{u_i}{\exp(x_{i}^{T}\beta)}\right)^{\alpha}} - \left( 1-t \right)^{\left(\frac{l_{i}}{\exp(x_{i}^{T}\beta)}\right)^{\alpha}} \right) \]
 
 
-Los estimadores de máxima verosimilitud para los parámetros $\alpha$ y $\boldsymbol{\beta}$ se encuentran maximizando la función anteriormente expuesta. Para ello, obtenemos las gradientes de $\alpha$ y $\boldsymbol{\beta}$, que se presentan a continuación (asumiendo que $g(\cdot)$ es la función logaritmo):
 
-\[ \frac{\partial l}{\partial \alpha}= \sum_{i=1}^{n} \frac{1}{(1-t)^{\phi_{u}}-(1-t)^{\phi_{l}}} log(1-t)(\phi_u \log(u_i*\gamma_i)(1-t)^{\phi_u} - \phi_l \log(l_i*\gamma_i)(1-t)^{\phi_{l}})\]
+Los estimadores de máxima verosimilitud para los parámetros $\alpha$ y $\boldsymbol{\beta}$ se encuentran maximizando la función anteriormente expuesta. Para ello, obtenemos los componentes de la gradiente la función de log-verosímilitud, que se presentan a continuación (asumiendo que $g(\cdot)$ es la función logaritmo):
 
-\[\frac{\partial l}{\partial \beta_{j}}=\sum_{i=1}^{n} \frac{\alpha x_j \log(1-t)}{(1-t)^{\phi_u} - (1-t)^{\phi_l}} (\phi_l(1-t)^{\phi_l}-\phi_u(1-t)^{\phi_u}) \]
+\[ \frac{\partial l}{\partial \alpha}= \sum_{i=1}^{n} \frac{1}{(1-t)^{\phi_{u_i}}-(1-t)^{\phi_{l_i}}} log(1-t)(\phi_{u_i} \log(u_i\gamma_i)(1-t)^{\phi_{u_i}} - \phi_{l_i} \log(l_i\gamma_i)(1-t)^{\phi_{l_i}})\]
+
+\[\frac{\partial l}{\partial \beta_{j}}=\sum_{i=1}^{n} \frac{\alpha x_j \log(1-t)}{(1-t)^{\phi_{u_i}} - (1-t)^{\phi_{l_i}}} (\phi_{l_i}(1-t)^{\phi_{l_i}}-\phi_{u_i}(1-t)^{\phi_{u_i}}) \]
 
 \noindent en dónde:
 \[ \gamma_{i} = \exp(-\eta_{i})\]
-\[ \eta_{i} = x_{i}^{T}\boldsymbol{\beta}\]
-\[ \phi_u = \left( \frac{u_i}{e^{x_i^{T}\beta}} \right)^{\alpha}\]
-\[ \phi_l = \left( \frac{l_i}{e^{x_i^{T}\beta}} \right)^{\alpha}\]
+\[ \eta_{i} = \boldsymbol{x}_{i}^{T}\boldsymbol{\beta}\]
+\[ \phi_{u_i} = \left( \frac{u_i}{e^{x_i^{T}\beta}} \right)^{\alpha}\]
+\[ \phi_{l_{i}} = \left( \frac{l_i}{e^{x_i^{T}\beta}} \right)^{\alpha}\]
 
-Dichos estimadores de máxima verosimilitud son consistentes  (es decir, que $\boldsymbol{\hat{\theta}} \rightarrow \boldsymbol{\theta}$ cuando $n \rightarrow \infty$) y asíntoticamente normales\footnote{Se asume que la función de densidad cumple con las condiciones de regularidad expuestas en \cite{casella:berg}} con distribución:
+Como se aprecia, no existen soluciones analíticas para los estimadores de máxima verosímilitud, por lo que se deben utilizar para este efecto métodos numéricos. Se asume que la función de densidad cumple con las condiciones de regularidad expuestas en \cite{casella:berg}, por lo que los estimadores de máxima verosimilitud identificados son consistentes (es decir, que $\boldsymbol{\hat{\theta}} \rightarrow \boldsymbol{\theta}$ cuando $n \rightarrow \infty$) y asíntoticamente normales con distribución:
 
 \[\boldsymbol{\hat{\theta}} \sim \mathcal{N}\left(\boldsymbol{\theta},\mathcal{I}(\boldsymbol{\hat{\theta}})^{-1}\right)\]
 
 \noindent cuando $n \rightarrow \infty$. $\mathcal{I}(\boldsymbol{\hat{\theta}})$ es la matriz de información de Fisher observada, la cual en nuestro modelo tiene la estructura:
 
 \[
-	I(\boldsymbol{\hat{\theta}})=
+	\mathcal{I}(\boldsymbol{\hat{\theta}})=
 \begin{bmatrix}
 
-	\frac{\partial l(\boldsymbol{\theta})}{\partial \alpha \partial \alpha ^{T}} & \frac{\partial l(\boldsymbol{\theta})}{\partial \boldsymbol{\beta} \partial \alpha}\\
+	\frac{\partial^{2} l(\boldsymbol{\theta})}{\partial \alpha \partial \alpha ^{T}} & \frac{\partial^{2} l(\boldsymbol{\theta})}{\partial \boldsymbol{\beta} \partial \alpha}\\
 
-\frac{\partial l(\boldsymbol{\theta})}{\partial \boldsymbol{\beta} \partial \alpha} & \frac{\partial l(\boldsymbol{\theta})}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta} ^{T}}
+\frac{\partial^{2} l(\boldsymbol{\theta})}{\partial \boldsymbol{\beta} \partial \alpha} & \frac{\partial^{2} l(\boldsymbol{\theta})}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta} ^{T}}
 
 \end{bmatrix} \rvert \boldsymbol{\theta} = \boldsymbol{\hat{\theta}}\]
 
-Los errores estándares de cada coeficiente se estiman a través de dicha matriz de información, denotada por $\mathcal{I}(\boldsymbol{\hat{\theta}})^{-1}$. Los errores estándares corresponden a la raíz cuadrada de cada elemento de la diagonal. Finalmente, en el marco de la inferencia clásica, los intervalos de confianza para cada parámetro está definido de la forma:
+\noindent Para efectos de la siguiente tesis, la evaluación de esta matriz se realizará mediante métodos numéricos. Los errores estándares de cada coeficiente se estiman a través de dicha matriz de información, denotada por $\mathcal{I}(\boldsymbol{\hat{\theta}})^{-1}$. Los errores estándares corresponden a la raíz cuadrada de cada elemento de la diagonal. Finalmente, en el marco de la inferencia clásica, los intervalos de confianza para cada parámetro están definidos de la forma:
 
 \[\hat{\theta_j} \pm z_{1-\frac{\alpha}{2}} C_{jj}.\]
 
-\noindent dónde $C_{jj}$ es la raíz del $j$-ésimo elemento diagonal de $I(\hat{\boldsymbol{\theta}})^{-1}$
+\noindent dónde $C_{jj}$ es la raíz del $j$-ésimo elemento diagonal de $\mathcal{I}(\hat{\boldsymbol{\theta}})^{-1}$ y $Z_{1-\frac{\alpha}{2}}$ corresponde al valor de los límites $c$ tal que $P(-c < Z < c) = 1-\alpha, Z \sim N(0,1)$.
 
 \section{Simulación de datos}
 
@@ -126,27 +127,27 @@ En esta sección se presenta un estudio de simulación para evaluar la metodología
 
 \subsection{Metodología para la simulación de datos}
 
-La presente sección tiene como objetivo realizar un estudio de simulación en el que se evalúe la adecuada estimación del modelo propuesto. Para ello, se generará un conjunto de datos, dónde cada observación $i$ sigue la distribución $Y_i \sim W_r(q_t, \alpha,t)$. Luego, cada una de estas observaciones independientes serán censuradas dando como resultado la variable $Z_i$, la cual sigue lo explicado en la sección \ref{metodo:reg}. Asimismo, dicha base de datos contiene otras variables simuladas, las cuales actuarán como variables independientes en un contexto de regresión. El objetivo principal del estudio de simulación es evaluar si el método de estimación planteado, permite recuperar adecuadamente los parámetros de regresión establecidos anteriormente. Los criterios sobre los cuales se analizará la estimación del modelo son: sesgo relativo, error cuadrático medio y cobertura.
+La presente sección tiene como objetivo realizar un estudio de simulación en el que se evalúe la adecuada estimación del modelo propuesto. Para ello, se generará un conjunto de datos, dónde cada observación $i$ sigue la distribución $Y_i \sim W_r(q_{t_i}, \alpha,t)$. Luego, cada una de estas observaciones independientes serán censuradas dando como resultado la variable $Z_i$, la cual sigue lo explicado en la sección \ref{metodo:reg}. Asimismo, dicha base de datos contiene otras variables simuladas, las cuales actuarán como variables independientes en un contexto de regresión. El objetivo principal del estudio de simulación es evaluar si el método de estimación planteado, permite recuperar adecuadamente los parámetros de regresión establecidos anteriormente. Los criterios sobre los cuales se analizará la estimación del modelo son: sesgo relativo, error cuadrático medio y cobertura.
 
 El proceso de simulación consiste en generar $5.000$ réplicas para cada uno de los tamaño de muestra $n \in \{100, 500, 1.000\}$. Simularemos la variable respuesta $Y_{i} \sim W_r(q_{ti},\alpha,t)$ considerando 3 covariables $X_{1i},X_{2i},X_{3i}$ que serán simuladas como:
 \[X_{1i} \sim N(2,0.25)\]
 \[X_{2i} \sim Beta(2,3)\]
 \[X_{3i} \sim Gamma(2,20)\]
 
-Conforme lo mencionado en la sección 3.2.1, $q_{t_{i}} =  \exp(x_i^T \boldsymbol{\beta})$, en dónde $\boldsymbol{\beta} =[7, 0.3, 0.84, 2.5]^T$ y $x_{i}=(1,X_{1i},X_{2i},X_{3i})^{T}$. Por otro lado, el parámetro de dispersión tomará el valor $\alpha = 2$. Finalmente, se realizará la evaluación por los cuantiles $t = [0.1, 0.2, \dots, 0.9]$.
+Conforme lo mencionado en la sección 3.2.1, $q_{t_{i}} =  \exp(\textbf{x}_i^T \boldsymbol{\beta})$, en dónde $\boldsymbol{\beta} =[7, 0.3, 0.84, 2.5]^T$ y $\textbf{x}_{i}=(1,X_{1i},X_{2i},X_{3i})^{T}$. Por otro lado, el parámetro de dispersión tomará el valor $\alpha = 2$. Finalmente, se realizará la evaluación por los cuantiles $t = [0.1, 0.2, \dots, 0.9]$.
 
 Se asume que $Y_i \sim W_r(q_{ti}, \alpha,t)$ se observa con censura intervalar. En este estudio asumiremos que solo observamos una variable $Z$ que particiona la variable $Y_i$ en intervalos de igual amplitud, con la excepción del último intervalo, el cual tiene la estructura $[a_{j}, \infty)$. Una vez generada dicha variable, se realiza el modelamiento de la variable con censura intervalar sobre las variables independientes creadas previamente. El objetivo final es, a través del método de máxima verosímilitud, estimar los coeficientes $\boldsymbol{\beta}$ y $\alpha$ definidos previamente.
 
 \subsection{Implementación del modelo}
 
-La implementación del modelo se realizó a través del lenguaje de programación R, tomando en consideración las definiciones presentadas en el capítulo 3 de la presente tesis. El pseudocódigo de la implementación se encuentra en el Apéndice.
+La implementación del modelo se realizó a través del lenguaje de programación R, tomando en consideración las definiciones presentadas en el capítulo 3 de la presente tesis. Asimismo, se utilizó paquetes de optimización umérica como \textit{nloptr} para identificar los estimados de máxima verosímilitud. El pseudocódigo de la implementación se encuentra en el Apéndice.
 
 Una vez generadas las simulaciones, se evaluó para cada escenario (cuantil y tamaño de muestra) los siguientes indicadores:
 \[ \hat{\text{Sesgo relativo:}} \frac{1}{M}\sum_{j=1}^{M}\frac{(\hat{\theta_j} - \theta)}{\theta}\]
 \[ \hat{\text{ECM:} \frac{1}{M}} \sum_{j=1}^M (\hat{\theta_j} - \theta)^2 \]
-\[ \hat{\text{Cobertura:} \frac{1}{M}} \sum_{j=1}^M \mathcal{I}(\boldsymbol{\theta} \in IC_{j})\]
+\[ \hat{\text{Cobertura:} \frac{1}{M}} \sum_{j=1}^M I(\boldsymbol{\theta} \in IC_{j})\]
 
-\noindent dónde $\theta$ es el verdadero valor del parámetro, $\hat{\theta}_{j}$ la estimación obtenida en la $j$-ésima réplica, M es el número de réplicas, y $IC_j$ es el intervalo de confianza al 95\% obtenido en la $j$-ésima réplica.
+\noindent dónde $\theta$ es el verdadero valor del parámetro, $\hat{\theta}_{j}$ la estimación obtenida en la $j$-ésima réplica, M es el número de réplicas, $IC_j$ es el intervalo de confianza al 95\% obtenido en la $j$-ésima réplica, y $I(\boldsymbol{\theta} \in IC_j)$ es la función indicadora que identifica si el verdadero valor del parámetro se encuentra en el intervalo de confianza obtenido en la $j$-ésima réplica.
 
 \subsection{Resultados}
 
@@ -163,30 +164,23 @@ En las figuras \ref{fig:ses}, \ref{fig:ecm}, y \ref{fig:cob} se muestran la eval
 
 \end{itemize}
 
-
-\begin{landscape}
 \begin{figure}
 \centering
-	\includegraphics[width=1.5\textheight]{Sesgo}
+	\includegraphics[width=\textwidth]{Sesgo}
 	\caption{Estudio de Simulación: Análisis del sesgo}
 	\label{fig:ses}
 \end{figure}
-\end{landscape}
 
-\begin{landscape}
 \begin{figure}
 \centering
-	\includegraphics[width=1.5\textheight]{ECM}
+\includegraphics[width=\textwidth]{ECM}
 	\caption{Estudio de Simulación: Análisis del error cuadrático medio}
 	\label{fig:ecm}
 \end{figure}
-\end{landscape}
 
-\begin{landscape}
 \begin{figure}
 \centering
-	\includegraphics[width=1.5\textheight]{Cobertura}
+	\includegraphics[width=\textwidth]{Cobertura}
 	\caption{Estudio de Simulación: Análisis de la Cobertura}
 	\label{fig:cob}
 \end{figure}
-\end{landscape}

@@ -1,30 +1,29 @@
 \babel@toc {spanish}{}
-\contentsline {chapter}{Lista de S\IeC {\'\i }mbolos}{\es@scroman {vi}}{chapter*.4}%
-\contentsline {chapter}{\'{I}ndice de figuras}{\es@scroman {vii}}{chapter*.5}%
-\contentsline {chapter}{\'{I}ndice de cuadros}{\es@scroman {viii}}{chapter*.6}%
+\contentsline {chapter}{\'{I}ndice de figuras}{\es@scroman {iv}}{chapter*.4}%
 \contentsline {chapter}{\numberline {1}Introducci\'on}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Objetivos}{2}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Organizaci\'on del Trabajo}{2}{section.1.2}%
-\contentsline {chapter}{\numberline {2}Distribuci\'on de Weibull}{3}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Distribuci\'on de Weibull}{3}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Hacia una nueva estructura de la distribuci\'on de Weibull}{4}{section.2.2}%
-\contentsline {chapter}{\numberline {3}Modelo de regresi\'on cuant\IeC {\'\i }lica para datos positivos}{9}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Datos positivos con censura intervalar}{9}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Funci\'on de verosimilitud para datos positivos con censura intervalar}{10}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Modelo de regresi\'on para respuestas positivas con censura intervalar}{10}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Funci\'on de verosimilitud}{11}{subsection.3.3.1}%
-\contentsline {section}{\numberline {3.4}Simulaci\'on de datos}{12}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Metodolog\IeC {\'\i }a para la simulaci\'on de datos}{12}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Implementaci\'on del modelo}{13}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Resultados}{13}{subsection.3.4.3}%
-\contentsline {chapter}{\numberline {4}Aplicaci\'on en datos reales}{18}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Sobre los datos utilizados}{18}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}An\'alisis descriptivo de los datos}{19}{subsection.4.1.1}%
-\contentsline {section}{\numberline {4.2}Resultados}{20}{section.4.2}%
-\contentsline {chapter}{\numberline {5}Conclusiones}{22}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Conclusiones}{22}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Sugerencias para investigaciones futuras}{22}{section.5.2}%
-\contentsline {chapter}{\numberline {6}Ap\'endice}{23}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Pseudoc\'odigo de la simulaci\'on}{23}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Aplicaci\'on en R}{24}{section.6.2}%
-\contentsline {chapter}{Bibliograf\'{\i }a}{31}{chapter*.17}%
+\contentsline {chapter}{\numberline {2}Distribuci\'on de Weibull}{4}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Distribuci\'on de Weibull}{4}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Hacia una nueva estructura de la distribuci\'on de Weibull}{5}{section.2.2}%
+\contentsline {chapter}{\numberline {3}Modelo de regresi\'on cuant\IeC {\'\i }lica para datos positivos}{11}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Datos positivos con censura intervalar}{11}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Funci\'on de verosimilitud para datos positivos con censura intervalar}{12}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Modelo de regresi\'on para respuestas positivas con censura intervalar}{12}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Funci\'on de verosimilitud}{13}{subsection.3.3.1}%
+\contentsline {section}{\numberline {3.4}Simulaci\'on de datos}{14}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Metodolog\IeC {\'\i }a para la simulaci\'on de datos}{14}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Implementaci\'on del modelo}{15}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Resultados}{16}{subsection.3.4.3}%
+\contentsline {chapter}{\numberline {4}Aplicaci\'on en datos reales}{20}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Sobre los datos utilizados}{20}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}An\'alisis descriptivo de los datos}{21}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}Resultados}{22}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Conclusiones}{24}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Conclusiones}{24}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Sugerencias para investigaciones futuras}{24}{section.5.2}%
+\contentsline {chapter}{\numberline {6}Ap\'endice}{25}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Pseudoc\'odigo de la simulaci\'on}{25}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Aplicaci\'on en R}{26}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Estimaci\'on de los coeficientes - ENSUSALUD 2015}{32}{section.6.3}%
+\contentsline {chapter}{Bibliograf\'{\i }a}{36}{chapter*.25}%

@@ -36,9 +36,11 @@
 \usepackage{longtable}
 \usepackage{float}
 \usepackage{adjustbox}
-\usepackage[colorlinks=true,urlcolor=red,citecolor=green,linkcolor=blue]{hyperref}
+\pagestyle{plain}
+\usepackage[colorlinks=true,urlcolor=black,citecolor=black,linkcolor=black]{hyperref}
 \usepackage[a4paper,top=2.54cm, bottom=2.54cm, left=3cm, right=2.54cm]{geometry} %margenes
 % ---------------------------------------------------------------------------- %
+\decimalpoint
 \graphicspath{{./figuras/}}
 \makeindex  
 \raggedbottom
@@ -68,44 +70,6 @@
 \frontmatter \onehalfspacing
 
 % ---------------------------------------------------------------------------- %
-\thispagestyle{empty}
-\begin{center}
-\vspace*{1cm}
-\textbf{\Large{PONTIFICIA UNIVERSIDAD CATÓLICA DEL PERÚ }}\\
-\vspace*{1.2cm}
-
-\textbf{\Large{ESCUELA DE GRADUADOS}}\\
-\vspace*{0.5cm}
-\begin{center}
-\includegraphics[scale=.25]{logoPUCP}
-\end{center}
-\vspace{0.5cm}
-
-\textbf{\Large{Modelo de regresión cuantílica\\
-  para respuestas positivas con censura intervalar}}\\
-\vspace{1.2cm}
-\textbf{\large{TESIS PARA OPTAR POR EL GRADO DE MAGISTER EN\\
-  ESTADÍSTICA}}\\
-  
-\vspace*{1.2cm}
-\textbf{\large{Presentado por:}}\\
-\vspace*{0.3cm}
-\textbf{\large{Justo Andrés Manrique Urbina}}\\
-\vspace*{1.2cm}
-\textbf{\large{Asesor: Cristian Luis Bayes Rodríguez}}\\
-
-\vspace*{1.2cm}
-
-\textbf{\large{Miembros del jurado:\\
-	Dr. Nombre completo jurado 1 \\
-	Dr. Nombre completo jurado 2 \\
-	Dr. Nombre completo jurado 3  
-	}} 
-	   
-\vspace*{1.2cm}
-    
-\normalsize{Lima, Diciembre 2020}
-\end{center}
 
 % Agradecimentos
 \chapter*{Agradecimientos}
@@ -126,16 +90,7 @@ La presente tesis propone un modelo de regresión cuantílica en dónde la variable
 % ---------------------------------------------------------------------------- %
 
 
-\chapter{Lista de Símbolos}
-\begin{tabular}{ll}
-	$Y \sim W_r(q_{t},\alpha)$	& Variable $Y$ sigue una distribución Weibull reparametrizada. \\
-	$q_t$				& Parámetro de forma. \\
-	$\alpha$    			& Parámetro de escala.\\
-
-\end{tabular}
-
 \listoffigures               % lista de Figuras
-\listoftables                % lista de cuadros
 
 % ---------------------------------------------------------------------------- %
 \mainmatter
@@ -157,5 +112,6 @@ La presente tesis propone un modelo de regresión cuantílica en dónde la variable
 \bibliography{bibliografia}
 \bibliographystyle{dcu}
 
+\pagestyle{blank}
 \end{document}
 

@@ -288,15 +288,9 @@ INPUT .\tesis-ejemplo.out
 OUTPUT tesis-ejemplo.out
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\cm\cmbx10.tfm
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\cm\cmbx12.tfm
-INPUT figuras\logoPUCP.jpg
-INPUT .\figuras\logoPUCP.jpg
-INPUT .\figuras\logoPUCP.jpg
-INPUT .\figuras\logoPUCP.jpg
-INPUT .\figuras\logoPUCP.jpg
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\cm\cmbx12.tfm
-INPUT C:\Users\jaman\AppData\Local\MiKTeX\2.9\pdftex\config\pdftex.map
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\cm\cmbx12.tfm
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\cm\cmcsc10.tfm
+INPUT C:\Users\jaman\AppData\Local\MiKTeX\2.9\pdftex\config\pdftex.map
 INPUT tesis-ejemplo.toc
 INPUT tesis-ejemplo.toc
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\cm\cmbx8.tfm
@@ -322,16 +316,13 @@ INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msbm7.tfm
 OUTPUT tesis-ejemplo.toc
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\cm\cmsl10.tfm
 INPUT tesis-ejemplo.lof
 INPUT tesis-ejemplo.lof
 OUTPUT tesis-ejemplo.lof
-INPUT tesis-ejemplo.lot
-INPUT tesis-ejemplo.lot
-OUTPUT tesis-ejemplo.lot
 INPUT 01_introduccion\cap-introduccion.tex
 INPUT 01_introduccion\cap-introduccion.tex
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\cm\cmti10.tfm
+INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\cm\cmbx12.tfm
 INPUT 02_modelo\cap-modelo.tex
 INPUT 02_modelo\cap-modelo.tex
 INPUT figuras\weib_distrib.png
@@ -352,6 +343,11 @@ INPUT .\figuras\rep_weibull_qt.png
 INPUT .\figuras\rep_weibull_qt.png
 INPUT .\figuras\rep_weibull_qt.png
 INPUT .\figuras\rep_weibull_qt.png
+INPUT figuras\rep_weibull_qt_2.png
+INPUT .\figuras\rep_weibull_qt_2.png
+INPUT .\figuras\rep_weibull_qt_2.png
+INPUT .\figuras\rep_weibull_qt_2.png
+INPUT .\figuras\rep_weibull_qt_2.png
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\jknappen\ec\tcrm1095.tfm
 INPUT figuras\esperado.jpeg
 INPUT .\figuras\esperado.jpeg
@@ -367,12 +363,6 @@ INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\amsfonts\cmextra\cmmib6.tfm
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\cm\cmbsy10.tfm
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\amsfonts\cmextra\cmbsy8.tfm
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\amsfonts\cmextra\cmbsy6.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\cm\cmr9.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\cm\cmmi9.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\cm\cmsy9.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\amsfonts\cmextra\cmex9.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msam10.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT figuras\Sesgo.png
 INPUT .\figuras\Sesgo.png
 INPUT .\figuras\Sesgo.png
@@ -390,6 +380,12 @@ INPUT .\figuras\Cobertura.png
 INPUT .\figuras\Cobertura.png
 INPUT 04_real data\04_real data.tex
 INPUT 04_real data\04_real data.tex
+INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\cm\cmr9.tfm
+INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\cm\cmmi9.tfm
+INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\cm\cmsy9.tfm
+INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\amsfonts\cmextra\cmex9.tfm
+INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msam10.tfm
+INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\base\ulasy.fd
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\base\ulasy.fd
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\latex-fonts\lasy10.tfm
@@ -456,8 +452,6 @@ INPUT C:\Program Files\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmr8.pfb
 INPUT C:\Program Files\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmr8.pfb
 INPUT C:\Program Files\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmr9.pfb
 INPUT C:\Program Files\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmr9.pfb
-INPUT C:\Program Files\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmsl10.pfb
-INPUT C:\Program Files\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmsl10.pfb
 INPUT C:\Program Files\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmsy10.pfb
 INPUT C:\Program Files\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmsy10.pfb
 INPUT C:\Program Files\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmsy6.pfb

@@ -275,7 +275,7 @@ v5 <- ggplot(data = final_database_vf) +
   theme_minimal() +
   theme(legend.position="bottom")
 
-ggpubr::ggarrange(v1,v2,v3,v4,v5)
+ggpubr::ggarrange(v1,v2,v3,v4,v5,ncol = 2,nrow =3 )
 
 ecm_calc <- function(lista) {
   ic_contain <- matrix(nrow=0,ncol=5)
@@ -356,7 +356,7 @@ v5 <- ggplot(data = final_database_vf) +
   theme_minimal() +
   theme(legend.position="bottom")
 
-ggpubr::ggarrange(v1,v2,v3,v4,v5)
+ggpubr::ggarrange(v1,v2,v3,v4,v5, ncol = 2 , nrow = 3)
 
 ses_calc <- function(lista) {
   ic_contain <- matrix(nrow=0,ncol=5)
@@ -449,7 +449,7 @@ v5 <- ggplot(data = final_database_vf) +
   theme_minimal() +
   theme(legend.position="bottom")
 
-ggpubr::ggarrange(v1,v2,v3,v4,v5)
+ggpubr::ggarrange(v1,v2,v3,v4,v5, ncol = 2 , nrow = 3)
 
 #### Datos reales ####
 
@@ -465,7 +465,30 @@ ib <- enf %>% group_by(factor) %>% skim()
 
 enf %>% group_by(factor,INSTITUCION) %>% summarise( n())
 
+ggplot(enf) +
+  aes(x = C2P4, y = C2P21, fill = C2P4) +
+  geom_boxplot(shape = "circle") +
+  scale_fill_hue(direction = 1) +
+  labs(
+    x = "Sexo",
+    y = "Años de experiencia",
+    title = "Distribución de años de experiencia por sexo y banda salarial",
+    subtitle = "Profesionales de la Salud (Médicos)",
+    fill = "Sexo"
+  ) +
+  theme_light() +
+  theme(legend.position = "bottom") +
+  facet_grid(vars(), vars(factor))
 
+library(dplyr)
+library(ggplot2)
+
+real_data_enf %>%
+ ggplot() +
+ aes(x = C2P4, y = C2P21) +
+ geom_boxplot(shape = "circle", fill = "#112446") +
+ theme_minimal() +
+ facet_wrap(vars(li))
 
 tau_seq_sim = seq(0.1,0.90,0.1)
 #m1 = gamlss(Surv(li,lf,type="interval2")~.,family = WEI3ic,data = real_data_enf)
@@ -482,6 +505,7 @@ for (j in 1:length(tau_seq_sim)) {
 
 col_df <- c(colnames(model.matrix( ~ . ,subset.data.frame(real_data_med,select = -c(8,9)))),"\U03B1")
 val_med <- matrix(ncol=8,nrow = 0)
+
 
 for (l in 1:length(tau_seq_sim)) {
   pba <- var_med[[l]]
@@ -514,3 +538,19 @@ ggplot(val_med) +
   geom_line(mapping = aes(y=exp(init_real_med)),size=0.5) + 
   ggthemes::theme_pander() +
   facet_wrap(vars(col_df), scales = "free")
+
+pvalue <- matrix(ncol=3,nrow=0)
+for (l in 1:length(tau_seq_sim)) {
+  pba <- var_med[[l]]
+  pvalue <- rbind(pvalue,
+                  cbind(tau_seq_sim[l],
+                        pba$solution,
+                        sqrt(diag(solve(pba$hessian)))))
+}
+
+pvalue <- cbind(pvalue,pvalue[,2]/pvalue[,3])
+pvalue <- cbind(pvalue,round(pnorm(-abs(pvalue[,4])) * 2,3))
+pvalue <- round(pvalue,4)
+pvalue <- as.data.frame(cbind(col_df,pvalue))
+
+summary(fit)
